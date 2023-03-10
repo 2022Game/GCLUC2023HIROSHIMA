@@ -12,6 +12,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\CApplication.cpp" />
+    <ClCompile Include="src\CBackGrounad.cpp" />
+    <ClCompile Include="src\CBoss.cpp" />
     <ClCompile Include="src\CCamera.cpp" />
     <ClCompile Include="src\CCharacter.cpp" />
     <ClCompile Include="src\CCharacterManager.cpp" />
@@ -19,18 +21,23 @@
     <ClCompile Include="src\CEnemy2.cpp" />
     <ClCompile Include="src\CFont.cpp" />
     <ClCompile Include="src\CGame.cpp" />
+    <ClCompile Include="src\CHeart.cpp" />
     <ClCompile Include="src\CPlayer.cpp" />
     <ClCompile Include="src\CRectangle.cpp" />
+    <ClCompile Include="src\CSlime.cpp" />
     <ClCompile Include="src\CSound.cpp" />
     <ClCompile Include="src\CTask.cpp" />
     <ClCompile Include="src\CTaskManager.cpp" />
     <ClCompile Include="src\CTexture.cpp" />
     <ClCompile Include="src\CInput.cpp" />
     <ClCompile Include="src\CUi.cpp" />
+    <ClCompile Include="src\CWolf.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\CApplication.h" />
+    <ClInclude Include="src\CBackGround.h" />
+    <ClInclude Include="src\CBoss.h" />
     <ClInclude Include="src\CCamera.h" />
     <ClInclude Include="src\CCharacter.h" />
     <ClInclude Include="src\CCharacterManager.h" />
@@ -38,14 +45,17 @@
     <ClInclude Include="src\CEnemy2.h" />
     <ClInclude Include="src\CFont.h" />
     <ClInclude Include="src\CGame.h" />
+    <ClInclude Include="src\CHeart.h" />
     <ClInclude Include="src\CPlayer.h" />
     <ClInclude Include="src\CRectangle.h" />
+    <ClInclude Include="src\CSlime.h" />
     <ClInclude Include="src\CSound.h" />
     <ClInclude Include="src\CTask.h" />
     <ClInclude Include="src\CTaskManager.h" />
     <ClInclude Include="src\CTexture.h" />
     <ClInclude Include="src\CInput.h" />
     <ClInclude Include="src\CUi.h" />
+    <ClInclude Include="src\CWolf.h" />
     <ClInclude Include="src\main.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
