@@ -1,9 +1,12 @@
 #include "CTask.h"
 #include "CTaskManager.h"
+#include "CCharacter.h"
+
+CTask* CTask::mpinstance = nullptr;
 
 //コンストラクタ
 CTask::CTask(int priority)
-	:mpprev(nullptr)
+	: mpprev(nullptr)
 	, mpnext(nullptr)
 	, mpriority(priority)
 {
@@ -14,6 +17,11 @@ CTask::CTask(int priority)
 CTask::~CTask()
 {
 	CTaskManager::Instance()->Remove(this);
+}
+
+CTask* CTask::Instance()
+{
+	return mpinstance;
 }
 
 //優先度を設定
@@ -36,3 +44,9 @@ void CTask::Delete()
 {
 	CTaskManager::Instance()->Delete(this);
 }
+
+//float CTask::GetPos()
+//{
+//	CCharacter* character;
+//	return 
+//}

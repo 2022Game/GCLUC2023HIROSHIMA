@@ -7,7 +7,7 @@ int CEnemy2::mNum = 0; //敵の数
 
 //コンストラクタ
 CEnemy2::CEnemy2(float x, float y, float w, float h, CTexture* pt)
-	:CCharacter((int)ETaskPriority::EEnemy)
+	:CCharacter((int)ETaskPriority::EDefault)
 {
 	Set(x, y, w, h);
 	Texture(pt, TEXCOORD);
@@ -46,5 +46,5 @@ void CEnemy2::Collision(CCharacter* m, CCharacter* o)
 //更新処理
 void CEnemy2::Update()
 {
-
+	mState = EState::EMOVE;
 }

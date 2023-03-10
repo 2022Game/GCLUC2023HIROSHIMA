@@ -5,7 +5,9 @@ class CTaskManager
 {
 private:
 	static CTaskManager* mpinstance;  //CTaskManagerのインスタンス
-	CTask* mhead;  //先頭タスクのポインタ
+	CTask* mhead;                     //先頭タスクのポインタ
+	int mCharacterCount;              //キャラクターの数
+
 public:
 	//コンストラクタ
 	CTaskManager();
@@ -28,4 +30,6 @@ public:
 	void Render();
 	//更新処理
 	void Update();
+
+	void Sort();
 };

@@ -5,6 +5,7 @@ CTaskManager* CTaskManager::mpinstance = nullptr;
 //コンストラクタ
 CTaskManager::CTaskManager()
 	:mhead(nullptr)
+	,mCharacterCount(0)
 {
 
 }
@@ -44,6 +45,10 @@ void CTaskManager::ClearInstance()
 //リストに追加
 void CTaskManager::Add(CTask* task)
 {
+	if (task->mpriority == 1)
+	{
+		mCharacterCount++;
+	}
 	//リストにタスクがない時
 	if (mhead == nullptr)
 	{
@@ -86,6 +91,10 @@ void CTaskManager::Add(CTask* task)
 //リストから削除
 void CTaskManager::Remove(CTask* task)//task(取り除くタスク)
 {
+	if (task->mpriority == 1)
+	{
+		mCharacterCount--;
+	}
 	//取り除くタスクが先頭の場合
 	if (mhead == task)
 	{
@@ -133,6 +142,20 @@ void CTaskManager::Update()
 	while (next != nullptr)
 	{
 		next->Update();
+		next = next->mpnext;
+	}
+}
+
+void CTaskManager::Sort()
+{
+	//キャラクターリストをソートした後に、
+	//描画優先度を変更してやる
+	CTask* next = mhead;
+	while (next != nullptr)
+	{
+		//優先度が同じ場合、後から追加したタスクが末尾に追加されるので、
+		//設定する優先度事態は同じ値でOK
+		next->Setpriority((int)ETaskPriority::ECharacter);
 		next = next->mpnext;
 	}
 }

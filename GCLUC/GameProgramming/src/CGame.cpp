@@ -14,10 +14,11 @@ CGame::CGame()
 	mpUi = new CUi();
 	//テクスチャの入力
 	CApplication::Texture()->Load(TEXTURE);
-	//プレイヤーをキャラクタマネージャに追加する
-		mpPlayer = new CPlayer(TIPSIZE * 10, TIPSIZE * 5, TIPSIZE, TIPSIZE, CApplication::Texture());
 	//敵をキャラクタマネージャに追加する
 		mpEnemy = new CEnemy(TIPSIZE * 15, TIPSIZE * 4.5, TIPSIZE, TIPSIZE, CApplication::Texture());
+		//プレイヤーをキャラクタマネージャに追加する
+		mpPlayer = new CPlayer(TIPSIZE * 10, TIPSIZE * 5, TIPSIZE, TIPSIZE, CApplication::Texture());
+
 		mpEnemy2 = new CEnemy2(TIPSIZE * 20, TIPSIZE * 7, TIPSIZE, TIPSIZE, CApplication::Texture());
 }
 
@@ -99,6 +100,7 @@ void CGame::Update()
 	CApplication::CharacterManager()->Render();
 	CTaskManager::Instance()->Update();
 	CTaskManager::Instance()->Render();
+
 	CameraSet();
 	CCamera::End();
 	//UI

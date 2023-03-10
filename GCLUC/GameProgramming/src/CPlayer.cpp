@@ -8,7 +8,7 @@ CPlayer* CPlayer::mpinstance = nullptr;
 
 //コンストラクタ
 CPlayer::CPlayer(float x, float y, float w, float h, CTexture* pt)
-	: CCharacter((int)ETaskPriority::EPlayer)
+	: CCharacter(mVz)//(int)ETaskPriority::ECharacter)
 {
 	Set(x, y, w, h);
 	Texture(pt, TEXCOORD);
@@ -29,24 +29,25 @@ CPlayer* CPlayer::Instance()
 //更新処理
 void CPlayer::Update()
 {
-		if (mInput.Key('W'))
+	mState = EState::EMOVE;
+	if (mInput.Key('A'))
 	{
-		float y = Y() + 5.0f;
-		Y(y);
-	}
-	if (mInput.Key('S'))
-	{
-		float y = Y() - 5.0f;
-		Y(y);
+		mVx = -VELOCITY - 1;
+		X(X() + mVx + mVx);
 	}
 	if (mInput.Key('D'))
 	{
-		float x = X() + 5.0f;
-		X(x);
+		mVx = VELOCITY + 1;
+		X(X() + mVx + mVx);
 	}
-	if (mInput.Key('A'))
+	if (mInput.Key('W'))
 	{
-		float x = X() - 5.0f;
-		X(x);
+		mVy = VELOCITY + 1;
+		Y(Y() + mVy + mVy);
+	}
+	if (mInput.Key('S'))
+	{
+		mVy = VELOCITY - 1;
+		Y(Y() - mVy - mVy);
 	}
 }
