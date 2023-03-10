@@ -5,9 +5,11 @@ class CTaskManager;
 
 enum class ETaskPriority
 {
-	EDefault,           //デフォルト
-	EPlayer,            //プレイヤー
-	EEnemy,             //敵
+	EDefault, //デフォルト
+	EPlayer, //プレイヤー
+	EEnemy, //敵
+	EBG, //背景
+	EH,
 	ECharacterManager,  //キャラクターマネージャー
 	ENum
 };

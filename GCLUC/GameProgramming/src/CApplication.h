@@ -10,6 +10,7 @@
 #include "CFont.h"
 #include "CGame.h"
 #include "CSound.h"
+#include "CBackGround.h"
 
 
 class CApplication
@@ -26,10 +27,11 @@ private:
 	CGame* mpGame;      //ゲームクラスのポインタ
 	CPlayer* mpPlayer;  //プレイヤークラスのポインタ
 	CEnemy* mpEnemy;    //敵クラスのポインタ
-
+	static CTexture mTexture2;
 	EState mState;
 	CInput mInput;
 	CFont mFont;
+	CBackGround* mpBackGround;
 
 	static CCharacterManager mCharacterManager;
 	static CTexture mTexture;
@@ -37,7 +39,7 @@ private:
 public:
 	static CCharacterManager* CharacterManager();
 	static CTexture* Texture();
-
+	static CTexture* Texture2();
 	//最初に一度だけ実行するプログラム
 	void Start();
 	//繰り返し実行するプログラム
