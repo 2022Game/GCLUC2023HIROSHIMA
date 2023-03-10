@@ -6,10 +6,9 @@ class CCharacter;
 
 enum class ETaskPriority
 {
-	EDefault, //デフォルト
-	EPlayer, //プレイヤー
-	EEnemy, //敵
-	EBG, //背景
+	EDefault,           //デフォルト
+	ECharacter,         //キャラクター
+	EBG,                //背景
 	EH,
 	ECharacterManager,  //キャラクターマネージャー
 	ENum
