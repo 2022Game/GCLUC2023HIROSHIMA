@@ -28,6 +28,8 @@ private:
 	CPlayer* mpPlayer;  //プレイヤークラスのポインタ
 	CEnemy* mpEnemy;    //敵クラスのポインタ
 	static CTexture mTexture2;
+	static CTexture mTexture3;
+	static CTexture mTexture4;
 	EState mState;
 	CInput mInput;
 	CFont mFont;
@@ -40,6 +42,8 @@ public:
 	static CCharacterManager* CharacterManager();
 	static CTexture* Texture();
 	static CTexture* Texture2();
+	static CTexture* Texture3();
+	static CTexture* Texture4();
 	//最初に一度だけ実行するプログラム
 	void Start();
 	//繰り返し実行するプログラム

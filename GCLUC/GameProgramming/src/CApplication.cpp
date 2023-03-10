@@ -17,6 +17,8 @@ CTexture* CApplication::Texture()
 void CApplication::Start()
 {
 	mTexture2.Load("背景(仮) .png");
+	mTexture3.Load("(仮).png");
+	mTexture4.Load("(仮)2.png");
 	mFont.Load("FontWhite.png", 1, 64);
 	mState = EState::ESTART;
 	mpGame = new CGame();
@@ -30,9 +32,11 @@ void CApplication::Update()
 	case EState::ESTART:	//状態がスタート
 		mpGame->Start();	//スタート画面表示
 		//Enterキーが押されたら
+		mpBackGround = new CBackGround(640.0f, 400.0f, 640.0f, 400.0f, 0, 1919, 1079, 0, &mTexture3);
+		mCharacterManager.Add(mpBackGround);
 		if (mInput.Key(VK_RETURN))
 		{	//状態をプレイ中にする
-			mpBackGround = new CBackGround(400.0f, 400.0f, 1000.0f, 400.0f, 0, 1279, 719, 0, &mTexture2);
+			mpBackGround = new CBackGround(640.0f, 400.0f, 640.0f, 400.0f, 0, 1279, 719, 0, &mTexture2);
 			mCharacterManager.Add(mpBackGround);
 			mState = EState::EPLAY;
 		}
@@ -84,4 +88,14 @@ CTexture CApplication::mTexture2;
 CTexture* CApplication::Texture2()
 {
 	return &mTexture2;
+}
+CTexture CApplication::mTexture3;
+CTexture* CApplication::Texture3()
+{
+	return &mTexture3;
+}
+CTexture CApplication::mTexture4;
+CTexture* CApplication::Texture4()
+{
+	return &mTexture4;
 }
