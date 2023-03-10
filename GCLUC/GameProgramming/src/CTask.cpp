@@ -44,9 +44,4 @@ void CTask::Delete()
 {
 	CTaskManager::Instance()->Delete(this);
 }
-
-//float CTask::GetPos()
-//{
-//	CCharacter* character;
-//	return 
-//}
+//ya

@@ -51,9 +51,6 @@ void CGame::Clear()
 	CCamera::End();
 	//UI処理
 //	mpUi->Hp(CPlayer::Hp());
-	mpUi->Enemy(CEnemy2::Num());
-	mpUi->Render();
-	mpUi->Clear();
 }
 
 //ゲームオーバー判定
@@ -71,9 +68,9 @@ void CGame::Over()
 	CCamera::End();
 	//UI処理
 //	mpUi->Hp(CPlayer::Hp());
-	mpUi->Enemy(CEnemy2::Num());
-	mpUi->Render();
-	mpUi->Over();
+	/*mpUi->Enemy(CEnemy2::Num());*/
+	/*mpUi->Render();*/
+	/*mpUi->Over();*/
 }
 
 //スタート処理
