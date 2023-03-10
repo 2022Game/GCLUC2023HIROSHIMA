@@ -1,73 +1,52 @@
 #include "CPlayer.h"
 #include "CApplication.h"
-//#include "CGame.h"
+#include "CTaskManager.h"
 
 #define TEXCOORD 168, 188, 158, 128	//テクスチャマッピング
-#define GRAVITY (TIPSIZE / 20.0f)	//重力加速度
-#define JUMPV0 (TIPSIZE / 1.4f)		//ジャンプの初速
 
+CPlayer* CPlayer::mpinstance = nullptr;
+
+//コンストラクタ
 CPlayer::CPlayer(float x, float y, float w, float h, CTexture* pt)
-	: mVy(0.0f)
+	: CCharacter((int)ETaskPriority::EPlayer)
 {
 	Set(x, y, w, h);
 	Texture(pt, TEXCOORD);
-	mTag = ETag::EPLAYER;
+	mpinstance = this;
 }
 
+//デストラクタ
+CPlayer::~CPlayer()
+{
+}
+
+//インスタンス作成
+CPlayer* CPlayer::Instance()
+{
+	return mpinstance;
+}
+
+//更新処理
 void CPlayer::Update()
 {
-	if (mInput.Key(VK_SPACE))
+		if (mInput.Key('W'))
 	{
-		CApplication::CharacterManager()->Add(
-			new CBullet(X(), Y() + H() + 10.0f
-				, 3.0f, 10.0f, 1396, 1420, 750, 592, CApplication::Texture()));
+		float y = Y() + 5.0f;
+		Y(y);
+	}
+	if (mInput.Key('S'))
+	{
+		float y = Y() - 5.0f;
+		Y(y);
+	}
+	if (mInput.Key('D'))
+	{
+		float x = X() + 5.0f;
+		X(x);
 	}
 	if (mInput.Key('A'))
 	{
-		float x = X() - 4.0f;
+		float x = X() - 5.0f;
 		X(x);
-	}
-
-	if (mInput.Key('D'))
-	{
-		float x = X() + 4.0f;
-		X(x);
-	}
-
-	if (mInput.Key('J') 
-		&& mState != EState::EJUMP
-		&& mVy >= 0.0f)
-	{
-		mVy = JUMPV0;
-		mState = EState::EJUMP;
-	}
-
-	Y(Y() + mVy);
-	mVy -= GRAVITY;
-}
-
-void CPlayer::Collision()
-{
-	CApplication::CharacterManager()->Collision(this);
-}
-
-void CPlayer::Collision(CCharacter* m, CCharacter* o)
-{
-	float x, y;
-	switch (o->Tag())
-	{
-	case ETag::EPLAYER:
-		break;
-	default:
-		if (CRectangle::Collision(o, &x, &y))
-		{
-			X(X() + x);
-			Y(Y() + y);
-			if (x == 0.0f)
-			{
-				mVy = 0.0f;
-				mState = EState::EMOVE;
-			}
-		}
 	}
 }

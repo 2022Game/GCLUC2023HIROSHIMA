@@ -1,53 +1,50 @@
 #include "CEnemy.h"
 #include "CApplication.h"
 
-CEnemy::CEnemy(float x, float y, float w, float h, float l, float r, float b, float t, CTexture* pt)
+#define TEXCOORD 168, 188, 190, 160	//テクスチャマッピング
+
+int CEnemy::mNum = 0; //敵の数
+
+//コンストラクタ
+CEnemy::CEnemy(float x, float y, float w, float h, CTexture* pt)
+	:CCharacter((int)ETaskPriority::EEnemy)
 {
 	Set(x, y, w, h);
-	Texture(pt, l, r, b, t);
-	mTag = ETag::EENEMY;
+	Texture(pt, TEXCOORD);
 }
 
-void CEnemy::Update()
+//デストラクタ
+CEnemy::~CEnemy()
 {
-	if(mState == EState::EMOVE)
-	{
-		float x = X() + 8;
-		if (x > 800.0f)
-		{
-			x = 0.0f;
-		}
-		X(x);
-	}
+
 }
 
-bool CEnemy::Collision(CRectangle* rect)
+//敵の数を設定
+void CEnemy::Num(int num)
 {
-	if (CRectangle::Collision(rect))
-	{
-		Texture(Texture(), 1946, 2172, 920, 664);
-		mState = EState::ESTOP;
-		return true;
-	}
-	return false;
+	mNum = num;
 }
 
+//敵の数を取得
+int CEnemy::Num()
+{
+	return mNum;
+}
+
+//衝突判定2
 void CEnemy::Collision()
 {
 	CApplication::CharacterManager()->Collision(this);
 }
 
+//衝突判定4
 void CEnemy::Collision(CCharacter* m, CCharacter* o)
 {
-	switch (o->Tag())
-	{
-	case ETag::EENEMY:
-		break;
-	default:
-		if (CRectangle::Collision(o))
-		{
-			mState = EState::ESTOP;
-			mEnabled = false;
-		}
-	}
+
+}
+
+//更新処理
+void CEnemy::Update()
+{
+
 }

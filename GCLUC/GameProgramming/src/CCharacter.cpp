@@ -1,33 +1,27 @@
 #include "CCharacter.h"
+#include "CApplication.h"
+#include "CTaskManager.h"
 
-CCharacter::EState CCharacter::State()
+//コンストラクタ
+CCharacter::CCharacter(int priority)
+	: CTask(priority)
+	, mpTexture(nullptr)
+	, mLeft(0)
+	, mRight(0)
+	, mBottom(0)
+	, mTop(0)
+	, mEnabled(false)
 {
-	return mState;
 }
 
-bool CCharacter::Enabled()
+//デストラクタ
+CCharacter::~CCharacter()
 {
-	return mEnabled;
 }
 
-CCharacter::ETag CCharacter::Tag()
-{
-	return mTag;
-}
 
-CCharacter::CCharacter()
-	: mpTexture(nullptr)
-	, mLeft(0.0f), mRight(0.0f), mBottom(0.0f), mTop(0.0f)
-	, mState(EState::EMOVE)
-	, mTag(ETag::EZERO)
-	, mEnabled(true)
-	, mVy(0.0f)
-	, mVx(0.0f)
-{
-
-}
-
-void CCharacter::Texture(CTexture *pTexture, int left, int right, int bottom, int top)
+void CCharacter::Texture(CTexture* pTexture,
+	int left, int right, int bottom, int top)
 {
 	mpTexture = pTexture;
 	mLeft = left;
@@ -36,6 +30,12 @@ void CCharacter::Texture(CTexture *pTexture, int left, int right, int bottom, in
 	mTop = top;
 }
 
+CTexture* CCharacter::Texture()
+{
+	return mpTexture;
+}
+
+//描画処理
 void CCharacter::Render()
 {
 	mpTexture->DrawImage(
@@ -43,16 +43,15 @@ void CCharacter::Render()
 		X() + W(),
 		Y() - H(),
 		Y() + H(),
-		mLeft, mRight, mBottom, mTop
-	);
+		mLeft, mRight, mBottom, mTop);
 }
 
-void CCharacter::Move()
+bool CCharacter::Enabled()
 {
-	mState = EState::EMOVE;
+	return mEnabled;
 }
 
-CTexture* CCharacter::Texture()
+void CCharacter::Update()
 {
-	return mpTexture;
+
 }

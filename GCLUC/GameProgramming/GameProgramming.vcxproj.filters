@@ -39,9 +39,6 @@
     <ClCompile Include="src\CCharacter.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\CBullet.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="src\CEnemy.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -57,22 +54,19 @@
     <ClCompile Include="src\CGame.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\CBlock.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\CPlayer2.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="src\CEnemy2.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\CPoint.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="src\CUi.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="src\CCamera.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CTask.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CTaskManager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -98,9 +92,6 @@
     <ClInclude Include="src\CCharacter.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\CBullet.h">
-      <Filter>ソース ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="src\CEnemy.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
@@ -113,28 +104,22 @@
     <ClInclude Include="src\CCharacterManager.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\CMiss.h">
-      <Filter>ソース ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="src\CGame.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\CBlock.h">
-      <Filter>ソース ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\CPlayer2.h">
-      <Filter>ソース ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="src\CEnemy2.h">
-      <Filter>ソース ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\CPoint.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
     <ClInclude Include="src\CUi.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
     <ClInclude Include="src\CCamera.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CTask.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CTaskManager.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,12 +1,8 @@
 #include "CApplication.h"
 #include "CRectangle.h"
 
-//クラスのstatic変数
 CTexture CApplication::mTexture;
 CCharacterManager CApplication::mCharacterManager;
-
-#define SOUND_BGM "res\\mario.wav" //BGM音声ファイル
-#define SOUND_OVER "res\\mdai.wav" //ゲームオーバー音声ファイル
 
 CCharacterManager* CApplication::CharacterManager()
 {
@@ -20,10 +16,6 @@ CTexture* CApplication::Texture()
 
 void CApplication::Start()
 {
-	//Sound
-	mSoundBgm.Load(SOUND_BGM);
-	mSoundOver.Load(SOUND_OVER);
-
 	mFont.Load("FontWhite.png", 1, 64);
 	mState = EState::ESTART;
 	mpGame = new CGame();
@@ -39,27 +31,25 @@ void CApplication::Update()
 		if (mInput.Key(VK_RETURN))
 		{	//状態をプレイ中にする
 			mState = EState::EPLAY;
-			//BGMリピート再生
-			mSoundBgm.Repeat();
 		}
 		break;
+
 	case EState::EPLAY:
 		mpGame->Update();
-		//ゲームオーバーか判定
-		if (mpGame->IsOver())
-		{	//状態をゲームオーバーにする
-			mState = EState::EOVER;
-			//BGMストップ
-			mSoundBgm.Stop();
-			//ゲームオーバー
-			mSoundOver.Play();
-		}
+		////ゲームオーバーか判定
+		//if (mpGame->IsOver())
+		//{	//状態をゲームオーバーにする
+		//	mState = EState::EOVER;
+		//	//ゲームオーバー
+		//	mSoundOver.Play();
+		//}
 		//ゲームクリアか判定
-		if (mpGame->IsClear())
-		{	//状態をゲームクリアにする
-			mState = EState::ECLEAR;
-		}
+		//if (mpGame->IsClear())
+		//{	//状態をゲームクリアにする
+		//	mState = EState::ECLEAR;
+		//}
 		break;
+
 	case EState::EOVER:
 		//ゲームオーバー処理
 		mpGame->Over();
@@ -73,6 +63,7 @@ void CApplication::Update()
 			mState = EState::ESTART;
 		}
 		break;
+
 	case EState::ECLEAR:
 		//ゲームクリア処理
 		mpGame->Clear();

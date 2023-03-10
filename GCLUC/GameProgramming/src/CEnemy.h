@@ -3,11 +3,25 @@
 
 class CEnemy : public CCharacter
 {
+private:
+	static int mNum;	//敵の数
+
 public:
-	//CEnemy(X座標,Y座標,幅,高さ,画像右,画像左,画像下,画像上,テクスチャのポインタ)
-	CEnemy(float x, float y, float w, float h, float l, float r, float b, float t, CTexture* pt);
-	void Update();
-	bool Collision(CRectangle* rect);
+	//コンストラクタ
+	CEnemy(float x, float y, float w, float h, CTexture* pt);
+	//デストラクタ
+	~CEnemy();
+
+	//敵の数を設定
+	static void Num(int num);
+	//敵の数を取得
+	static int Num();
+
+	//衝突処理2
 	void Collision();
+	//衝突処理4
 	void Collision(CCharacter* m, CCharacter* o);
+
+	//更新処理
+	void Update();
 };
