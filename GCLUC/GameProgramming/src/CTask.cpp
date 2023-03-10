@@ -36,3 +36,4 @@ void CTask::Delete()
 {
 	CTaskManager::Instance()->Delete(this);
 }
+//ya

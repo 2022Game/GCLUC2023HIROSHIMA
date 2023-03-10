@@ -21,6 +21,7 @@ void CApplication::Start()
 	mState = EState::ESTART;
 	mpGame = new CGame();
 }
+//ta
 
 void CApplication::Update()
 {

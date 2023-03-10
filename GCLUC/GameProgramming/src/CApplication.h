@@ -35,7 +35,7 @@ private:
 
 	static CCharacterManager mCharacterManager;
 	static CTexture mTexture;
-
+	//ta
 public:
 	static CCharacterManager* CharacterManager();
 	static CTexture* Texture();

@@ -11,3 +11,4 @@ CBackGround::CBackGround(float x, float y, float w, float h, float l, float r, f
 	Set(x, y, w, h);
 	Texture(pt, l, r, b, t);
 }
+//ta
