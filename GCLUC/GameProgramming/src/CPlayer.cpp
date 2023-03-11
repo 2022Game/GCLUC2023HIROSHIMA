@@ -8,7 +8,7 @@ CPlayer* CPlayer::mpinstance = nullptr;
 
 //コンストラクタ
 CPlayer::CPlayer(float x, float y, float w, float h, CTexture* pt)
-	: CCharacter(mVz)//(int)ETaskPriority::ECharacter)
+	: CCharacter((int)ETaskPriority::ECharacter)
 {
 	Set(x, y, w, h);
 	Texture(pt, TEXCOORD);
@@ -50,4 +50,10 @@ void CPlayer::Update()
 		mVy = VELOCITY - 1;
 		Y(Y() - mVy - mVy);
 	}
+	if (mInput.Key('V'))
+	{
+		mVy = VELOCITY - 1;
+		Y(Y() - mVy - mVy);
+	}
+	CCharacter::Update();
 }

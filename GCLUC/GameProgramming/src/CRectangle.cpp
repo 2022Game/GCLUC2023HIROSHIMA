@@ -4,6 +4,10 @@
 
 //コンストラクタ
 CRectangle::CRectangle()
+	: mX(0.0f)
+	, mY(0.0f)
+	, mW(0.0f)
+	, mH(0.0f)
 {
 	printf("インスタンスが生まれました\n");
 }
@@ -95,6 +99,11 @@ float CRectangle::X()
 }
 
 float CRectangle::Y()
+{
+	return mY;
+}
+
+float CRectangle::Z()
 {
 	return mY;
 }

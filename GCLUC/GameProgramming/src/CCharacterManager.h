@@ -11,6 +11,7 @@ private:
 	std::vector<CCharacter*> mpCharacters;
 	//キャラクターマネージャーのインスタンス
 	static CCharacterManager* mpinstance;
+	CCharacter* Character;
 public:
 	//全インスタンス削除
 	void AllDelete();

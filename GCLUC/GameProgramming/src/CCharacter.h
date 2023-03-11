@@ -7,9 +7,11 @@
 キャラクタークラス
 ゲームキャラクタの基本的な機能を定義する
 */
+class CCharacterManager;
 class CCharacter : public CRectangle, public CTask
 {
 	friend CTask;
+	friend CCharacterManager;
 public:
 	enum class EState	//状態
 	{
@@ -20,10 +22,10 @@ public:
 	};
 
 private:
-	CTask* mptask;
 	CTexture* mpTexture;
 	int mLeft,	mRight,mBottom,mTop;
 	bool mEnabled;
+
 protected:
 	EState mState;
 	float mVx;  //X軸速度
@@ -50,5 +52,5 @@ public:
 	virtual void Collision() {};
 
 	bool Enabled();
-	void Update();
+	virtual void Update() = 0;
 };

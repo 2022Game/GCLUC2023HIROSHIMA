@@ -10,13 +10,14 @@ CCharacter::CCharacter(int priority)
 	, mState(EState::ENULL)
 	, mVx(0.0f)
 	, mVy(0.0f)
-	, mVz(0.0)
+	, mVz(0.0f)
 {
 }
 
 //デストラクタ
 CCharacter::~CCharacter()
 {
+
 }
 
 //状態を取得
@@ -58,6 +59,9 @@ bool CCharacter::Enabled()
 
 void CCharacter::Update()
 {
-	mVz = Y();
+	if (mState != EState::EJUMP)
+	{
+		mVz = Y();
+	}
 	CTask::Setpriority(mVz);
 }

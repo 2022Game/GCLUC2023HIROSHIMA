@@ -27,20 +27,18 @@ private:
 	CGame* mpGame;      //ゲームクラスのポインタ
 	CPlayer* mpPlayer;  //プレイヤークラスのポインタ
 	CEnemy* mpEnemy;    //敵クラスのポインタ
-	static CTexture mTexture2;
-	static CTexture mTexture3;
-	static CTexture mTexture4;
-	static CTexture mTexture5;
 	EState mState;
 	CInput mInput;
 	CFont mFont;
 	CBackGround* mpBackGround;
 
-	static CCharacterManager mCharacterManager;
-	static CTexture mTexture;
-	//ta
+	static CTexture mTexture;  //プレイヤーテクスチャ
+	static CTexture mTexture2; //背景テクスチャ
+	static CTexture mTexture3; //スタート画面テクスチャ
+	static CTexture mTexture4; //ゲームオーバー画面テクスチャ
+	static CTexture mTexture5; //ゲームクリア画面テクスチャ
+
 public:
-	static CCharacterManager* CharacterManager();
 	static CTexture* Texture();
 	static CTexture* Texture2();
 	static CTexture* Texture3();

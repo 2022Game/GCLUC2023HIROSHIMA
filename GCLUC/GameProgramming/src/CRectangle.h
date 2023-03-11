@@ -29,6 +29,7 @@ public:
 	void Set(float x, float y, float w, float h);
 	float X();
 	float Y();
+	float Z();
 	float W();
 	float H();
 	void Y(float y);

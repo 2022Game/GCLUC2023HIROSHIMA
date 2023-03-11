@@ -1,17 +1,14 @@
 #pragma once
 #include<string>
-
+ 
 class CTaskManager;
-class CCharacter;
 
 enum class ETaskPriority
 {
-	EDefault,           //デフォルト
 	ECharacter,         //キャラクター
-	EBG,                //背景
-	EH,
 	ECharacterManager,  //キャラクターマネージャー
-	ENum
+	ENum,
+	EBackGround = 1000,        //背景
 };
 
 class CTask
@@ -35,8 +32,6 @@ public:
 	void Setpriority(int priority);
 	//優先度を取得
 	int GetPriority() const;
-
-	//float GetPos();
 
 	//タスクを削除
 	void Delete();

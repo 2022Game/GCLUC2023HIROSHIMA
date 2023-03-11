@@ -30,6 +30,4 @@ public:
 	void Render();
 	//XVˆ—
 	void Update();
-
-	void Sort();
 };

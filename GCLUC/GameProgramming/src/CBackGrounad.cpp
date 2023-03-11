@@ -6,7 +6,7 @@ void CBackGround::Update()
 	X(x);
 }
 CBackGround::CBackGround(float x, float y, float w, float h, float l, float r, float b, float t, CTexture* pt)
-	: CCharacter((int)ETaskPriority::EBG)
+	: CCharacter((int)ETaskPriority::EBackGround)
 {
 	Set(x, y, w, h);
 	Texture(pt, l, r, b, t);

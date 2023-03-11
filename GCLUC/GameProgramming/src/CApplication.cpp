@@ -2,12 +2,6 @@
 #include "CRectangle.h"
 
 CTexture CApplication::mTexture;
-CCharacterManager CApplication::mCharacterManager;
-
-CCharacterManager* CApplication::CharacterManager()
-{
-	return &mCharacterManager;
-}
 
 CTexture* CApplication::Texture()
 {
@@ -24,7 +18,6 @@ void CApplication::Start()
 	mState = EState::ESTART;
 	mpGame = new CGame();
 }
-//ta
 
 void CApplication::Update()
 {
@@ -32,13 +25,11 @@ void CApplication::Update()
 	{
 	case EState::ESTART:	//状態がスタート
 		mpGame->Start();	//スタート画面表示
-		//Enterキーが押されたら
-		mpBackGround = new CBackGround(640.0f, 400.0f, 640.0f, 400.0f, 0, 1919, 1079, 0, &mTexture3);
-		mCharacterManager.Add(mpBackGround);
+		//mCharacterManager.Add(mpBackGround);
 		if (mInput.Key(VK_RETURN))
 		{	//状態をプレイ中にする
 			mpBackGround = new CBackGround(640.0f, 400.0f, 640.0f, 400.0f, 0, 1279, 719, 0, &mTexture2);
-			mCharacterManager.Add(mpBackGround);
+			//mCharacterManager.Add(mpBackGround);
 			mState = EState::EPLAY;
 		}
 		break;
@@ -48,14 +39,12 @@ void CApplication::Update()
 		if (mInput.Key(VK_SPACE))
 		{
 			mpBackGround = new CBackGround(640.0f, 400.0f, 640.0f, 400.0f, 2, 2665, 1564, 68, &mTexture4);
-			mCharacterManager.Add(mpBackGround);
 				mState = EState::EOVER;
 		}
 		if (mInput.Key(VK_BACK))
 		{
 
 			mpBackGround = new CBackGround(640.0f, 400.0f, 640.0f, 400.0f, 2, 2665, 1564, 68, &mTexture5);
-			mCharacterManager.Add(mpBackGround);
 			mState = EState::ECLEAR;
 		}
 		////ゲームオーバーか判定
