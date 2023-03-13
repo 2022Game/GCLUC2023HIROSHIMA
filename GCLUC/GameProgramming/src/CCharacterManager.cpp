@@ -81,6 +81,10 @@ void CCharacterManager::Add(CCharacter* c)
 //可変長配列にあるポインタのUpdate()を実行していく
 void CCharacterManager::Update()
 {
+	for (size_t i = 0; i < mpCharacters.size(); i++)
+	{
+		mpCharacters[i]->Update();
+	}
 }
 
 //可変長配列にあるポインタのRender()を実行していく

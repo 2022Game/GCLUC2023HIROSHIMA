@@ -6,25 +6,26 @@
 
 //コンストラクタ
 CGame::CGame()
-	: mpUi(nullptr)    
-	, mTime(0)
+	: mpUi(nullptr)
 	, mCdx(0)
 	, mCdy(0)
+	, mStime(0)
 {
 	mpUi = new CUi();
 	//テクスチャの入力
 	CApplication::Texture()->Load(TEXTURE);
-	mpEnemy = new CEnemy(TIPSIZE * 15, TIPSIZE * 4.5, TIPSIZE, TIPSIZE, CApplication::Texture());
-	mpPlayer = new CPlayer(TIPSIZE * 10, TIPSIZE * 5, TIPSIZE, TIPSIZE, CApplication::Texture());
-	mpEnemy2 = new CEnemy2(TIPSIZE * 20, TIPSIZE * 7, TIPSIZE, TIPSIZE, CApplication::Texture());
-	mpBackGround = new CBackGround(640.0f, 400.0f, 640.0f, 400.0f, 0, 1919, 1079, 0, CApplication::Texture3());
+	//プレイヤーをキャラクタマネージャに追加する
+		mpPlayer = new CPlayer(TIPSIZE * 10, TIPSIZE * 5, TIPSIZE, TIPSIZE, CApplication::Texture());
+	//敵をキャラクタマネージャに追加する
+		/*mpEnemy = new CEnemy(TIPSIZE * 15, TIPSIZE * 4.5, TIPSIZE, TIPSIZE, CApplication::Texture());
+		mpEnemy2 = new CEnemy2(TIPSIZE * 20, TIPSIZE * 7, TIPSIZE, TIPSIZE, CApplication::Texture());*/
 }
 
 //デストラクタ
 CGame::~CGame()
 {
 	//全てのインスタンス削除
-	//CApplication::CharacterManager()->AllDelete();
+	CApplication::CharacterManager()->AllDelete();
 	//UIを生成している時
 	if (mpUi != nullptr)
 	{	//UIを削除し、初期化
@@ -43,9 +44,9 @@ CGame::~CGame()
 //ゲームクリア処理
 void CGame::Clear()
 {
-	CTaskManager::Instance()->Update();
-	CTaskManager::Instance()->Render();
 	CameraSet();
+	//ゲームの描画
+	CApplication::CharacterManager()->Render();
 	CCamera::End();
 	//UI処理
 //	mpUi->Hp(CPlayer::Hp());
@@ -60,9 +61,9 @@ void CGame::Clear()
 //ゲームオーバー処理
 void CGame::Over()
 {
-	CTaskManager::Instance()->Update();
-	CTaskManager::Instance()->Render();
 	CameraSet();
+	//ゲームの描画
+	CApplication::CharacterManager()->Render();
 	CCamera::End();
 	//UI処理
 //	mpUi->Hp(CPlayer::Hp());
@@ -74,39 +75,45 @@ void CGame::Over()
 //スタート処理
 void CGame::Start()
 {
-	CTaskManager::Instance()->Update();
-	CTaskManager::Instance()-> Render();
 //	CameraSet();
 	//ゲームの描画
-//	CApplication::CharacterManager()->Render();
+	CApplication::CharacterManager()->Render();
 //	CCamera::End();
 	//UI処理
 //	mpUi->Hp(CPlayer::Hp());
-	mpUi->Enemy(CEnemy2::Num());
-	mpUi->Render();
-	mpUi->Start();
 }
 
 //更新処理
 void CGame::Update()
 {
 	//更新、衝突、削除、描画
-	//CApplication::CharacterManager()->Update();
-	//CApplication::CharacterManager()->Collision();
-    //CApplication::CharacterManager()->Delete();
-	//CApplication::CharacterManager()->Render();
+	CApplication::CharacterManager()->Update();
+	CApplication::CharacterManager()->Collision();
+//	CApplication::CharacterManager()->Delete();
+	CApplication::CharacterManager()->Render();
 	CTaskManager::Instance()->Update();
 	CTaskManager::Instance()->Render();
-
 	CameraSet();
 	CCamera::End();
 	//UI
-	mpUi->Time(mTime++);
+	mStime++;
+	if (mStime == 60)
+	{
+		mpUi->Time(mTime++);
+		mStime = 0;
+	}
 	//mpUi->Hp(CPlayer::Hp());
 	mpUi->Enemy(CEnemy2::Num());
 	mpUi->Render();
+	if (mStime == 59)
+	{
+		if (CGame::mTime == 3)
+		{
+			mpEnemy = new CEnemy(TIPSIZE * 30, TIPSIZE * 4.5, TIPSIZE, TIPSIZE, CApplication::Texture());
+			mpEnemy2 = new CEnemy2(TIPSIZE * 25, TIPSIZE * 7, TIPSIZE, TIPSIZE, CApplication::Texture());
+		}
+	}
 }
-
 void CGame::CameraSet()
 {
 	//float x = mpPlayer->X() + mCdx;
@@ -116,4 +123,9 @@ void CGame::CameraSet()
 	//	, y - WINDOW_HEIGHT / 2
 	//	, y + WINDOW_HEIGHT / 2
 	//);
+}
+int CGame::mTime = 0;
+int CGame::Time()
+{
+	return mTime;
 }

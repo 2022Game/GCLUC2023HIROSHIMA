@@ -54,9 +54,9 @@ void CUi::Render()
 {
 	char str[16];
 	sprintf(str, "TIME:%03d", mTime);
-	mFont.Draw(620, 580, 10, 20, str);
+	mFont.Draw(1130, 780, 10, 20, str);
 	sprintf(str, "HP:%d", mHp);
 	mFont.Draw(20, 20, 10, 20, str);
 	sprintf(str, "ENEMY:%d", mEnemy);
-	mFont.Draw(20, 580, 10, 20, str);
+	mFont.Draw(20, 780, 10, 20, str);
 }

@@ -29,31 +29,29 @@ CPlayer* CPlayer::Instance()
 //çXêVèàóù
 void CPlayer::Update()
 {
-	mState = EState::EMOVE;
-	if (mInput.Key('A'))
-	{
-		mVx = -VELOCITY - 1;
-		X(X() + mVx + mVx);
-	}
-	if (mInput.Key('D'))
-	{
-		mVx = VELOCITY + 1;
-		X(X() + mVx + mVx);
-	}
 	if (mInput.Key('W'))
 	{
-		mVy = VELOCITY + 1;
-		Y(Y() + mVy + mVy);
+		float y = Y() + 5.0f;
+		Y(y);
+	}
+	if (CGame::mTime <= 2 && CGame::mTime > 0)
+	{
+		float x = X() + 0.5f;
+		X(x);
 	}
 	if (mInput.Key('S'))
 	{
-		mVy = VELOCITY - 1;
-		Y(Y() - mVy - mVy);
+		float y = Y() - 5.0f;
+		Y(y);
 	}
-	if (mInput.Key('V'))
+	if (mInput.Key('D'))
 	{
-		mVy = VELOCITY - 1;
-		Y(Y() - mVy - mVy);
+		float x = X() + 5.0f;
+		X(x);
 	}
-	CCharacter::Update();
+	if (mInput.Key('A'))
+	{
+		float x = X() - 5.0f;
+		X(x);
+	}
 }

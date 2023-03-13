@@ -5,26 +5,20 @@
 //コンストラクタ
 CCharacter::CCharacter(int priority)
 	: CTask(priority)
-	, mpTexture(nullptr), mLeft(0), mRight(0), mBottom(0), mTop(0)
+	, mpTexture(nullptr)
+	, mLeft(0)
+	, mRight(0)
+	, mBottom(0)
+	, mTop(0)
 	, mEnabled(false)
-	, mState(EState::ENULL)
-	, mVx(0.0f)
-	, mVy(0.0f)
-	, mVz(0.0f)
 {
 }
 
 //デストラクタ
 CCharacter::~CCharacter()
 {
-
 }
 
-//状態を取得
-CCharacter::EState CCharacter::State()
-{
-	return mState;
-}
 
 void CCharacter::Texture(CTexture* pTexture,
 	int left, int right, int bottom, int top)
@@ -59,9 +53,5 @@ bool CCharacter::Enabled()
 
 void CCharacter::Update()
 {
-	if (mState != EState::EJUMP)
-	{
-		mVz = Y();
-	}
-	CTask::Setpriority(mVz);
+
 }
