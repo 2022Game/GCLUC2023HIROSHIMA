@@ -5,10 +5,10 @@ class CTaskManager;
 
 enum class ETaskPriority
 {
+	ETITLE,             //タイトル画面
 	ECharacter,         //キャラクター
 	ECharacterManager,  //キャラクターマネージャー
-	ENum,
-	EBackGround = 1000,        //背景
+	EBackGround = 1000, //背景
 };
 
 class CTask
