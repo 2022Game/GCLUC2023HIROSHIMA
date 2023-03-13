@@ -47,6 +47,6 @@ private:
 	int mSlimeTime2; //予備のスライム用の時間
 	EState mState; //状態
 	bool mEnabled; //消す
-	float mVx;	//X軸速度
-	float mVy;	//Y軸速度
+	float mSVx;	//X軸速度
+	float mSVy;	//Y軸速度
 };

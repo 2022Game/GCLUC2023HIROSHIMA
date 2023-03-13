@@ -129,8 +129,8 @@ CSlime::CSlime(float x, float y, float w, float h, CTexture* pt)
 	mState = EState::EMOVE;
 	sSEhp = SLIMEHP;
 	//XとY軸速度の初期値を移動速度にする
-	mVx = SLIMEX;
-	mVy = SLIMEY;
+	mSVx = SLIMEX;
+	mSVy = SLIMEY;
 	spInstance2 = this;
 }
 
@@ -146,74 +146,60 @@ void CSlime::Update()
 		}
 		if (mSlimeTime == 50)
 		{
-			if (mVx < 0) { Texture(Texture(), SLIMEDTL); }
-			if (mVx > 0) { Texture(Texture(), SLIMEDTR); }
+			if (mSVx < 0) { Texture(Texture(), SLIMEDTL); }
+			if (mSVx > 0) { Texture(Texture(), SLIMEDTR); }
 		}
 		if (mSlimeTime == 40)
 		{
-			if (mVx < 0) { Texture(Texture(), SLIMEDTL2); }
-			if (mVx > 0) { Texture(Texture(), SLIMEDTR2); }
+			if (mSVx < 0) { Texture(Texture(), SLIMEDTL2); }
+			if (mSVx > 0) { Texture(Texture(), SLIMEDTR2); }
 		}
 		if (mSlimeTime == 30)
 		{
-			if (mVx < 0) { Texture(Texture(), SLIMEDTL3); }
-			if (mVx > 0) { Texture(Texture(), SLIMEDTR3); }
+			if (mSVx < 0) { Texture(Texture(), SLIMEDTL3); }
+			if (mSVx > 0) { Texture(Texture(), SLIMEDTR3); }
 		}
 		if (mSlimeTime == 20)
 		{
-			if (mVx < 0) { Texture(Texture(), SLIMEDTL4); }
-			if (mVx > 0) { Texture(Texture(), SLIMEDTR4); }
+			if (mSVx < 0) { Texture(Texture(), SLIMEDTL4); }
+			if (mSVx > 0) { Texture(Texture(), SLIMEDTR4); }
 		}
 		if (mSlimeTime == 10)
 		{
-			if (mVx < 0) { Texture(Texture(), SLIMEDTL5); }
-			if (mVx > 0) { Texture(Texture(), SLIMEDTR5); }
+			if (mSVx < 0) { Texture(Texture(), SLIMEDTL5); }
+			if (mSVx > 0) { Texture(Texture(), SLIMEDTR5); }
 		}
 		if (mSlimeTime == 0)
 		{
 			mEnabled = false;
 		}
 		break;
+	case EState::ESTOP: //停止時、クールタイム間
 	case EState::EAT: //攻撃時
 	case EState::EDA: //ダメージ時
-		/*if (mSlimeTime > 0)
-		{
-			{mState = EState::EDEATH; }
-		}
-		Y(Y() + mVy);
-		mVy -= GRAVITY;
-		if (mVx < 0)
-		{
-			Texture(Texture(), SLIMECRYL);
-		}
-		if (mVx > 0)
-		{
-			Texture(Texture(), SLIMECRYR);
-		}
-		break;*/
 	case EState::EJUMP:
-		X(X() + mVx);
-		Y(Y() + mVy);
+		X(X() + mSVx);
+		Y(Y() + mSVy);
 		//mVy -= GRAVITY;
 		//mVy = JUMPV0;
-		if (mVy > 0)
+		if (mSVy > 0)
 		{
-			if (mVx < 0.0f)
+			if (mSVx < 0.0f)
 			{
 				Texture(Texture(), SLIMEJPL);
 			}
-			if (mVx > 0.0f)
+			if (mSVx > 0.0f)
 			{
 				Texture(Texture(), SLIMEJPR);
 			}
 		}
-		if (mVy < 0)
+		if (mSVy < 0)
 		{
-			if (mVx < 0.0f)
+			if (mSVx < 0.0f)
 			{
 				Texture(Texture(), SLIMEDWL);
 			}
-			if (mVx > 0.0f)
+			if (mSVx > 0.0f)
 			{
 				Texture(Texture(), SLIMEDWR);
 			}
@@ -221,29 +207,29 @@ void CSlime::Update()
 		break;
 	case EState::EMOVE:
 		//mVy -= GRAVITY;
-		X(X() + mVx);
-		Y(Y() + mVy);
+		X(X() + mSVx);
+		Y(Y() + mSVy);
 		if (X() < CPlayer::Instance()->X())
 		{
-			if (mVx < 0)
-				mVx = -mVx;
+			if (mSVx < 0)
+				mSVx = -mSVx;
 			Texture(Texture(), SLIMENTR);
 		}
 		else
 		{
-			if (mVx > 0)
-				mVx = -mVx;
+			if (mSVx > 0)
+				mSVx = -mSVx;
 			Texture(Texture(), SLIMENTL);
 		}
 		if (Y() < CPlayer::Instance()->Y())
 		{
-			if (mVy < 0)
-				mVy = -mVy;
+			if (mSVy < 0)
+				mSVy = -mSVy;
 		}
 		else
 		{
-			if (mVy > 0)
-				mVy = -mVy;
+			if (mSVy > 0)
+				mSVy = -mSVy;
 		}
 		if (mState != EState::EJUMP)
 		{
