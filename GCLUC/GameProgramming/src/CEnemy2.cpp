@@ -34,7 +34,7 @@ int CEnemy2::Num()
 //Õ“Ë”»’è2
 void CEnemy2::Collision()
 {
-	CApplication::CharacterManager()->Collision(this);
+	//CApplication::CharacterManager()->Collision(this);
 }
 
 //Õ“Ë”»’è4
@@ -46,5 +46,6 @@ void CEnemy2::Collision(CCharacter* m, CCharacter* o)
 //XVˆ—
 void CEnemy2::Update()
 {
-
+	mState = EState::EMOVE;
+	CCharacter::Update();
 }

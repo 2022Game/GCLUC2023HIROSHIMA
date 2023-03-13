@@ -3,6 +3,7 @@
 #include "CPlayer.h"
 #include "CEnemy.h"
 #include "CEnemy2.h"
+#include "CBackGround.h"
 
 //定数の定義
 #define TEXTURE "image.png"//テクスチャのファイル名
@@ -15,6 +16,17 @@
 */
 class CGame
 {
+private:
+	CPlayer* mpPlayer; //プレイヤーのポインタ
+	CEnemy* mpEnemy;   //敵のポインタ
+	CEnemy2* mpEnemy2; //敵２のポインタ
+	CBackGround* mpBackGround;
+
+	int mCdx, mCdy;    //カメラとプレイヤーの座標の差分
+	void CameraSet();  //カメラ設定
+	int mTime;         //経過時間
+	CUi* mpUi;         //UIクラスのポインタ
+
 public:
 	//コンストラクタ
 	CGame();
@@ -36,14 +48,4 @@ public:
 
 	//更新処理
 	void Update();
-	static int Time();
-	static int mTime;         //経過時間
-private:
-	int mCdx, mCdy;    //カメラとプレイヤーの座標の差分
-	void CameraSet();  //カメラ設定
-	CPlayer *mpPlayer; //プレイヤーのポインタ
-	CEnemy* mpEnemy;   //敵のポインタ
-	CEnemy2* mpEnemy2; //敵２のポインタ
-	int mStime;
-	CUi *mpUi;         //UIクラスのポインタ
 };
