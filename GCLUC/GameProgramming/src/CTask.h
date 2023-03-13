@@ -9,7 +9,7 @@ enum class ETaskPriority
 	ECharacter,         //キャラクター
 	ECharacterManager,  //キャラクターマネージャー
 	EBackGround = 1000, //背景
-	EUI = 0             //ハート
+	EUI = 0,             //ハート
 };
 
 class CTask
