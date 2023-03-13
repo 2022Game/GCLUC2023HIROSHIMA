@@ -4,7 +4,7 @@
 class CTaskManager
 {
 private:
-	static CTaskManager* mpinstance;  //CTaskManagerのインスタンス
+	static CTaskManager* spinstance;  //CTaskManagerのインスタンス
 	CTask* mhead;                     //先頭タスクのポインタ
 	int mCharacterCount;              //キャラクターの数
 

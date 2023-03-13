@@ -10,6 +10,7 @@ CTexture* CApplication::Texture()
 
 void CApplication::Start()
 {
+	mTexture.Load("PlayerImage.png");
 	mTexture2.Load("îwåi(âº) .png");
 	mTexture3.Load("(âº).png");
 	mTexture4.Load("(âº)2.png");
@@ -44,7 +45,6 @@ void CApplication::Update()
 		}
 		if (mInput.Key(VK_BACK))
 		{
-
 			mpBackGround = new CBackGround(640.0f, 400.0f, 640.0f, 400.0f, 2, 2665, 1564, 68, &mTexture5);
 			mState = EState::ECLEAR;
 		}

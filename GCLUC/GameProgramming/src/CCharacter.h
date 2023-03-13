@@ -2,23 +2,29 @@
 #include"CTask.h"
 #include"CRectangle.h"
 #include"CTexture.h"
+
 #define VELOCITY 4.0f	//移動速度
 /*
 キャラクタークラス
 ゲームキャラクタの基本的な機能を定義する
 */
 class CCharacterManager;
+
 class CCharacter : public CRectangle, public CTask
 {
 	friend CTask;
 	friend CCharacterManager;
+
 public:
 	enum class EState	//状態
 	{
-		ENULL,  //空
-		EMOVE,	//移動
-		ESTOP,	//停止
-		EJUMP,	//ジャンプ
+		ENULL,     //空
+		EMOVE,	   //移動
+		EJUMP,	   //ジャンプ
+		EIDLING,   //アイドリング
+		EATTACK,   //攻撃
+		EDAMAGE,   //ダメージ時
+		EDEATH,    //死亡
 	};
 
 private:

@@ -13,7 +13,6 @@ CGame::CGame()
 {
 	mpUi = new CUi();
 	//テクスチャの入力
-	CApplication::Texture()->Load(TEXTURE);
 }
 
 //デストラクタ
@@ -70,8 +69,6 @@ void CGame::Over()
 //スタート処理
 void CGame::Start()
 {
-	CTaskManager::Instance()->Update();
-	CTaskManager::Instance()-> Render();
 //	CameraSet();
 	//ゲームの描画
 //	CApplication::CharacterManager()->Render();
@@ -82,13 +79,16 @@ void CGame::Start()
 	mpUi->Render();
 	mpUi->Start();
 	if (mInput.Key(VK_RETURN))
-	{	//状態をプレイ中にする
+	{
 		mpEnemy = new CEnemy(TIPSIZE * 15, TIPSIZE * 4.5, TIPSIZE, TIPSIZE, CApplication::Texture());
 		mpPlayer = new CPlayer(TIPSIZE * 10, TIPSIZE * 5, TIPSIZE, TIPSIZE, CApplication::Texture());
 		mpEnemy2 = new CEnemy2(TIPSIZE * 20, TIPSIZE * 7, TIPSIZE, TIPSIZE, CApplication::Texture());
 		mpBackGround = new CBackGround(640.0f, 400.0f, 640.0f, 400.0f, 0, 1919, 1079, 0, CApplication::Texture3());
 		mpHeart = new CHeart(95.0f, 750.0f, 90.0f, 40.0f, 0, 210, 73, 0, CApplication::Texture100());
+		//状態をプレイ中にする
 	}
+	CTaskManager::Instance()->Update();
+	CTaskManager::Instance()->Render();
 }
 
 //更新処理

@@ -1,6 +1,6 @@
 #include "CTaskManager.h"
 
-CTaskManager* CTaskManager::mpinstance = nullptr;
+CTaskManager* CTaskManager::spinstance = nullptr;
 
 //コンストラクタ
 CTaskManager::CTaskManager()
@@ -25,20 +25,20 @@ CTaskManager::~CTaskManager()
 //インスタンスを取得
 CTaskManager* CTaskManager::Instance()
 {
-	if (mpinstance == nullptr)
+	if (spinstance == nullptr)
 	{
-		mpinstance = new CTaskManager;
+		spinstance = new CTaskManager;
 	}
-	return mpinstance;
+	return spinstance;
 }
 
 //インスタンスを破棄
 void CTaskManager::ClearInstance()
 {
-	if (mpinstance != nullptr)
+	if (spinstance != nullptr)
 	{
-		delete mpinstance;
-		mpinstance = nullptr;
+		delete spinstance;
+		spinstance = nullptr;
 	}
 }
 
