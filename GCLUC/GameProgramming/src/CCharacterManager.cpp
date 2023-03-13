@@ -81,10 +81,6 @@ void CCharacterManager::Add(CCharacter* c)
 //可変長配列にあるポインタのUpdate()を実行していく
 void CCharacterManager::Update()
 {
-	if (Character != nullptr)
-	{
-		CTask::Instance()->Setpriority(Character->mVy);
-	}
 }
 
 //可変長配列にあるポインタのRender()を実行していく

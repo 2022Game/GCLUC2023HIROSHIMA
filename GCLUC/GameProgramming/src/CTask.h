@@ -16,7 +16,6 @@ class CTask
 	friend CTaskManager;
 
 private:
-	static CTask* mpinstance;
 	CTask* mpprev;   //前のタスクへのポインタ
 	CTask* mpnext;   //次のタスクへのポインタ
 	int mpriority;   //優先度
@@ -26,7 +25,6 @@ public:
 	CTask(int priority);
 	//~デストラクタ
 	~CTask();
-	static CTask* Instance();
 
 	//優先度を設定
 	void Setpriority(int priority);

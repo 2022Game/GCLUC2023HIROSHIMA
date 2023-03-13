@@ -96,7 +96,6 @@ void CTaskManager::Remove(CTask* task)//task(取り除くタスク)
 	{
 		mhead = task->mpnext;
 	}
-
 	//取り除くタスクの前後を接続する
 	CTask* prev = task->mpprev;
 	CTask* next = task->mpnext;
