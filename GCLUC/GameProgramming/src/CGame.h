@@ -4,6 +4,8 @@
 #include "CEnemy.h"
 #include "CEnemy2.h"
 #include "CBackGround.h"
+#include "CHeart.h"
+#include "CInput.h"
 
 //定数の定義
 #define TEXTURE "image.png"//テクスチャのファイル名
@@ -21,6 +23,8 @@ private:
 	CEnemy* mpEnemy;   //敵のポインタ
 	CEnemy2* mpEnemy2; //敵２のポインタ
 	CBackGround* mpBackGround;
+	CHeart* mpHeart;
+	CInput mInput;
 
 	int mCdx, mCdy;    //カメラとプレイヤーの座標の差分
 	void CameraSet();  //カメラ設定

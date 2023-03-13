@@ -14,6 +14,7 @@ void CApplication::Start()
 	mTexture3.Load("(‰¼).png");
 	mTexture4.Load("(‰¼)2.png");
 	mTexture5.Load("(‰¼)3.png");
+	mTexture100.Load("Žc‹@10.png");
 	mFont.Load("FontWhite.png", 1, 64);
 	mState = EState::ESTART;
 	mpGame = new CGame();
@@ -106,4 +107,10 @@ CTexture CApplication::mTexture5;
 CTexture* CApplication::Texture5()
 {
 	return &mTexture5;
+}
+
+CTexture CApplication::mTexture100;
+CTexture* CApplication::Texture100()
+{
+	return &mTexture100;
 }
