@@ -12,8 +12,6 @@ CGame::CGame()
 	, mCdy(0)
 {
 	mpUi = new CUi();
-	//テクスチャの入力
-	CApplication::Texture()->Load(TEXTURE);
 }
 
 //デストラクタ
