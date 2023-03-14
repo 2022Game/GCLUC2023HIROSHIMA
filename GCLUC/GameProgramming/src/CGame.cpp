@@ -70,6 +70,7 @@ void CGame::Start()
 {
 	CTaskManager::Instance()->Update();
 	CTaskManager::Instance()-> Render();
+	mpBackGround = new CBackGround(640.0f, 400.0f, 640.0f, 400.0f, 0, 799, 0, 1279, CApplication::Texture3());
 //	CameraSet();
 	//ƒQ[ƒ€‚Ì•`‰æ
 //	CApplication::CharacterManager()->Render();
@@ -94,7 +95,7 @@ void CGame::Stage1()
 	mpWolf = new CWolf(TIPSIZE * 15, TIPSIZE * 4.5, TIPSIZE, TIPSIZE, CWolf::Texture7());
 	mpPlayer = new CPlayer(TIPSIZE * 10, TIPSIZE * 5, TIPSIZE, TIPSIZE, CApplication::Texture());
 	mpSlime = new CSlime(TIPSIZE * 20, TIPSIZE * 7, TIPSIZE, TIPSIZE, CSlime::Texture6());
-	mpBackGround = new CBackGround(640.0f, 400.0f, 640.0f, 400.0f, 0, 1919, 1079, 0, CApplication::Texture2());
+	mpBackGround = new CBackGround(640.0f, 400.0f, 640.0f, 400.0f, 0, 1279, 719, 0, CApplication::Texture2());
 	mpHeart = new CHeart(95.0f, 750.0f, 90.0f, 40.0f, 0, 210, 73, 0, CApplication::Texture100());
 }
 
