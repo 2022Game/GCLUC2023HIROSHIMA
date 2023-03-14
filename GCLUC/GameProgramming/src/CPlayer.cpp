@@ -4,6 +4,8 @@
 
 #define TEXCOORD 168, 188, 158, 128	//テクスチャマッピング
 
+#define HP 10
+
 CPlayer* CPlayer::mpinstance = nullptr;
 
 //コンストラクタ
@@ -56,4 +58,11 @@ void CPlayer::Update()
 		Y(Y() - mVy - mVy);
 	}
 	CCharacter::Update();
+}
+
+int CPlayer::sHp = 0;	//HP
+
+int CPlayer::Hp()
+{
+	return sHp;
 }

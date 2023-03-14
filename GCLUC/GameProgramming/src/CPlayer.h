@@ -24,4 +24,9 @@ public:
 
 	//XVˆ—
 	void Update();
+
+	static int sHp;	//HP
+
+	//HP‚ğæ“¾
+	static int Hp();
 };

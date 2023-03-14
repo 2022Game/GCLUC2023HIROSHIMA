@@ -14,7 +14,7 @@ void CApplication::Start()
 	mTexture3.Load("(仮).png");
 	mTexture4.Load("(仮)2.png");
 	mTexture5.Load("(仮)3.png");
-	mTexture100.Load("残機10.png");
+	mTexture100.Load("プレイヤーHP.png");
 	mFont.Load("FontWhite.png", 1, 64);
 	mState = EState::ESTART;
 	mpGame = new CGame();

@@ -1,18 +1,21 @@
 #pragma once
 #include "CFont.h"
+#include "CHeart.h"
 /*
 * CUi
 * ユーザーインタフェースクラス
 */
-class CUi
+class CUi:public CRectangle
 {
 private:
+	CHeart* mpHeart;
 	int mEnemy;	//敵の数
 	int mHp;    //プレイヤーのHP
 	int mTime;	//経過時間
 	CFont mFont;
 
 public:
+	CTexture mTexture100;
 	//コンストラクタ
 	CUi();
 	//デストラクタ
