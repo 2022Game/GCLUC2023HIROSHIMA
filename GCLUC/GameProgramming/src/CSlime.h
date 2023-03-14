@@ -1,6 +1,7 @@
 #pragma once
 #include "CCharacter.h"
 #include "CTexture.h"
+#include "CInput.h"
 
 //仮のイラスト
 #define SLIME "スライム.png"
@@ -15,14 +16,13 @@ public:
 		EMOVE,	//移動
 		ESTOP,	//停止
 		EJUMP,	//ジャンプ
-		EDA,	//ダメージ
+		EDAMAGE,	//ダメージ
 		EDEATH, //死亡
-		EAT,    //攻撃
+		EATTACK,    //攻撃
 	};
 protected:
 public:
 	EState State();	//状態を取得する
-	bool Enabled(); //消す
 	static CSlime* Instance2();
 	static int SEhp();
 	//敵の数を設定
@@ -43,10 +43,12 @@ private:
 	static CSlime* spInstance2;
 	static int sSEhp; //スライムのHP
 	static int sNum;	//敵の数
-	int mSlimeTime; //スライム用の時間
-	int mSlimeTime2; //予備のスライム用の時間
+	int mSlimeTime; //ダメージのスライム用の時間
+	int mSlimeTime2; //移動のスライム用の時間
+	int mSlimeTime3; //攻撃のスライム用の時間
+	int mSlimeTime4; //死亡のスライム用の時間
 	EState mState; //状態
-	bool mEnabled; //消す
-	float mVx;	//X軸速度
-	float mVy;	//Y軸速度
+	float mSVx;	//X軸速度
+	float mSVy;	//Y軸速度
+	CInput mInput;
 };

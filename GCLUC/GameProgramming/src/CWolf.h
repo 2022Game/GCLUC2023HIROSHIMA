@@ -1,6 +1,7 @@
 #pragma once
 #include "CCharacter.h"
 #include "CTexture.h"
+#include "CInput.h"
 
 //仮のイラスト
 #define WOLFX 2.0f 
@@ -13,15 +14,15 @@ public:
 	{
 		EMOVE,	//移動
 		ESTOP,	//停止
-		EDA,	//ダメージ
+		EDAMAGE,	//ダメージ
 		EDEATH, //死亡
-		EAT,    //攻撃
+		EATTACK,    //攻撃
 	};
 protected:
 public:
 	EState State();	//状態を取得する
 	bool Enabled(); //消す
-	static CWolf* Instance2();
+	static CWolf* Instance3();
 	static int WEhp(); //オオカミのHP
 	//敵の数を設定
 	static void Num(int num);
@@ -38,13 +39,15 @@ public:
 	static CTexture mTexture7;
 	static CTexture* Texture7();
 private:
-	static CWolf* spInstance2;
+	static CWolf* spInstance3;
 	static int sWEhp; //オオカミのHP
 	static int sNum;	//敵の数
-	int mWolfTime; //オオカミ用の時間
-	int mWolfTime2; //予備のオオカミ用の時間
+	int mWolfTime; //攻撃のオオカミ用の時間
+	int mWolfTime2; //ダメージのオオカミ用の時間
+	int mWolfTime3; //死亡用のオオカミ用の時間
 	EState mState; //状態
 	bool mEnabled; //消す
 	float mWVx;	//X軸速度
 	float mWVy;	//Y軸速度
+	CInput mInput;
 };
