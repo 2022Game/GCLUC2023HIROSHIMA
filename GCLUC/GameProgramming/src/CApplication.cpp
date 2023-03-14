@@ -30,12 +30,13 @@ void CApplication::Update()
 		//mCharacterManager.Add(mpBackGround);
 		if (mInput.Key(VK_RETURN))
 		{	//ó‘Ô‚ðƒvƒŒƒC’†‚É‚·‚é
-			mpBackGround = new CBackGround(640.0f, 400.0f, 640.0f, 400.0f, 0, 1279, 719, 0, &mTexture2);
-			//mCharacterManager.Add(mpBackGround);
-			mState = EState::EPLAY;
+			mState = EState::ESTAGE1;
 		}
 		break;
-
+	case EState::ESTAGE1:
+		mpGame->Stage1();
+		mState = EState::EPLAY;
+	break;
 	case EState::EPLAY:
 		mpGame->Update();
 		if (mInput.Key(VK_SPACE))

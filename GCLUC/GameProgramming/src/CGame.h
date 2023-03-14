@@ -53,6 +53,8 @@ public:
 
 	//スタート処理
 	void Start();
+	//Stage1
+	void Stage1();
 
 	//更新処理
 	void Update();
