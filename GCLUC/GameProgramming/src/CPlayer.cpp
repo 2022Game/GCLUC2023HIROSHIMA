@@ -24,7 +24,7 @@ CPlayer::CPlayer(float x, float y, float w, float h, CTexture* pt)
 	, mAttackcount(0)
 	, mJumpY(0.0f)
 {
-	Set(x, y, w, h * 1.5);
+	Set(x, y, w, h );
 	Texture(pt, DEFAULT);
 	spinstance = this;
 	mState = EState::EIDLING;
@@ -140,10 +140,10 @@ void CPlayer::Update()
 		mVy -= GRAVITY;
 		Y(Y() + mVy);
 
-		mJumpcount %= 30;
-		left = (mJumpcount / 10) * 200;
-		right = left + 200;
 		mJumpcount++;
+		mJumpcount %= 30;
+		left = (mJumpcount / 15) * 200;
+		right = left + 200;
 		if (mVx >= 0)
 		{
 			Texture(Texture(), left, right, 800, 600);
@@ -186,8 +186,8 @@ void CPlayer::Update()
 			mState = EState::EMOVE;
 			mIdlingcount = 0;
 		}
-		mIdlingcount %= 72;
-		left = (mIdlingcount / 18) * 200;
+		mIdlingcount %= 50;
+		left = (mIdlingcount / 25) * 200;
 		right = left + 200;
 		if (mVx >= 0)
 		{
