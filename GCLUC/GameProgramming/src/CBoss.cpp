@@ -16,7 +16,7 @@
 #define BOSSDTL 1206,1796,433,133
 #define BOSSDTR 1796,1206,433,133
 
-#define BOSSHP 100
+#define BOSSHP 300
 
 int CBoss::sBEhp = 0;
 
@@ -121,16 +121,62 @@ CBoss::CBoss(float x, float y, float w, float h, CTexture* pt)
 
 void CBoss::Update()
 {
+	if (mInput.Key('6'))
+	{
+		mBossTime2 = 20;
+		mState = EState::EDAMAGE;
+	}
+	if (mBossTime4 != 10 && mInput.Key('0'))
+	{
+		mBossTime4 = 10;
+		sBEhp = sBEhp - 100;
+		mBossTime2 = 20;
+		mState = EState::EDAMAGE;
+	}
 	//CCharacter::Update();
 	switch (mState)
 	{
-	case EState::EDEATH: //死亡時
+	case EState::EMUTEKI:
+		break;
+	case EState::EDEATH://死亡時
+		if (mBossTime3 >= 0)
+		{
+			mBossTime3--;
+		}
+		if (mBossTime3 == 20)
+		{
+			if (mBVx < 0) { Texture(Texture(), BOSSDTL); }
+			if (mBVx > 0) { Texture(Texture(), BOSSDTR); }
+		}
+		if (mBossTime3 >= 0)
+		{
+
+		}
 		break;
 	case EState::ESTOP: //停止時、クールタイム間
 		break;
 	case EState::EATTACK: //攻撃時
 		break;
 	case EState::EDAMAGE: //ダメージ時
+		if (sBEhp <= 0)
+		{
+			mBossTime3 = 41;
+			mState = EState::EDEATH;
+		}
+		if (mBossTime2 >= 0)
+		{
+			mBossTime2--;
+		}
+		if (mBossTime2 == 10)
+		{
+			if (mBVx < 0) { Texture(Texture(), BOSSDAL); }
+			if (mBVx > 0) { Texture(Texture(), BOSSDAR); }
+		}
+		if (mBossTime2 == 0)
+		{
+			mBossTime4 = 0;
+			mState = EState::EMOVE;
+		}
 		break;
 	case EState::EBACK: //後飛
 		break;

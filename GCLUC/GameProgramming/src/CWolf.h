@@ -17,6 +17,7 @@ public:
 		EDAMAGE,	//ダメージ
 		EDEATH, //死亡
 		EATTACK,    //攻撃
+		EMUTEKI,
 	};
 protected:
 public:
@@ -45,6 +46,7 @@ private:
 	int mWolfTime; //攻撃のオオカミ用の時間
 	int mWolfTime2; //ダメージのオオカミ用の時間
 	int mWolfTime3; //死亡用のオオカミ用の時間
+	int mWolfTime4; //無敵用のオオカミ用の時間
 	EState mState; //状態
 	bool mEnabled; //消す
 	float mWVx;	//X軸速度
