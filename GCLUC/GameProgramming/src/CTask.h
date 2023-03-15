@@ -22,6 +22,13 @@ private:
 	int mpriority;   //優先度
 
 public:
+	enum class ETag
+	{
+		EZERO,
+		EPLAYER,
+		EENEMY,
+	};
+	ETag Tag();
 	//コンストラクタ
 	CTask(int priority);
 	//~デストラクタ
@@ -39,4 +46,10 @@ public:
 	virtual void Render() {};
 	//更新処理
 	virtual void Update() {};
+	//衝突処理
+	virtual void Collision(CTask* m, CTask* o) {}
+	//衝突処理2
+	virtual void Collision() {};
+protected:
+	ETag mTag;
 };
