@@ -13,13 +13,17 @@ private:
 	static int sStamina;        //プレイヤーのスタミナ
 
 	int mInvincible;            //無敵カウンタ
-	int mIdlingcount;           //アイドリングカウンタ 
+	int mIdlingcount;           //アニメーション用カウンタ(アイドリング)
+	int mJumpcount;             //アニメーション用カウンタ(ジャンプ)
+	int mMovecount;             //アニメーション用カウンタ(移動)
+	int mAttackcount;           //アニメーション用カウンタ(攻撃)
+
 	float mJumpY;               //プレイヤーのジャンプ時のY座標
 	CInput mInput;              //キー入力判定
 
 public:
 	//コンストラクタ
-    //CPlayer(X座標,Y座標,幅,高さ,テクスチャのポインタ)
+	//CPlayer(X座標,Y座標,幅,高さ,テクスチャのポインタ)
 	CPlayer(float x, float y, float w, float h, CTexture* pt);
 	//~デストラクタ
 	~CPlayer();
@@ -32,8 +36,4 @@ public:
 	static int Stamina();
 	//更新処理
 	void Update();
-
-
-	//HPを取得
-	static int Hp();
 };
