@@ -81,7 +81,7 @@ void CGame::Start()
 //	CApplication::CharacterManager()->Render();
 //	CCamera::End();
 	//UIˆ—
-//	mpUi->Hp(CPlayer::Hp());
+	mpUi->Hp(CPlayer::HP());
 	mpUi->Enemy(CEnemy2::Num());
 	mpUi->Render();
 	mpUi->Start();
@@ -119,7 +119,7 @@ void CGame::Update()
 	CCamera::End();
 	//UI
 	mpUi->Time(mTime++);
-	mpUi->Hp(CPlayer::Hp());
+	mpUi->Hp(CPlayer::HP());
 	mpUi->Enemy(CEnemy2::Num());
 	mpUi->Render();
 }
