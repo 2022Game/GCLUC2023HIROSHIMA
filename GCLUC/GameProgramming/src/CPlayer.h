@@ -8,9 +8,14 @@
 class CPlayer : public CCharacter
 {
 private:
-	//プレイヤーのインスタンス
-	static CPlayer* mpinstance;
-	CInput mInput;
+	static CPlayer* spinstance; //プレイヤーのインスタンス
+	static int sHp;             //プレイヤーのHP
+	static int sStamina;        //プレイヤーのスタミナ
+
+	int mInvincible;            //無敵カウンタ
+	int mIdlingcount;           //アイドリングカウンタ 
+	float mJumpY;               //プレイヤーのジャンプ時のY座標
+	CInput mInput;              //キー入力判定
 
 public:
 	//コンストラクタ
@@ -21,11 +26,13 @@ public:
 
 	//インスタンスのポインタの取得
 	static CPlayer* Instance();
-
+	//プレイヤーのHPを取得
+	static int HP();
+	//プレイヤーのスタミナを取得
+	static int Stamina();
 	//更新処理
 	void Update();
 
-	static int sHp;	//HP
 
 	//HPを取得
 	static int Hp();

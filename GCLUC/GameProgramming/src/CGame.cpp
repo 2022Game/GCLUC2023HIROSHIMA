@@ -12,8 +12,6 @@ CGame::CGame()
 	, mCdy(0)
 {
 	mpUi = new CUi();
-	//テクスチャの入力
-	CApplication::Texture()->Load(TEXTURE);
 }
 
 //デストラクタ
@@ -72,12 +70,13 @@ void CGame::Start()
 {
 	CTaskManager::Instance()->Update();
 	CTaskManager::Instance()-> Render();
+	mpBackGround = new CBackGround(640.0f, 400.0f, 640.0f, 400.0f, 0, 799, 0, 1279, CApplication::Texture3());
 //	CameraSet();
 	//ゲームの描画
 //	CApplication::CharacterManager()->Render();
 //	CCamera::End();
 	//UI処理
-	mpUi->Hp(CPlayer::Hp());
+	//mpUi->Hp(CPlayer::Hp());
 	mpUi->Enemy(CEnemy2::Num());
 	mpUi->Render();
 	mpUi->Start();
@@ -87,6 +86,7 @@ void CGame::Start()
 		mpPlayer = new CPlayer(TIPSIZE * 10, TIPSIZE * 5, TIPSIZE, TIPSIZE, CApplication::Texture());
 		mpEnemy2 = new CEnemy2(TIPSIZE * 20, TIPSIZE * 7, TIPSIZE, TIPSIZE, CApplication::Texture());
 		mpBackGround = new CBackGround(640.0f, 400.0f, 640.0f, 400.0f, 0, 1919, 1079, 0, CApplication::Texture3());
+		mpHeart = new CHeart(95.0f, 750.0f, 90.0f, 40.0f, 0, 210, 73, 0, CApplication::Texture100());
 	}
 }
 

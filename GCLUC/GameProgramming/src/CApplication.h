@@ -21,6 +21,7 @@ private:
 	{
 		ESTART,	//ゲーム開始
 		EPLAY,	//ゲーム中
+		ESTAGE1,
 		ECLEAR,	//ゲームクリア
 		EOVER,	//ゲームオーバー
 	};

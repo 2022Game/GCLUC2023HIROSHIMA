@@ -6,6 +6,8 @@
 #include "CBackGround.h"
 #include "CHeart.h"
 #include "CInput.h"
+#include "CSlime.h"
+#include "CWolf.h"
 
 //定数の定義
 #define TEXTURE "image.png"//テクスチャのファイル名
@@ -22,6 +24,8 @@ private:
 	CPlayer* mpPlayer; //プレイヤーのポインタ
 	CEnemy* mpEnemy;   //敵のポインタ
 	CEnemy2* mpEnemy2; //敵２のポインタ
+	CSlime* mpSlime;
+	CWolf* mpWolf;
 	CBackGround* mpBackGround;
 	CHeart* mpHeart;
 	CInput mInput;
@@ -49,6 +53,8 @@ public:
 
 	//スタート処理
 	void Start();
+	//Stage1
+	void Stage1();
 
 	//更新処理
 	void Update();

@@ -1,0 +1,270 @@
+#include "CWolf.h"
+#include "CApplication.h"
+
+//立ち絵
+#define WOLFNTL 2,200,196,12
+#define WOLFNTR 200,2,196,12
+//移動１
+#define WOLFMOVEL 1003,1188,184,18
+#define WOLFMOVER 1188,1003,184,18
+//移動２　//移動１の後に移動２を表示する
+#define WOLFMOVEL2 1210,1393,188,28
+#define WOLFMOVER2 1393,1210,188,28
+//ダメージ
+#define WOLFDAL 205,397,192,35
+#define WOLFDAR 397,205,192,35
+//攻撃前
+#define WOLFATL 801,996,196,23
+#define WOLFATR 996,801,196,23
+//攻撃１
+#define WOLFATL2 408,599,198,15
+#define WOLFATR2 598,408,198,15
+//攻撃２　//攻撃１の後に攻撃２を表示する
+#define WOLFATL3 608,797,198,15
+#define WOLFATR3 797,608,198,15
+//死亡
+#define WOLFDTL 1421,1593,194,27
+#define WOLFDTR 1593,1421,194,27
+
+#define WOLFHP 300 
+
+int CWolf::sWEhp = 0;
+
+int CWolf::sNum = 0;
+
+CWolf* CWolf::spInstance3 = nullptr;
+
+CWolf* CWolf::Instance3()
+{
+	return spInstance3;
+}
+
+int CWolf::WEhp()
+{
+	return sWEhp;
+}
+
+void CWolf::Num(int num)
+{
+	sNum = num;
+}
+
+int CWolf::Num()
+{
+	return sNum;
+}
+
+void CWolf::Collision()
+{
+	//CApplication::CharacterManager()->Collision(this);
+}
+
+void CWolf::Collision(CCharacter* m, CCharacter* o)
+{
+	////めり込み調整変数を宣言する
+	//float x, y;
+	//switch (o->Tag())
+	//{
+	//case ETag::ETURN:
+	//	//折り返しに当たった時
+	//	if (CRectangle::Collision(o, &x, &y))
+	//	{
+	//		//めり込まない位置まで戻す
+	//		X(X() + x);
+	//		Y(Y() + y);
+	//		//X軸速度を反転させる
+	//		mVx = -mVx;
+	//	}
+	//	break;
+	//case ETag::EENEMY:
+	//	break;
+	//case ETag::EPLAYER:
+	//	if (CRectangle::Collision(o))
+	//	{
+	//		if (o->State() == EState::EJUMP)
+	//		{
+	//			if (mState != EState::ECRY)
+	//			{
+	//				mSuraTime = 90;
+	//				sEHp--;
+	//			}
+	//			mState = EState::ECRY;
+	//		}
+	//	}
+	//	break;
+	//case ETag::EBLOCK:
+	//	if (CRectangle::Collision(o, &x, &y))
+	//	{
+	//		X(X() + x);
+	//		Y(Y() + y);
+	//		//着地した時
+	//		if (y != 0.0f)
+	//		{
+	//			//Y軸速度を0にする
+	//			mVy = 0.0f;
+	//			if (y > 0.0f)
+	//			{
+	//				if (mState != EState::ECRY && mState != EState::EDEATH)
+	//				{
+	//					mState = EState::EMOVE;
+	//				}
+	//			}
+	//		}
+	//	}
+	//	break;
+	//}
+}
+
+CWolf::CWolf(float x, float y, float w, float h, CTexture* pt)
+	: CCharacter((int)ETaskPriority::ECharacter)
+{
+	mTexture7.Load("子狼.png");
+	Set(x, y, w, h);
+	Texture(pt, WOLFMOVEL); //開始時の立ち絵
+	mState = EState::EMOVE;
+	sWEhp = WOLFHP; //オオカミのHP
+	//XとY軸速度の初期値を移動速度にする
+	mWVx = WOLFX;
+	mWVy = WOLFY;
+	spInstance3 = this;
+}
+
+void CWolf::Update()
+{
+	//テスト用入力キー
+	if (mInput.Key('1'))
+	{
+		mWolfTime2 = 41;
+		mState = EState::EATTACK;
+	}
+	if (mInput.Key('2'))
+	{
+		mWolfTime = 11;
+		mState = EState::EDAMAGE;
+	}
+	if (mInput.Key('3'))
+	{
+		mWolfTime3 = 21;
+		mState = EState::EDEATH;
+	}
+	switch (mState)
+	{
+	case EState::EDEATH: //死亡時
+		//HPが０になった数秒後に消滅させる
+		//テスト用
+		if (mWolfTime3 > 0)
+		{
+			mWolfTime3--;
+		}
+		if (mWolfTime3 == 20)
+		{
+			if (mWVx < 0) { Texture(Texture(), WOLFDAL); }
+			if (mWVx > 0) { Texture(Texture(), WOLFDAR); }
+		}
+		if (mWolfTime3 == 10)
+		{
+			if (mWVx < 0) { Texture(Texture(), WOLFDTL); }
+			if (mWVx > 0) { Texture(Texture(), WOLFDTR); }
+		}
+		if (mWolfTime3 == 0)
+		{
+		}
+		break;
+	case EState::ESTOP: //停止時、クールタイム間
+		break;
+	case EState::EATTACK: //攻撃時
+		if (mWolfTime2 > 0)
+		{
+			mWolfTime2--;
+		}
+		if (mWolfTime2 == 40)
+		{
+			if (mWVx < 0) { Texture(Texture(), WOLFATL); }
+			if (mWVx > 0) { Texture(Texture(), WOLFATR); }
+		}
+		if (mWolfTime2 == 20)
+		{
+			if (mWVx < 0) { Texture(Texture(), WOLFATL2); }
+			if (mWVx > 0) { Texture(Texture(), WOLFATR2); }
+		}
+		if (mWolfTime2 == 10)
+		{
+			if (mWVx < 0) { Texture(Texture(), WOLFATL3); }
+			if (mWVx > 0) { Texture(Texture(), WOLFATR3); }
+		}
+
+		if (mWolfTime2 == 0)
+		{
+			mState = EState::EMOVE;
+		}
+		break;
+	case EState::EDAMAGE: //ダメージ時
+		if (mWolfTime > 0)
+		{
+			mWolfTime--;
+		}
+		if (mWolfTime == 10)
+		{
+			if (mWVx < 0) { Texture(Texture(), WOLFDAL); }
+			if (mWVx > 0) { Texture(Texture(), WOLFDAR); }
+		}
+		if (mWolfTime == 0)
+		{
+			mState = EState::EMOVE;
+		}
+		break;
+	case EState::EMOVE:
+		//プレイヤーを追尾する
+		if (X() < CPlayer::Instance()->X())
+		{
+			if (mWVx < 0)
+				mWVx = -mWVx;
+		}
+		else
+		{
+			if (mWVx > 0)
+				mWVx = -mWVx;
+		}
+		if (Y() < CPlayer::Instance()->Y())
+		{
+			if (mWVy < 0)
+				mWVy = -mWVy;
+		}
+		else
+		{
+			if (mWVy > 0)
+				mWVy = -mWVy;
+		}
+		X(X() + mWVx);
+		Y(Y() + mWVy);
+		const int PITCH = 32;//画像を切り替える間隔
+		if ((int)X() % PITCH < PITCH / 2)
+		{
+			if (mWVx < 0)
+			{
+				Texture(Texture(), WOLFMOVEL);
+			}
+			else
+			{
+				Texture(Texture(), WOLFMOVER2);
+			}
+		}
+		else
+		{
+			if (mWVx > 0)
+			{
+				Texture(Texture(), WOLFMOVER);
+			}
+			else
+			{
+				Texture(Texture(), WOLFMOVEL2);
+			}
+		}
+	}
+}
+
+CTexture* CWolf::Texture7()
+{
+	return &mTexture7;
+}
+CTexture CWolf::mTexture7;
