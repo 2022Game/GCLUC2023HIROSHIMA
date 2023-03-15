@@ -131,6 +131,7 @@ CWolf::CWolf(float x, float y, float w, float h, CTexture* pt)
 
 void CWolf::Update()
 {
+	CCharacter::Update();
 	//テスト用入力キー
 	if (mInput.Key('1'))
 	{
