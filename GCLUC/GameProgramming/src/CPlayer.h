@@ -17,6 +17,8 @@ private:
 	int mJumpcount;             //アニメーション用カウンタ(ジャンプ)
 	int mMovecount;             //アニメーション用カウンタ(移動)
 	int mAttackcount;           //アニメーション用カウンタ(攻撃)
+	int mDamagecount;           //アニメーション用カウンタ(被弾)
+	int mDeathcount;            //アニメーション用カウンタ(死亡)
 
 	float mJumpY;               //プレイヤーのジャンプ時のY座標
 	CInput mInput;              //キー入力判定
@@ -34,6 +36,8 @@ public:
 	static int HP();
 	//プレイヤーのスタミナを取得
 	static int Stamina();
+	//プレイヤーの死亡カウンタを取得(アニメーション用)
+	int Death();
 	//更新処理
 	void Update();
 };
