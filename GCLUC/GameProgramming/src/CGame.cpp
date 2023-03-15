@@ -101,7 +101,7 @@ void CGame::Stage1()
 	mpPlayer = new CPlayer(TIPSIZE * 10, TIPSIZE * 5, TIPSIZE, TIPSIZE, CApplication::Texture());
 	mpSlime = new CSlime(TIPSIZE * 20, TIPSIZE * 7, TIPSIZE, TIPSIZE, CSlime::Texture6());
 	mpBackGround = new CBackGround(640.0f, 400.0f, 640.0f, 400.0f, 0, 1279, 719, 0, CApplication::Texture2());
-	mpHeart = new CHeart(95.0f, 750.0f, 90.0f, 40.0f, 0, 210, 73, 0, CApplication::Texture100());
+	//mpHeart = new CHeart(95.0f, 750.0f, 90.0f, 40.0f, 0, 49, 49, 0, CApplication::Texture100());
 }
 
 //XVˆ—
@@ -119,7 +119,7 @@ void CGame::Update()
 	CCamera::End();
 	//UI
 	mpUi->Time(mTime++);
-	//mpUi->Hp(CPlayer::Hp());
+	mpUi->Hp(CPlayer::Hp());
 	mpUi->Enemy(CEnemy2::Num());
 	mpUi->Render();
 }

@@ -34,7 +34,7 @@ void CUi::Over()
 //スタート表示
 void CUi::Start()
 {
-	mFont.Draw(36, 300, 18, 36, "START PUSH ENTER KEY!");
+	//mFont.Draw(36, 300, 18, 36, "START PUSH ENTER KEY!");
 }
 
 void CUi::Enemy(int enemy)
