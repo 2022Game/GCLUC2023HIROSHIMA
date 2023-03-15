@@ -62,20 +62,21 @@ void CWolf::Collision()
 void CWolf::Collision(CCharacter* m, CCharacter* o)
 {
 	////めり込み調整変数を宣言する
-	//float x, y;
-	//switch (o->Tag())
-	//{
-	//case ETag::ETURN:
-	//	//折り返しに当たった時
-	//	if (CRectangle::Collision(o, &x, &y))
-	//	{
-	//		//めり込まない位置まで戻す
-	//		X(X() + x);
-	//		Y(Y() + y);
-	//		//X軸速度を反転させる
-	//		mVx = -mVx;
-	//	}
-	//	break;
+	float x, y;
+	switch (o->Tag())
+	{
+	case ETag::EPLAYER:
+		//折り返しに当たった時
+		if (CRectangle::Collision(o, &x, &y))
+		{
+			//めり込まない位置まで戻す
+			X(X() + x);
+			Y(Y() + y);
+			//X軸速度を反転させる
+			//mVx = -mVx;
+		}
+		break;
+	}
 	//case ETag::EENEMY:
 	//	break;
 	//case ETag::EPLAYER:
@@ -122,11 +123,13 @@ CWolf::CWolf(float x, float y, float w, float h, CTexture* pt)
 	Set(x, y, w, h);
 	Texture(pt, WOLFMOVEL); //開始時の立ち絵
 	mState = EState::EMOVE;
+	mTag = ETag::EENEMY;
 	sWEhp = WOLFHP; //オオカミのHP
 	//XとY軸速度の初期値を移動速度にする
 	mWVx = WOLFX;
 	mWVy = WOLFY;
 	spInstance3 = this;
+	sNum++;
 }
 
 void CWolf::Update()
@@ -182,12 +185,13 @@ void CWolf::Update()
 		}
 		if (mWolfTime3 == 0)
 		{
+			sNum--;
 		}
 		break;
 	case EState::ESTOP: //停止時、クールタイム間
 		break;
 	case EState::EATTACK: //攻撃時
-		if (mWolfTime2 > 0)
+		if (mWolfTime2 >= 0)
 		{
 			mWolfTime2--;
 		}
