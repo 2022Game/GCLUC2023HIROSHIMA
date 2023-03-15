@@ -1,4 +1,5 @@
 #include "CTaskManager.h"
+#include "CCharacter.h"
 
 CTaskManager* CTaskManager::spinstance = nullptr;
 
@@ -151,7 +152,7 @@ void CTaskManager::Collision()
 		tugi = next->mpnext;
 		while (tugi != nullptr)
 		{
-			next->Collision(next,tugi);
+			next->Collision(((CCharacter*)next),(CCharacter*)tugi);
 			tugi = tugi->mpnext;
 		}
 		next = next->mpnext;
@@ -162,8 +163,8 @@ void CTaskManager::Collision()
 
 void CTaskManager::Collision(CTask* task)
 {
-	for (size_t i = 0; i < mpTasks.size(); i++)
+	/*for (size_t i = 0; i < mpTasks.size(); i++)
 	{
 		task->Collision(task, mpTasks[i]);
-	}
+	}*/
 }

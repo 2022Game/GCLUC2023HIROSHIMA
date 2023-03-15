@@ -2,6 +2,7 @@
 #include<string>
  
 class CTaskManager;
+class CCharacter;
 
 enum class ETaskPriority
 {
@@ -47,7 +48,7 @@ public:
 	//XVˆ—
 	virtual void Update() {};
 	//Õ“Ëˆ—
-	virtual void Collision(CTask* m, CTask* o) {}
+	virtual void Collision(CCharacter* m, CCharacter* o) {}
 	//Õ“Ëˆ—2
 	virtual void Collision() {};
 protected:
