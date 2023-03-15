@@ -7,6 +7,7 @@ CTask::CTask(int priority)
 	: mpprev(nullptr)
 	, mpnext(nullptr)
 	, mpriority(priority)
+	, mTag(ETag::EZERO)
 {
 	CTaskManager::Instance()->Add(this);
 }
@@ -37,3 +38,11 @@ void CTask::Delete()
 {
 	CTaskManager::Instance()->Delete(this);
 }
+CTask::ETag CTask::Tag()
+{
+	return mTag;
+}
+//CTask::ETag CTask::Tag()
+//{
+//	return mTag;
+//}
