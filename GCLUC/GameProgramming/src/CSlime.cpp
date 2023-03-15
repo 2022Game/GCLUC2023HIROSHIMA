@@ -6,8 +6,8 @@
 #define SLIMENTL 37,163,176,63
 #define SLIMENTR 163,37,176,63
 //ジャンプ
-#define SLIMEJPL 629,775,169,29
-#define SLIMEJPR 775,629,169,29
+#define SLIMEJPL 629,775,189,29
+#define SLIMEJPR 775,629,189,29
 //降下
 #define SLIMEDWL 1036,1175,170,5
 #define SLIMEDWR 1175,1036,170,5
@@ -138,6 +138,7 @@ CSlime::CSlime(float x, float y, float w, float h, CTexture* pt)
 
 void CSlime::Update()
 {
+	CCharacter::Update();
 	//テスト用入力キー
 	if (mInput.Key('4'))
 	{
