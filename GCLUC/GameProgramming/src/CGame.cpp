@@ -10,6 +10,7 @@ CGame::CGame()
 	, mTime(0)
 	, mCdx(0)
 	, mCdy(0)
+	, mH(0)
 {
 	mpUi = new CUi();
 }
@@ -70,7 +71,11 @@ void CGame::Start()
 {
 	CTaskManager::Instance()->Update();
 	CTaskManager::Instance()-> Render();
-	mpBackGround = new CBackGround(640.0f, 400.0f, 640.0f, 400.0f, 0, 799, 0, 1279, CApplication::Texture3());
+	if (mH == 0)
+	{
+		mpBackGround = new CBackGround(640.0f, 400.0f, 640.0f, 400.0f, 0, 1279, 799, 0, CApplication::Texture3());
+		mH = 1;
+	}
 //	CameraSet();
 	//ƒQ[ƒ€‚Ì•`‰æ
 //	CApplication::CharacterManager()->Render();
