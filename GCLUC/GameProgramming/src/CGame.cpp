@@ -11,6 +11,7 @@ CGame::CGame()
 	, mCdx(0)
 	, mCdy(0)
 	, mH(0)
+	, mCt(0)
 {
 	mpUi = new CUi();
 }
@@ -118,7 +119,12 @@ void CGame::Update()
 	CameraSet();
 	CCamera::End();
 	//UI
-	mpUi->Time(mTime++);
+	mCt++;
+	if (mCt == 60)
+	{
+		mpUi->Time(mTime++);
+		mCt = 0;
+	}
 	mpUi->Hp(CPlayer::HP());
 	mpUi->Enemy(CEnemy2::Num());
 	mpUi->Render();

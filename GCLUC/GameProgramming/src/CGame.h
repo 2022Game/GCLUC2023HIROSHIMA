@@ -34,6 +34,7 @@ private:
 	void CameraSet();  //カメラ設定
 	int mTime; //経過時間
 	int mH;
+	int mCt;
 	CUi* mpUi;         //UIクラスのポインタ
 
 public:
