@@ -68,21 +68,22 @@ void CSlime::Collision()
 
 void CSlime::Collision(CCharacter* m, CCharacter* o)
 {
-	////めり込み調整変数を宣言する
-	//float x, y;
-	//switch (o->Tag())
-	//{
-	//case ETag::ETURN:
-	//	//折り返しに当たった時
-	//	if (CRectangle::Collision(o, &x, &y))
-	//	{
-	//		//めり込まない位置まで戻す
-	//		X(X() + x);
-	//		Y(Y() + y);
-	//		//X軸速度を反転させる
-	//		mVx = -mVx;
-	//	}
-	//	break;
+	//めり込み調整変数を宣言する
+	float x, y;
+	switch (o->Tag())
+	{
+	case ETag::EPLAYER:
+		//折り返しに当たった時
+		if (CRectangle::Collision(o, &x, &y))
+		{
+			//めり込まない位置まで戻す
+			X(X() + x);
+			Y(Y() + y);
+			//X軸速度を反転させる
+			mVx = -mVx;
+		}
+		break;
+	}
 	//case ETag::EENEMY:
 	//	break;
 	//case ETag::EPLAYER:
@@ -129,11 +130,13 @@ CSlime::CSlime(float x, float y, float w, float h, CTexture* pt)
 	Set(x, y, w, h);
 	Texture(pt, SLIMENTL); //テスト用の開始時の立ち絵
 	mState = EState::EMOVE;
+	mTag = ETag::EENEMY;
 	sSEhp = SLIMEHP;
 	//XとY軸速度の初期値を移動速度にする
 	mSVx = SLIMEX;
 	mSVy = SLIMEY;
 	spInstance2 = this;
+	sNum++;
 }
 
 void CSlime::Update()
@@ -167,7 +170,7 @@ void CSlime::Update()
 		//mVy -= GRAVITY;
 		//ここのスライムタイムはテスト用。の
 		//後に死亡用とダメージ用に別々にする
-		if (mSlimeTime4 > 0)
+		if (mSlimeTime4 >= 0)
 		{
 			mSlimeTime4--;
 		}
@@ -198,6 +201,7 @@ void CSlime::Update()
 		}
 		if (mSlimeTime4 == 0)
 		{
+			sNum--;
 		}
 		break;
 	case EState::ESTOP: //停止時、クールタイム間
