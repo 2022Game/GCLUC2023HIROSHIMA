@@ -16,7 +16,7 @@
 #define BOSSDTL 1206,1796,433,133
 #define BOSSDTR 1796,1206,433,133
 
-#define BOSSHP 300
+#define BOSSHP 1300
 
 int CBoss::sBEhp = 0;
 
@@ -54,56 +54,19 @@ void CBoss::Collision(CCharacter* m, CCharacter* o)
 	//めり込み調整変数を宣言する
 	float x, y;
 	switch (o->Tag())
-	{
+		if (mState != EState::EDEATH)
+		{
 	case ETag::EPLAYER:
-		//折り返しに当たった時
 		if (CRectangle::Collision(o, &x, &y))
 		{
-			//めり込まない位置まで戻す
-			X(X() + x);
-			Y(Y() + y);
-			//X軸速度を反転させる
-			mVx = -mVx;
+			if (mBossTime3 <= 0)
+			{
+				mBossTime3 = 61;
+				mState = EState::EATTACK;
+			}
 		}
 		break;
-	}
-	//case ETag::EENEMY:
-	//	break;
-	//case ETag::EPLAYER:
-	//	if (CRectangle::Collision(o))
-	//	{
-	//		if (o->State() == EState::EJUMP)
-	//		{
-	//			if (mState != EState::ECRY)
-	//			{
-	//				mSuraTime = 90;
-	//				sEHp--;
-	//			}
-	//			mState = EState::ECRY;
-	//		}
-	//	}
-	//	break;
-	//case ETag::EBLOCK:
-	//	if (CRectangle::Collision(o, &x, &y))
-	//	{
-	//		X(X() + x);
-	//		Y(Y() + y);
-	//		//着地した時
-	//		if (y != 0.0f)
-	//		{
-	//			//Y軸速度を0にする
-	//			mVy = 0.0f;
-	//			if (y > 0.0f)
-	//			{
-	//				if (mState != EState::ECRY && mState != EState::EDEATH)
-	//				{
-	//					mState = EState::EMOVE;
-	//				}
-	//			}
-	//		}
-	//	}
-	//	break;
-	//}
+		}
 }
 
 CBoss::CBoss(float x, float y, float w, float h, CTexture* pt)
@@ -146,7 +109,7 @@ void CBoss::Update()
 		{
 			mBossTime3--;
 		}
-		if (mBossTime3 == 20)
+		if (mBossTime3 == 60)
 		{
 			if (mBVx < 0) { Texture(Texture(), BOSSDTL); }
 			if (mBVx > 0) { Texture(Texture(), BOSSDTR); }
@@ -163,7 +126,7 @@ void CBoss::Update()
 	case EState::EDAMAGE: //ダメージ時
 		if (sBEhp <= 0)
 		{
-			mBossTime3 = 41;
+			mBossTime3 = 61;
 			mState = EState::EDEATH;
 		}
 		if (mBossTime2 >= 0)
