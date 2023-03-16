@@ -1,6 +1,7 @@
 #pragma once
 #include "CFont.h"
 #include "CHeart.h"
+#include "CStamina.h"
 /*
 * CUi
 * ユーザーインタフェースクラス
