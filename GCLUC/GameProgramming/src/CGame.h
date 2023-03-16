@@ -11,7 +11,7 @@
 
 //定数の定義
 #define TEXTURE "image.png"//テクスチャのファイル名
-#define TIPSIZE 40.0f //基本サイズ
+#define TIPSIZE 80.0f //基本サイズ
 /*
 * CGameクラス
 * ゲームクラス

@@ -1,10 +1,13 @@
 #pragma once
 #include "CCharacter.h"
 #include "CCharacterManager.h"
-class CHeart : public CCharacter
+class CHeart : public CRectangle
 {
 protected:
 public:
-	CHeart::CHeart(float x, float y, float w, float h, float l, float r, float b, float t, CTexture* pt);
+	CHeart(float x, float y, float w, float h, CTexture* pt);
+	int mLeft, mRight, mBottom, mTop;
+	CTexture* mpTexture;
 	void Update();
+	void Render();
 };

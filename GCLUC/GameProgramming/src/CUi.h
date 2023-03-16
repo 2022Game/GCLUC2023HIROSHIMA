@@ -8,12 +8,11 @@
 class CUi:public CRectangle
 {
 private:
-	CHeart* mpHeart;
+	CHeart mHeart;
 	int mEnemy;	//敵の数
 	int mHp;    //プレイヤーのHP
 	int mTime;	//経過時間
 	CFont mFont;
-
 public:
 	CTexture mTexture100;
 	//コンストラクタ

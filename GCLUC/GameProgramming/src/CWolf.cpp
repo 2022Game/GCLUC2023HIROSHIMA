@@ -181,17 +181,17 @@ void CWolf::Update()
 		if (mWolfTime2 == 40)
 		{
 			if (mWVx < 0) { Texture(Texture(), WOLFATL); }
-			if (mWVx > 0) { Texture(Texture(), WOLFATR); }
+			if (mWVx >= 0) { Texture(Texture(), WOLFATR); }
 		}
 		if (mWolfTime2 == 20)
 		{
 			if (mWVx < 0) { Texture(Texture(), WOLFATL2); }
-			if (mWVx > 0) { Texture(Texture(), WOLFATR2); }
+			if (mWVx >= 0) { Texture(Texture(), WOLFATR2); }
 		}
 		if (mWolfTime2 == 10)
 		{
 			if (mWVx < 0) { Texture(Texture(), WOLFATL3); }
-			if (mWVx > 0) { Texture(Texture(), WOLFATR3); }
+			if (mWVx >= 0) { Texture(Texture(), WOLFATR3); }
 		}
 
 		if (mWolfTime2 == 0)

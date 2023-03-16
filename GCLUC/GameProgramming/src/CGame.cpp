@@ -108,6 +108,7 @@ void CGame::Stage1()
 //更新処理
 void CGame::Update()
 {
+	mpUi->Hp(CPlayer::HP());
 	//更新、衝突、削除、描画
 	//CApplication::CharacterManager()->Update();
 	//CApplication::CharacterManager()->Collision();
@@ -125,7 +126,6 @@ void CGame::Update()
 		mpUi->Time(mTime++);
 		mCt = 0;
 	}
-	mpUi->Hp(CPlayer::HP());
 	mpUi->Enemy(CEnemy2::Num());
 	mpUi->Render();
 }
