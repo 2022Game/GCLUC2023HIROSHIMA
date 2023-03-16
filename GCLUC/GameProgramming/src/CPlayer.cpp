@@ -303,4 +303,8 @@ void CPlayer::Update()
 	}
 
 	CCharacter::Update();
+	if (mInput.Key('X'))
+	{
+		sHp--;
+	}
 }
