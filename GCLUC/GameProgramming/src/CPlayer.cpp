@@ -19,6 +19,7 @@ CPlayer::CPlayer(float x, float y, float w, float h, CTexture* pt)
 	: CCharacter((int)ETaskPriority::ECharacter)
 	, mInvincible(0)
 	, mAnimationCount(0)
+	, mDeathCount(0)
 	, mJumpY(0.0f)
 	, mpMagicBullet(nullptr)
 {
@@ -57,7 +58,7 @@ int CPlayer::Stamina()
 //死亡カウンタを取得
 int CPlayer::DeathCount()
 {
-	return mDeathcount;
+	return mDeathCount;
 }
 
 //更新処理
@@ -241,18 +242,20 @@ void CPlayer::Idling()
 	if (mInput.Key('W') || mInput.Key('A') ||
 		mInput.Key('S') || mInput.Key('D'))
 	{
-		mAnimationCount = 0;
 		mState = EState::EMOVE;
+		mAnimationCount = 0;
 	}
 	if (mInput.Key('K'))
 	{
-		mAnimationCount = 0;
 		mState = EState::EATTACK;
+		mAnimationCount = 0;
 	}
 	if (mInput.Key('J'))
 	{
-		mAnimationCount = 0;
+		mJumpY = Y();
+		mVy = JUMPV0;
 		mState = EState::EJUMP;
+		mAnimationCount = 0;
 	}
 }
 

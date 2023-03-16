@@ -16,7 +16,7 @@ private:
 
 	int mInvincible;             //無敵カウンタ
 	int mAnimationCount;         //アニメーションカウンタ
-	int mDeathcount;
+	int mDeathCount;             //死亡時のアニメーション用
 
 	float mJumpY;                //プレイヤーのジャンプ時のY座標
 	CInput mInput;               //キー入力判定
