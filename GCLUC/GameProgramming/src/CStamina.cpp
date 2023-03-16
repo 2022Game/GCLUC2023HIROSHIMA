@@ -5,9 +5,19 @@ void CStamina::Update()
 {
 }
 
-CStamina::CStamina(float x, float y, float w, float h, float l, float r, float b, float t, CTexture* pt)
-	: CCharacter((int)ETaskPriority::EUI)
+CStamina::CStamina(float x, float y, float w, float h, CTexture* pt)
+
 {
 	Set(x, y, w, h);
-	Texture(pt, l, r, b, t);
+	mpTexture = pt;
+}
+
+void CStamina::Render()
+{
+	mpTexture->DrawImage(
+		X() - W(),
+		X() + W(),
+		Y() - H(),
+		Y() + H(),
+		mLeft, mRight, mBottom, mTop);
 }

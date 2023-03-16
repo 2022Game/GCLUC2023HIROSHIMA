@@ -115,3 +115,9 @@ CTexture* CApplication::Texture100()
 {
 	return &mTexture100;
 }
+
+CTexture CApplication::mTexture101;
+CTexture* CApplication::Texture101()
+{
+	return &mTexture101;
+}

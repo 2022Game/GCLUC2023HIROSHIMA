@@ -1,10 +1,14 @@
 #pragma once
 #include "CCharacter.h"
+#include "CCharacterManager.h"
 
-class CStamina : public CCharacter
+class CStamina : public CRectangle
 {
 protected:
 public:
-	CStamina::CStamina(float x, float y, float w, float h, float l, float r, float b, float t, CTexture* pt);
+	CStamina(float x, float y, float w, float h, CTexture* pt);
+	int mLeft, mRight, mBottom, mTop;
+	CTexture* mpTexture;
 	void Update();
+	void Render();
 };

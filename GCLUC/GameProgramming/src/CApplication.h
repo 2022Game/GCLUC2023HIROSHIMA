@@ -12,6 +12,7 @@
 #include "CSound.h"
 #include "CBackGround.h"
 #include "CHeart.h"
+#include "CStamina.h"
 
 
 class CApplication
@@ -40,6 +41,7 @@ private:
 	static CTexture mTexture4; //ゲームオーバー画面テクスチャ
 	static CTexture mTexture5; //ゲームクリア画面テクスチャ
 	static CTexture mTexture100; //ハート表示テクスチャ
+	static CTexture mTexture101; //スタミナ表示テクスチャ
 
 public:
 	static CTexture* Texture();
@@ -48,6 +50,7 @@ public:
 	static CTexture* Texture4();
 	static CTexture* Texture5();
 	static CTexture* Texture100();
+	static CTexture* Texture101();
 	//最初に一度だけ実行するプログラム
 	void Start();
 	//繰り返し実行するプログラム
