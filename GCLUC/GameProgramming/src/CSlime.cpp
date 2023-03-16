@@ -71,13 +71,13 @@ void CSlime::Collision()
 void CSlime::Collision(CCharacter* m, CCharacter* o)
 {
 	//‚ß‚èž‚Ý’²®•Ï”‚ðéŒ¾‚·‚é
-	float x, y,z;
+	float x, y;
 	switch (o->Tag())
 	{
 		if (mState != EState::EDEATH)
 		{
 	case ETag::EPLAYER:
-		if (CRectangle::Collision(o, &x,&z))
+		if (CRectangle::Collision(o, &x,&y))
 		{
 				if (mSlimeTime3 <= 0)
 				{
@@ -103,6 +103,24 @@ void CSlime::Collision(CCharacter* m, CCharacter* o)
 		//			}
 		//		}
 		//	}
+		break;
+		//case ETag::EDAGEKI: //‰¼‚Ì‘ÅŒ‚
+	//	if (CRectangle::Collision(o, &x, &y))
+	//	{
+	//		if (mWolfInvincible != 10)
+	//		{
+	//			mWolfInvincible = 10;
+	//			if (mState != EState::EDAMAGE)
+	//			{
+	//				mWolfTime = 31;
+	//				sWEhp = sWEhp - 25;
+	//				if (mState != EState::EATTACK)
+	//				{
+	//					mState = EState::EDAMAGE;
+	//				}
+	//			}
+	//		}
+	//	}
 		}
 	}
 }

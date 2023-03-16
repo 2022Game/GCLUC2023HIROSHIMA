@@ -70,7 +70,6 @@ void CWolf::Collision(CCharacter* m, CCharacter* o)
 		if (mState != EState::EDEATH)
 		{
 	case ETag::EPLAYER:
-		//ê‹ÇËï‘ÇµÇ…ìñÇΩÇ¡ÇΩéû
 		if (CRectangle::Collision(o, &x, &y))
 		{
 			if (mWolfTime2 <= 0)
@@ -90,6 +89,24 @@ void CWolf::Collision(CCharacter* m, CCharacter* o)
 	//			{
 	//				mWolfTime = 31;
 	//				sWEhp = sWEhp - 100;
+	//				if (mState != EState::EATTACK)
+	//				{
+	//					mState = EState::EDAMAGE;
+	//				}
+	//			}
+	//		}
+	//	}
+		break;
+		//case ETag::EDAGEKI: //âºÇÃë≈åÇ
+	//	if (CRectangle::Collision(o, &x, &y))
+	//	{
+	//		if (mWolfInvincible != 10)
+	//		{
+	//			mWolfInvincible = 10;
+	//			if (mState != EState::EDAMAGE)
+	//			{
+	//				mWolfTime = 31;
+	//				sWEhp = sWEhp - 25;
 	//				if (mState != EState::EATTACK)
 	//				{
 	//					mState = EState::EDAMAGE;
