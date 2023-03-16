@@ -2,6 +2,7 @@
 #include<string>
  
 class CTaskManager;
+class CCharacter;
 
 enum class ETaskPriority
 {
@@ -22,6 +23,13 @@ private:
 	int mpriority;   //優先度
 
 public:
+	enum class ETag
+	{
+		EZERO,
+		EPLAYER,
+		EENEMY,
+	};
+	ETag Tag();
 	//コンストラクタ
 	CTask(int priority);
 	//~デストラクタ
@@ -39,4 +47,10 @@ public:
 	virtual void Render() {};
 	//更新処理
 	virtual void Update() {};
+	//衝突処理
+	virtual void Collision(CCharacter* m, CCharacter* o) {}
+	//衝突処理2
+	virtual void Collision() {};
+protected:
+	ETag mTag;
 };

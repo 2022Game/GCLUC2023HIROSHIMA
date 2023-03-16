@@ -62,20 +62,21 @@ void CWolf::Collision()
 void CWolf::Collision(CCharacter* m, CCharacter* o)
 {
 	////めり込み調整変数を宣言する
-	//float x, y;
-	//switch (o->Tag())
-	//{
-	//case ETag::ETURN:
-	//	//折り返しに当たった時
-	//	if (CRectangle::Collision(o, &x, &y))
-	//	{
-	//		//めり込まない位置まで戻す
-	//		X(X() + x);
-	//		Y(Y() + y);
-	//		//X軸速度を反転させる
-	//		mVx = -mVx;
-	//	}
-	//	break;
+	float x, y;
+	switch (o->Tag())
+	{
+	case ETag::EPLAYER:
+		//折り返しに当たった時
+		if (CRectangle::Collision(o, &x, &y))
+		{
+			//めり込まない位置まで戻す
+			X(X() + x);
+			Y(Y() + y);
+			//X軸速度を反転させる
+			//mVx = -mVx;
+		}
+		break;
+	}
 	//case ETag::EENEMY:
 	//	break;
 	//case ETag::EPLAYER:
@@ -122,11 +123,13 @@ CWolf::CWolf(float x, float y, float w, float h, CTexture* pt)
 	Set(x, y, w, h);
 	Texture(pt, WOLFMOVEL); //開始時の立ち絵
 	mState = EState::EMOVE;
+	mTag = ETag::EENEMY;
 	sWEhp = WOLFHP; //オオカミのHP
 	//XとY軸速度の初期値を移動速度にする
 	mWVx = WOLFX;
 	mWVy = WOLFY;
 	spInstance3 = this;
+	sNum++;
 }
 
 void CWolf::Update()
@@ -148,12 +151,25 @@ void CWolf::Update()
 		mWolfTime3 = 21;
 		mState = EState::EDEATH;
 	}
+
+	if (mWolfTime4 != 10 && mInput.Key('9'))
+	{
+		mWolfTime4 = 10;
+		if (mState != EState::EDAMAGE)
+		{
+			mWolfTime = 11;
+			sWEhp = sWEhp - 100;
+			mState = EState::EDAMAGE;
+		}
+	}
 	switch (mState)
 	{
+	case EState::EMUTEKI:
+		break;
 	case EState::EDEATH: //死亡時
 		//HPが０になった数秒後に消滅させる
 		//テスト用
-		if (mWolfTime3 > 0)
+		if (mWolfTime3 >= 0)
 		{
 			mWolfTime3--;
 		}
@@ -169,12 +185,13 @@ void CWolf::Update()
 		}
 		if (mWolfTime3 == 0)
 		{
+			sNum--;
 		}
 		break;
 	case EState::ESTOP: //停止時、クールタイム間
 		break;
 	case EState::EATTACK: //攻撃時
-		if (mWolfTime2 > 0)
+		if (mWolfTime2 >= 0)
 		{
 			mWolfTime2--;
 		}
@@ -200,6 +217,11 @@ void CWolf::Update()
 		}
 		break;
 	case EState::EDAMAGE: //ダメージ時
+		if (sWEhp == 0)
+		{
+			mWolfTime3 = 21;
+			mState = EState::EDEATH;
+		}
 		if (mWolfTime > 0)
 		{
 			mWolfTime--;
@@ -211,11 +233,13 @@ void CWolf::Update()
 		}
 		if (mWolfTime == 0)
 		{
+			mWolfTime4 = 0; //テスト用
 			mState = EState::EMOVE;
 		}
 		break;
 	case EState::EMOVE:
 		//プレイヤーを追尾する
+		X(X() + mWVx);
 		if (X() < CPlayer::Instance()->X())
 		{
 			if (mWVx < 0)
@@ -226,18 +250,24 @@ void CWolf::Update()
 			if (mWVx > 0)
 				mWVx = -mWVx;
 		}
-		if (Y() < CPlayer::Instance()->Y())
+		if (Instance3()->Y() != CPlayer::Instance()->Y())
 		{
-			if (mWVy < 0)
-				mWVy = -mWVy;
+			Y(Y() + mWVy);
+			if (Y() < CPlayer::Instance()->Y())
+			{
+				if (mWVy < 0)
+					mWVy = -mWVy;
+			}
+			else
+			{
+				if (mWVy > 0)
+					mWVy = -mWVy;
+			}
 		}
-		else
+		/*if (Instance3()->Y() == CPlayer::Instance()->Y())
 		{
-			if (mWVy > 0)
-				mWVy = -mWVy;
-		}
-		X(X() + mWVx);
-		Y(Y() + mWVy);
+			Y(0);
+		}*/
 		const int PITCH = 32;//画像を切り替える間隔
 		if ((int)X() % PITCH < PITCH / 2)
 		{

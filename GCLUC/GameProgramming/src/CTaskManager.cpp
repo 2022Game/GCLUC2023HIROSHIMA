@@ -1,4 +1,5 @@
 #include "CTaskManager.h"
+#include "CCharacter.h"
 
 CTaskManager* CTaskManager::spinstance = nullptr;
 
@@ -139,4 +140,31 @@ void CTaskManager::Update()
 		next->Update();
 		next = next->mpnext;
 	}
+}
+
+//Õ“Ëˆ—1
+void CTaskManager::Collision()
+{
+	CTask* next = mhead;
+	CTask* tugi;
+	while (next != nullptr)
+	{
+		tugi = next->mpnext;
+		while (tugi != nullptr)
+		{
+			next->Collision(((CCharacter*)next),(CCharacter*)tugi);
+			tugi = tugi->mpnext;
+		}
+		next = next->mpnext;
+	}
+}
+
+//Õ“Ëˆ—3
+
+void CTaskManager::Collision(CTask* task)
+{
+	/*for (size_t i = 0; i < mpTasks.size(); i++)
+	{
+		task->Collision(task, mpTasks[i]);
+	}*/
 }

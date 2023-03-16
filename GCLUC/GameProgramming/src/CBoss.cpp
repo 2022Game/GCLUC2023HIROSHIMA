@@ -16,7 +16,7 @@
 #define BOSSDTL 1206,1796,433,133
 #define BOSSDTR 1796,1206,433,133
 
-#define BOSSHP 100
+#define BOSSHP 300
 
 int CBoss::sBEhp = 0;
 
@@ -51,21 +51,22 @@ void CBoss::Collision()
 
 void CBoss::Collision(CCharacter* m, CCharacter* o)
 {
-	////めり込み調整変数を宣言する
-	//float x, y;
-	//switch (o->Tag())
-	//{
-	//case ETag::ETURN:
-	//	//折り返しに当たった時
-	//	if (CRectangle::Collision(o, &x, &y))
-	//	{
-	//		//めり込まない位置まで戻す
-	//		X(X() + x);
-	//		Y(Y() + y);
-	//		//X軸速度を反転させる
-	//		mVx = -mVx;
-	//	}
-	//	break;
+	//めり込み調整変数を宣言する
+	float x, y;
+	switch (o->Tag())
+	{
+	case ETag::EPLAYER:
+		//折り返しに当たった時
+		if (CRectangle::Collision(o, &x, &y))
+		{
+			//めり込まない位置まで戻す
+			X(X() + x);
+			Y(Y() + y);
+			//X軸速度を反転させる
+			mVx = -mVx;
+		}
+		break;
+	}
 	//case ETag::EENEMY:
 	//	break;
 	//case ETag::EPLAYER:
@@ -112,25 +113,73 @@ CBoss::CBoss(float x, float y, float w, float h, CTexture* pt)
 	Set(x, y, w, h);
 	Texture(pt, BOSSNTL);
 	mState = EState::EMOVE;
+	mTag = ETag::EENEMY;
 	sBEhp = BOSSHP;
 	//XとY軸速度の初期値を移動速度にする
 	mBVx = BOSSX;
 	mBVy = BOSSY;
 	spInstance4 = this;
+	sNum++;
 }
 
 void CBoss::Update()
 {
+	if (mInput.Key('6'))
+	{
+		mBossTime2 = 20;
+		mState = EState::EDAMAGE;
+	}
+	if (mBossTime4 != 10 && mInput.Key('0'))
+	{
+		mBossTime4 = 10;
+		sBEhp = sBEhp - 100;
+		mBossTime2 = 20;
+		mState = EState::EDAMAGE;
+	}
 	//CCharacter::Update();
 	switch (mState)
 	{
-	case EState::EDEATH: //死亡時
+	case EState::EMUTEKI:
+		break;
+	case EState::EDEATH://死亡時
+		if (mBossTime3 >= 0)
+		{
+			mBossTime3--;
+		}
+		if (mBossTime3 == 20)
+		{
+			if (mBVx < 0) { Texture(Texture(), BOSSDTL); }
+			if (mBVx > 0) { Texture(Texture(), BOSSDTR); }
+		}
+		if (mBossTime3 == 0)
+		{
+			sNum--;
+		}
 		break;
 	case EState::ESTOP: //停止時、クールタイム間
 		break;
 	case EState::EATTACK: //攻撃時
 		break;
 	case EState::EDAMAGE: //ダメージ時
+		if (sBEhp <= 0)
+		{
+			mBossTime3 = 41;
+			mState = EState::EDEATH;
+		}
+		if (mBossTime2 >= 0)
+		{
+			mBossTime2--;
+		}
+		if (mBossTime2 == 10)
+		{
+			if (mBVx < 0) { Texture(Texture(), BOSSDAL); }
+			if (mBVx > 0) { Texture(Texture(), BOSSDAR); }
+		}
+		if (mBossTime2 == 0)
+		{
+			mBossTime4 = 0;
+			mState = EState::EMOVE;
+		}
 		break;
 	case EState::EBACK: //後飛
 		break;

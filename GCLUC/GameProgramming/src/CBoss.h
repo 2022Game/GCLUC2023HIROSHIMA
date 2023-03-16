@@ -17,6 +17,7 @@ public:
 		EDEATH, //死亡
 		EBACK, //後ろへ
 		EATTACK,    //攻撃
+		EMUTEKI,
 	};
 protected:
 public:
@@ -45,6 +46,7 @@ private:
 	int mBossTime; //攻撃のボス用の時間
 	int mBossTime2; //ダメージのボス用の時間
 	int mBossTime3; //死亡のボス用の時間
+	int mBossTime4; //無敵用のボス用の時間
 	EState mState; //状態
 	bool mEnabled; //消す
 	float mBVx;	//X軸速度

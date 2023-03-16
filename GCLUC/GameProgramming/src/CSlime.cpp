@@ -33,7 +33,7 @@
 #define GRAVITY2 (TIPSIZE / 120.0f)//重力加速度
 #define JUMPV0 (TIPSIZE / 8.0f)	//ジャンプの初速
 
-#define SLIMEHP 100 //スライムのHP
+#define SLIMEHP 300 //スライムのHP
 
 int CSlime::sSEhp = 0;
 
@@ -68,21 +68,22 @@ void CSlime::Collision()
 
 void CSlime::Collision(CCharacter* m, CCharacter* o)
 {
-	////めり込み調整変数を宣言する
-	//float x, y;
-	//switch (o->Tag())
-	//{
-	//case ETag::ETURN:
-	//	//折り返しに当たった時
-	//	if (CRectangle::Collision(o, &x, &y))
-	//	{
-	//		//めり込まない位置まで戻す
-	//		X(X() + x);
-	//		Y(Y() + y);
-	//		//X軸速度を反転させる
-	//		mVx = -mVx;
-	//	}
-	//	break;
+	//めり込み調整変数を宣言する
+	float x, y;
+	switch (o->Tag())
+	{
+	case ETag::EPLAYER:
+		//折り返しに当たった時
+		if (CRectangle::Collision(o, &x, &y))
+		{
+			//めり込まない位置まで戻す
+			X(X() + x);
+			Y(Y() + y);
+			//X軸速度を反転させる
+			mVx = -mVx;
+		}
+		break;
+	}
 	//case ETag::EENEMY:
 	//	break;
 	//case ETag::EPLAYER:
@@ -129,11 +130,13 @@ CSlime::CSlime(float x, float y, float w, float h, CTexture* pt)
 	Set(x, y, w, h);
 	Texture(pt, SLIMENTL); //テスト用の開始時の立ち絵
 	mState = EState::EMOVE;
+	mTag = ETag::EENEMY;
 	sSEhp = SLIMEHP;
 	//XとY軸速度の初期値を移動速度にする
 	mSVx = SLIMEX;
 	mSVy = SLIMEY;
 	spInstance2 = this;
+	sNum++;
 }
 
 void CSlime::Update()
@@ -142,7 +145,7 @@ void CSlime::Update()
 	//テスト用入力キー
 	if (mInput.Key('4'))
 	{
-		mSlimeTime = 60;
+		mSlimeTime = 11;
 		mState = EState::EDAMAGE;
 	}
 	if (mInput.Key('5'))
@@ -150,48 +153,55 @@ void CSlime::Update()
 		mSlimeTime3 = 40;
 		mState = EState::EATTACK;
 	}
+	if (mInput.Key('8'))
+	{
+		if (mState != EState::EDAMAGE)
+		{
+			mSlimeTime = 11;
+			sSEhp = sSEhp - 100;
+			mState = EState::EDAMAGE;
+		}
+	}
 	switch (mState)
 	{
+	case EState::EMUTEKI:
+		break;
 	case EState::EDEATH: //死亡時
 		//mVy -= GRAVITY;
 		//ここのスライムタイムはテスト用。の
 		//後に死亡用とダメージ用に別々にする
-		if (mSlimeTime > 0)
+		if (mSlimeTime4 >= 0)
 		{
-			mSlimeTime--;
+			mSlimeTime4--;
 		}
-		if (mSlimeTime > 40)
-		{
-			if (mSVx < 0) { Texture(Texture(), SLIMEDAL); }
-			if (mSVx > 0) { Texture(Texture(), SLIMEDAR); }
-		}
-		if (mSlimeTime == 40)
+		if (mSlimeTime4 == 40)
 		{
 			if (mSVx < 0) { Texture(Texture(), SLIMEDTL); }
 			if (mSVx > 0) { Texture(Texture(), SLIMEDTR); }
 		}
-		if (mSlimeTime == 30)
+		if (mSlimeTime4 == 30)
 		{
 			if (mSVx < 0) { Texture(Texture(), SLIMEDTL2); }
 			if (mSVx > 0) { Texture(Texture(), SLIMEDTR2); }
 		}
-		if (mSlimeTime == 20)
+		if (mSlimeTime4 == 20)
 		{
 			if (mSVx < 0) { Texture(Texture(), SLIMEDTL3); }
 			if (mSVx > 0) { Texture(Texture(), SLIMEDTR3); }
 		}
-		if (mSlimeTime == 10)
+		if (mSlimeTime4 == 10)
 		{
 			if (mSVx < 0) { Texture(Texture(), SLIMEDTL4); }
 			if (mSVx > 0) { Texture(Texture(), SLIMEDTR4); }
 		}
-		if (mSlimeTime == 5)
+		if (mSlimeTime4 == 5)
 		{
 			if (mSVx < 0) { Texture(Texture(), SLIMEDTL5); }
 			if (mSVx > 0) { Texture(Texture(), SLIMEDTR5); }
 		}
-		if (mSlimeTime == 0)
+		if (mSlimeTime4 == 0)
 		{
+			sNum--;
 		}
 		break;
 	case EState::ESTOP: //停止時、クールタイム間
@@ -203,7 +213,7 @@ void CSlime::Update()
 		{
 			mSlimeTime3--;
 		}
-		if (mSlimeTime3 == 39)
+		if (mSlimeTime3 == 29)
 		{
 			if (mSVx < 0) { Texture(Texture(), SLIMENTL); }
 			if (mSVx > 0) { Texture(Texture(), SLIMENTR); }
@@ -220,15 +230,23 @@ void CSlime::Update()
 		break;
 	case EState::EDAMAGE: //ダメージ時
 		//テスト用に死亡までつながるようにしている
+		if (sSEhp <= 0)
+		{
+			mSlimeTime4 = 41;
+			mState = EState::EDEATH;
+		}
 		if (mSlimeTime > 0)
 		{
 			mSlimeTime--;
 		}
-		if (mSlimeTime == 59)
+		if (mSlimeTime == 10)
 		{
 			if (mSVx < 0) { Texture(Texture(), SLIMEDAL); }
 			if (mSVx > 0) { Texture(Texture(), SLIMEDAR); }
-			mState = EState::EDEATH;
+		}
+		if (mSlimeTime <= 0)
+		{
+			mState = EState::EMOVE;
 		}
 		break;
 	case EState::EJUMP:

@@ -1,12 +1,15 @@
 #pragma once
 #include "CTask.h"
+#include <vector>
+#include "CCharacter.h"
 
 class CTaskManager
 {
 private:
 	static CTaskManager* spinstance;  //CTaskManagerのインスタンス
 	CTask* mhead;                     //先頭タスクのポインタ
-	int mCharacterCount;              //キャラクターの数
+	int mCharacterCount; 
+	std::vector<CTask*> mpTasks;//キャラクターの数
 
 public:
 	//コンストラクタ
@@ -30,4 +33,10 @@ public:
 	void Render();
 	//更新処理
 	void Update();
+	//衝突処理１
+
+	void Collision();
+	//衝突処理３
+	//Collision(衝突元のポインタ)
+	void Collision(CTask* task);
 };

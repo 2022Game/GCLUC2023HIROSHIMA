@@ -19,6 +19,7 @@ public:
 		EDAMAGE,	//ダメージ
 		EDEATH, //死亡
 		EATTACK,    //攻撃
+		EMUTEKI,
 	};
 protected:
 public:
@@ -47,6 +48,7 @@ private:
 	int mSlimeTime2; //移動のスライム用の時間
 	int mSlimeTime3; //攻撃のスライム用の時間
 	int mSlimeTime4; //死亡のスライム用の時間
+	int mSlimeInvincible; //無敵用のスライム用の時間
 	EState mState; //状態
 	float mSVx;	//X軸速度
 	float mSVy;	//Y軸速度

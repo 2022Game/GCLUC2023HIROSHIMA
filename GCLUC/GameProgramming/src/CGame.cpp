@@ -98,9 +98,9 @@ void CGame::Start()
 
 void CGame::Stage1()
 {
-	mpWolf = new CWolf(TIPSIZE * 15, TIPSIZE * 4.5, TIPSIZE, TIPSIZE, CWolf::Texture7());
-	mpPlayer = new CPlayer(TIPSIZE * 10, TIPSIZE * 5, TIPSIZE, TIPSIZE, CApplication::Texture());
-	mpSlime = new CSlime(TIPSIZE * 20, TIPSIZE * 7, TIPSIZE, TIPSIZE, CSlime::Texture6());
+	mpWolf = new CWolf( 800.0f ,250.0f ,80.0f, 80.0f, CWolf::Texture7());
+	mpPlayer = new CPlayer(400.0f, 250.0f, 110.0f, 110.0f, CApplication::Texture());
+	mpSlime = new CSlime(1000.0f, 100.0f, 80.0f, 80.0f, CSlime::Texture6());
 	mpBackGround = new CBackGround(640.0f, 400.0f, 640.0f, 400.0f, 0, 1279, 719, 0, CApplication::Texture2());
 	//mpHeart = new CHeart(95.0f, 750.0f, 90.0f, 40.0f, 0, 49, 49, 0, CApplication::Texture100());
 }
@@ -115,6 +115,7 @@ void CGame::Update()
     //CApplication::CharacterManager()->Delete();
 	//CApplication::CharacterManager()->Render();
 	CTaskManager::Instance()->Update();
+	CTaskManager::Instance()->Collision();
 	CTaskManager::Instance()->Render();
 
 	CameraSet();

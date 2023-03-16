@@ -22,9 +22,11 @@ CPlayer::CPlayer(float x, float y, float w, float h, CTexture* pt)
 	, mJumpcount(0)
 	, mMovecount(0)
 	, mAttackcount(0)
+	, mDamagecount(0)
+	, mDeathcount(0)
 	, mJumpY(0.0f)
 {
-	Set(x, y, w, h * 1.5);
+	Set(x, y, w, h );
 	Texture(pt, DEFAULT);
 	spinstance = this;
 	mState = EState::EIDLING;
@@ -53,6 +55,12 @@ int CPlayer::HP()
 int CPlayer::Stamina()
 {
 	return sStamina;
+}
+
+//死亡カウンタを取得
+int CPlayer::Death()
+{
+	return mDeathcount;
 }
 
 //更新処理
@@ -128,22 +136,20 @@ void CPlayer::Update()
 			{
 				mJumpY = Y();
 				mVy = JUMPV0;
-				mInvincible = 20;
 				mState = EState::EJUMP;
 			}
 		}
 		break;
 
 	case EState::EJUMP:
-		mInvincible--;
 		//Y軸速度に重力を減算する
 		mVy -= GRAVITY;
 		Y(Y() + mVy);
 
-		mJumpcount %= 30;
-		left = (mJumpcount / 10) * 200;
-		right = left + 200;
 		mJumpcount++;
+		mJumpcount %= 30;
+		left = (mJumpcount / 15) * 200;
+		right = left + 200;
 		if (mVx >= 0)
 		{
 			Texture(Texture(), left, right, 800, 600);
@@ -155,12 +161,7 @@ void CPlayer::Update()
 
 		if (mJumpY >= Y())
 		{
-			//無敵カウンタが0になったら状態をIDLINGにする
-			if (mInvincible <= 0)
-			{
-				mState = EState::EIDLING;
-			}
-			else if (mJumpcount < 29)
+			if (mJumpcount < 29)
 			{
 				mState = EState::EIDLING;
 			}
@@ -186,8 +187,8 @@ void CPlayer::Update()
 			mState = EState::EMOVE;
 			mIdlingcount = 0;
 		}
-		mIdlingcount %= 72;
-		left = (mIdlingcount / 18) * 200;
+		mIdlingcount %= 50;
+		left = (mIdlingcount / 25) * 200;
 		right = left + 200;
 		if (mVx >= 0)
 		{
@@ -220,17 +221,86 @@ void CPlayer::Update()
 		break;
 
 	case EState::EDAMAGE:
+		mDamagecount++;
+		mDamagecount %= 10;
+		left = (mDamagecount / 5) * 200;
+		right = left + 200;
+		if (mVx >= 0)
+		{
+			Texture(Texture(), left, right, 1000, 800);
+		}
+		else
+		{
+			Texture(Texture(), right, left, 1000, 800);
+		}
+		//無敵時間の設定
+		if (mInvincible < 0)
+		{
+			mInvincible = 40;
+		}
+		mInvincible--;
+		if (mInvincible == 0)
+		{
+			mState = EState::EIDLING;
+		}
+
+		//X軸方向移動
+		if (mInput.Key('A'))
+		{
+			mVx = -VELOCITY - 1;
+			X(X() + mVx);
+		}
+		if (mInput.Key('D'))
+		{
+			mVx = VELOCITY + 1;
+			X(X() + mVx);
+		}
+		//Y軸方向移動
+		if (mInput.Key('W'))
+		{
+			mVy = VELOCITY + 1;
+			Y(Y() + mVy);
+		}
+		if (mInput.Key('S'))
+		{
+			mVy = VELOCITY - 1;
+			Y(Y() - mVy);
+		}
 		break;
 
 	case EState::EDEATH:
+		if (mDeathcount <= 40)
+		{
+			mDeathcount++;
+		}
+		left = (mDeathcount / 40) * 200;
+		right = left + 200;
+		Texture(Texture(), left, right, 1200, 1000);
 		break;
-
 	}
+
 	//デバッグ用
 	if (mInput.Key('L'))
 	{
-		mVx = -VELOCITY - 1;
+     	mVx = -VELOCITY - 1;
 		X(X() + mVx);
 	}
+	if (mInput.Key('M'))
+	{
+		if (mState != EState::EJUMP && mState != EState::EDAMAGE)
+		{
+			sHp--;
+			mState = EState::EDAMAGE;
+		}
+	}
+	//HPが0になると死亡状態にする
+	if (sHp <= 0)
+	{
+		if (mState != EState::EJUMP)
+		{
+			mState = EState::EDEATH;
+		}
+	}
+
 	CCharacter::Update();
 }
