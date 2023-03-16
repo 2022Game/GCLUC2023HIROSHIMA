@@ -1,27 +1,26 @@
 #pragma once
 #include "CCharacter.h"
 #include "CInput.h"
+#include "CMagicBullet.h"
 /*
 プレイヤークラス
 キャラクタスを継承
 */
 class CPlayer : public CCharacter
 {
+	friend CMagicBullet;
 private:
-	static CPlayer* spinstance; //プレイヤーのインスタンス
-	static int sHp;             //プレイヤーのHP
-	static int sStamina;        //プレイヤーのスタミナ
+	static CPlayer* spinstance;  //プレイヤーのインスタンス
+	static int sHp;              //プレイヤーのHP
+	static int sStamina;         //プレイヤーのスタミナ
 
-	int mInvincible;            //無敵カウンタ
-	int mIdlingcount;           //アニメーション用カウンタ(アイドリング)
-	int mJumpcount;             //アニメーション用カウンタ(ジャンプ)
-	int mMovecount;             //アニメーション用カウンタ(移動)
-	int mAttackcount;           //アニメーション用カウンタ(攻撃)
-	int mDamagecount;           //アニメーション用カウンタ(被弾)
-	int mDeathcount;            //アニメーション用カウンタ(死亡)
+	int mInvincible;             //無敵カウンタ
+	int mAnimationCount;         //アニメーションカウンタ
+	int mDeathcount;
 
-	float mJumpY;               //プレイヤーのジャンプ時のY座標
-	CInput mInput;              //キー入力判定
+	float mJumpY;                //プレイヤーのジャンプ時のY座標
+	CInput mInput;               //キー入力判定
+	CMagicBullet* mpMagicBullet;
 
 public:
 	//コンストラクタ
@@ -37,7 +36,21 @@ public:
 	//プレイヤーのスタミナを取得
 	static int Stamina();
 	//プレイヤーの死亡カウンタを取得(アニメーション用)
-	int Death();
+	int DeathCount();
+
 	//更新処理
 	void Update();
+
+	//移動処理
+	void Move();
+	//ジャンプ処理
+	void Jump();
+	//アイドリング処理
+	void Idling();
+	//攻撃処理
+	void Attack();
+	//被弾処理
+	void Damage();
+	//死亡処理
+	void Death();
 };

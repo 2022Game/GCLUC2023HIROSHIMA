@@ -18,20 +18,17 @@ int CPlayer::sStamina = 0;
 CPlayer::CPlayer(float x, float y, float w, float h, CTexture* pt)
 	: CCharacter((int)ETaskPriority::ECharacter)
 	, mInvincible(0)
-	, mIdlingcount(0)
-	, mJumpcount(0)
-	, mMovecount(0)
-	, mAttackcount(0)
-	, mDamagecount(0)
-	, mDeathcount(0)
+	, mAnimationCount(0)
 	, mJumpY(0.0f)
+	, mpMagicBullet(nullptr)
 {
 	Set(x, y, w, h );
 	Texture(pt, DEFAULT);
-	spinstance = this;
+	mTag = ETag::EPLAYER;
 	mState = EState::EIDLING;
 	sHp = PLAYERHP;
 	sStamina = STAMINA;
+	spinstance = this; 
 }
 
 //デストラクタ
@@ -58,7 +55,7 @@ int CPlayer::Stamina()
 }
 
 //死亡カウンタを取得
-int CPlayer::Death()
+int CPlayer::DeathCount()
 {
 	return mDeathcount;
 }
@@ -66,225 +63,35 @@ int CPlayer::Death()
 //更新処理
 void CPlayer::Update()
 {
-	float left;
-	float right;
 	switch (State())
 	{
-	case EState::EMOVE:
-		//X軸方向移動
-		if (mInput.Key('A'))
-		{
-			mVx = -VELOCITY - 1;
-			X(X() + mVx);
-			mIdlingcount = 0;
-		}
-		if (mInput.Key('D'))
-		{
-			mVx = VELOCITY + 1;
-			X(X() + mVx);
-			mIdlingcount = 0;
-		}
-		//Y軸方向移動
-		if (mInput.Key('W'))
-		{
-			mVy = VELOCITY + 1;
-			Y(Y() + mVy);
-			mIdlingcount = 0;
-		}
-		if (mInput.Key('S'))
-		{
-			mVy = VELOCITY - 1;
-			Y(Y() - mVy);
-			mIdlingcount = 0;
-		}
-
-		mMovecount %= 48;
-		left = (mMovecount / 8) * 200;
-		right = left + 200;
-		mMovecount++;
-		if (mVx >= 0)
-		{
-			Texture(Texture(), left, right, 200, 0);
-		}
-		if (mVx < 0)
-		{
-			Texture(Texture(), right, left, 200, 0);
-		}
-		//攻撃
-		if (mInput.Key('K'))
-		{
-			mAttackcount = 0;
-			mState = EState::EATTACK;
-		}
-		//キー入力がされていないかつカウントが0以上の時
-		if (mInput.Key('W') != true ||
-			mInput.Key('A') != true ||
-			mInput.Key('S') != true ||
-			mInput.Key('D') != true ||
-			mInput.Key('J') != true ||
-			mInput.Key('K') != true)
-		{
-			mIdlingcount--;
-			if (mIdlingcount <= -10)
-			{
-				mState = EState::EIDLING;
-			}
-		}
-		if (mState != EState::EJUMP)
-		{
-			if (mInput.Key('J'))
-			{
-				mJumpY = Y();
-				mVy = JUMPV0;
-				mState = EState::EJUMP;
-			}
-		}
+		//移動状態
+	case EState::EMOVE: Move();
 		break;
-
-	case EState::EJUMP:
-		//Y軸速度に重力を減算する
-		mVy -= GRAVITY;
-		Y(Y() + mVy);
-
-		mJumpcount++;
-		mJumpcount %= 30;
-		left = (mJumpcount / 15) * 200;
-		right = left + 200;
-		if (mVx >= 0)
-		{
-			Texture(Texture(), left, right, 800, 600);
-		}
-		else
-		{
-			Texture(Texture(), right, left, 800, 600);
-		}
-
-		if (mJumpY >= Y())
-		{
-			if (mJumpcount < 29)
-			{
-				mState = EState::EIDLING;
-			}
-		}
-		//X軸方向移動
-		if (mInput.Key('A'))
-		{
-			mVx = -VELOCITY;
-			X(X() + mVx);
-		}
-		if (mInput.Key('D'))
-		{
-			mVx = VELOCITY;
-			X(X() + mVx);
-		}
+		//ジャンプ状態
+	case EState::EJUMP: Jump();
 		break;
-
-	case EState::EIDLING:
-		if (mInput.Key('W') || mInput.Key('A') ||
-			mInput.Key('S') || mInput.Key('D') ||
-			mInput.Key('J') || mInput.Key('K'))
-		{
-			mState = EState::EMOVE;
-			mIdlingcount = 0;
-		}
-		mIdlingcount %= 50;
-		left = (mIdlingcount / 25) * 200;
-		right = left + 200;
-		if (mVx >= 0)
-		{
-			Texture(Texture(), left, right, 400, 200);
-		}
-		else
-		{
-			Texture(Texture(), right, left, 400, 200);
-		}
-		mIdlingcount++;
+		//アイドリング状態
+	case EState::EIDLING: Idling();
 		break;
-
-	case EState::EATTACK:
-		mAttackcount++;
-		mAttackcount %= 24;
-		left = (mAttackcount / 12) * 200;
-		right = left + 200;
-		if (mVx >= 0)
-		{
-			Texture(Texture(), left, right, 600, 400);
-		}
-		else
-		{
-			Texture(Texture(), right, left, 600, 400);
-		}
-		if (mAttackcount >= 23)
-		{
-			mState = EState::EIDLING;
-		}
+		//攻撃状態
+	case EState::EATTACK: Attack();
 		break;
-
-	case EState::EDAMAGE:
-		mDamagecount++;
-		mDamagecount %= 10;
-		left = (mDamagecount / 5) * 200;
-		right = left + 200;
-		if (mVx >= 0)
-		{
-			Texture(Texture(), left, right, 1000, 800);
-		}
-		else
-		{
-			Texture(Texture(), right, left, 1000, 800);
-		}
-		//無敵時間の設定
-		if (mInvincible < 0)
-		{
-			mInvincible = 40;
-		}
-		mInvincible--;
-		if (mInvincible == 0)
-		{
-			mState = EState::EIDLING;
-		}
-
-		//X軸方向移動
-		if (mInput.Key('A'))
-		{
-			mVx = -VELOCITY - 1;
-			X(X() + mVx);
-		}
-		if (mInput.Key('D'))
-		{
-			mVx = VELOCITY + 1;
-			X(X() + mVx);
-		}
-		//Y軸方向移動
-		if (mInput.Key('W'))
-		{
-			mVy = VELOCITY + 1;
-			Y(Y() + mVy);
-		}
-		if (mInput.Key('S'))
-		{
-			mVy = VELOCITY - 1;
-			Y(Y() - mVy);
-		}
+		//被弾状態
+	case EState::EDAMAGE: Damage();
 		break;
-
-	case EState::EDEATH:
-		if (mDeathcount <= 40)
-		{
-			mDeathcount++;
-		}
-		left = (mDeathcount / 40) * 200;
-		right = left + 200;
-		Texture(Texture(), left, right, 1200, 1000);
+		//死亡状態
+	case EState::EDEATH: Death();
 		break;
 	}
 
 	//デバッグ用
-	if (mInput.Key('L'))
+	if (mInput.Key('L') == true)
 	{
      	mVx = -VELOCITY - 1;
 		X(X() + mVx);
 	}
+	//デバッグ用
 	if (mInput.Key('M'))
 	{
 		if (mState != EState::EJUMP && mState != EState::EDAMAGE)
@@ -301,6 +108,256 @@ void CPlayer::Update()
 			mState = EState::EDEATH;
 		}
 	}
-
 	CCharacter::Update();
+}
+
+//移動処理
+void CPlayer::Move()
+{
+	float left;
+	float right;
+	mAnimationCount %= 48;
+	left = (mAnimationCount / 8) * 200;
+	right = left + 200;
+	mAnimationCount++;
+	//右向き
+	if (mVx >= 0)
+	{
+		Texture(Texture(), left, right, 200, 0);
+	}
+	if (mVx < 0) //左向き
+	{
+		Texture(Texture(), right, left, 200, 0);
+	}
+	//X軸方向移動
+	if (mInput.Key('A'))
+	{
+		mVx = -VELOCITY - 1;
+		X(X() + mVx);
+	}
+	if (mInput.Key('D'))
+	{
+		mVx = VELOCITY + 1;
+		X(X() + mVx);
+	}
+	//Y軸方向移動
+	if (mInput.Key('W'))
+	{
+		mVy = VELOCITY + 1;
+		Y(Y() + mVy);
+	}
+	if (mInput.Key('S'))
+	{
+		mVy = VELOCITY - 1;
+		Y(Y() - mVy);
+	}
+	//攻撃
+	if (mInput.Key('K'))
+	{
+		mState = EState::EATTACK;
+		mAnimationCount = 0;
+	}
+	//ジャンプ
+	if (mState != EState::EJUMP)
+	{
+		if (mInput.Key('J'))
+		{
+			mJumpY = Y();
+			mVy = JUMPV0;
+			mState = EState::EJUMP;
+			mAnimationCount = 0;
+		}
+	}
+	//何も入力されていない時アイドリング状態にする
+	if (mInput.Key('W') == false && mInput.Key('A') == false &&
+		mInput.Key('S') == false && mInput.Key('D') == false &&
+		mInput.Key('J') == false && mInput.Key('K') == false)
+	{
+		mState = EState::EIDLING;
+		mAnimationCount = 0;
+	}
+}
+
+//ジャンプ処理
+void CPlayer::Jump()
+{
+	float left;
+	float right;
+	//Y軸速度に重力を減算する
+	mVy -= GRAVITY;
+	Y(Y() + mVy);
+
+	mAnimationCount++;
+	mAnimationCount %= 30;
+	left = (mAnimationCount / 15) * 200;
+	right = left + 200;
+	if (mVx >= 0)
+	{
+		Texture(Texture(), left, right, 800, 600);
+	}
+	else
+	{
+		Texture(Texture(), right, left, 800, 600);
+	}
+	//着地したらアイドリング状態にする
+	if (mJumpY >= Y())
+	{
+		mState = EState::EIDLING;
+		mAnimationCount = 0;
+	}
+	//X軸方向移動
+	if (mInput.Key('A'))
+	{
+		mVx = -VELOCITY;
+		X(X() + mVx);
+	}
+	if (mInput.Key('D'))
+	{
+		mVx = VELOCITY;
+		X(X() + mVx);
+	}
+}
+
+//アイドリング処理
+void CPlayer::Idling()
+{
+	float left;
+	float right;
+	mAnimationCount++;
+	mAnimationCount %= 40;
+	left = (mAnimationCount / 20) * 200;
+	right = left + 200;
+	//右向き
+	if (mVx >= 0)
+	{
+		Texture(Texture(), left, right, 400, 200);
+	}
+	else //左向き
+	{
+		Texture(Texture(), right, left, 400, 200);
+	}
+
+	//キー入力で各状態に移行する
+	if (mInput.Key('W') || mInput.Key('A') ||
+		mInput.Key('S') || mInput.Key('D'))
+	{
+		mAnimationCount = 0;
+		mState = EState::EMOVE;
+	}
+	if (mInput.Key('K'))
+	{
+		mAnimationCount = 0;
+		mState = EState::EATTACK;
+	}
+	if (mInput.Key('J'))
+	{
+		mAnimationCount = 0;
+		mState = EState::EJUMP;
+	}
+}
+
+//攻撃処理
+void CPlayer::Attack()
+{
+	float left;
+	float right;
+	mAnimationCount++;
+	left = (mAnimationCount / 15) * 200;
+	right = left + 200;
+	if (mVx >= 0)
+	{
+		Texture(Texture(), left, right, 600, 400);
+	}
+	else
+	{
+		Texture(Texture(), right, left, 600, 400);
+	}
+	//状態をアイドリングにする
+	if (mAnimationCount >= 29)
+	{
+		mAnimationCount = 0;
+		mState = EState::EIDLING;
+		delete mpMagicBullet;
+	}
+	//一つだけ生成
+	if (mAnimationCount == 10)
+	{
+		//右向き
+		if (mVx >= 0)
+		{
+			mpMagicBullet = new CMagicBullet(X() + 50, Y() - 50, 100, 100, CApplication::Texture());
+		}
+		else //左向きの時
+		{
+			mpMagicBullet = new CMagicBullet(X() - 50, Y() - 50, 100, 100, CApplication::Texture());
+		}
+	}
+}
+
+//被弾処理
+void CPlayer::Damage()
+{
+	float left;
+	float right;
+	mAnimationCount++;
+	mAnimationCount %= 10;
+	left = (mAnimationCount / 5) * 200;
+	right = left + 200;
+	//右向き
+	if (mVx >= 0)
+	{
+		Texture(Texture(), left, right, 1000, 800);
+	}
+	else //左向き
+	{
+		Texture(Texture(), right, left, 1000, 800);
+	}
+	//無敵時間の設定
+	if (mInvincible < 0)
+	{
+		mInvincible = 40;
+	}
+	mInvincible--;
+	if (mInvincible == 0)
+	{
+		mState = EState::EIDLING;
+		mAnimationCount = 0;
+	}
+
+	//X軸方向移動
+	if (mInput.Key('A'))
+	{
+		mVx = -VELOCITY - 1;
+		X(X() + mVx);
+	}
+	if (mInput.Key('D'))
+	{
+		mVx = VELOCITY + 1;
+		X(X() + mVx);
+	}
+	//Y軸方向移動
+	if (mInput.Key('W'))
+	{
+		mVy = VELOCITY + 1;
+		Y(Y() + mVy);
+	}
+	if (mInput.Key('S'))
+	{
+		mVy = VELOCITY - 1;
+		Y(Y() - mVy);
+	}
+}
+
+//死亡処理
+void CPlayer::Death()
+{
+	float left;
+	float right;
+	if (mAnimationCount <= 40)
+	{
+		mAnimationCount++;
+	}
+	left = (mAnimationCount / 40) * 200;
+	right = left + 200;
+	Texture(Texture(), left, right, 1200, 1000);
 }
