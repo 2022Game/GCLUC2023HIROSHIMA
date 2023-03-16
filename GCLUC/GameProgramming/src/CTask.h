@@ -16,12 +16,6 @@ enum class ETaskPriority
 class CTask
 {
 	friend CTaskManager;
-
-private:
-	CTask* mpprev;   //前のタスクへのポインタ
-	CTask* mpnext;   //次のタスクへのポインタ
-	int mpriority;   //優先度
-
 public:
 	enum class ETag
 	{
@@ -29,6 +23,15 @@ public:
 		EPLAYER,
 		EENEMY,
 	};
+private:
+	CTask* mpprev;   //前のタスクへのポインタ
+	CTask* mpnext;   //次のタスクへのポインタ
+	int mpriority;   //優先度
+
+protected:
+	ETag mTag;
+
+public:
 	ETag Tag();
 	//コンストラクタ
 	CTask(int priority);
@@ -49,8 +52,4 @@ public:
 	virtual void Update() {};
 	//衝突処理
 	virtual void Collision(CCharacter* m, CCharacter* o) {}
-	//衝突処理2
-	virtual void Collision() {};
-protected:
-	ETag mTag;
 };

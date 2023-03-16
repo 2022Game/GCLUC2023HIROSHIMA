@@ -28,6 +28,8 @@ public:
 	void Remove(CTask* task);
 	//タスクを削除
 	void Delete(CTask* task);
+	//すべてのタスクを削除
+	void AllDelete();
 
 	//描画処理
 	void Render();
@@ -37,6 +39,4 @@ public:
 
 	void Collision();
 	//衝突処理３
-	//Collision(衝突元のポインタ)
-	void Collision(CTask* task);
 };

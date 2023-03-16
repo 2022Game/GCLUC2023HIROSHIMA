@@ -120,6 +120,17 @@ void CTaskManager::Delete(CTask* task)
 	delete task;
 }
 
+//‚·‚×‚Ä‚Ìƒ^ƒXƒN‚ğíœ
+void CTaskManager::AllDelete()
+{
+	CTask* next = mhead;
+	while (next != nullptr)
+	{
+		next->Delete();
+		next = next->mpnext;
+	}
+}
+
 //•`‰æˆ—
 void CTaskManager::Render()
 {
@@ -157,14 +168,4 @@ void CTaskManager::Collision()
 		}
 		next = next->mpnext;
 	}
-}
-
-//Õ“Ëˆ—3
-
-void CTaskManager::Collision(CTask* task)
-{
-	/*for (size_t i = 0; i < mpTasks.size(); i++)
-	{
-		task->Collision(task, mpTasks[i]);
-	}*/
 }

@@ -38,11 +38,8 @@ void CTask::Delete()
 {
 	CTaskManager::Instance()->Delete(this);
 }
+
 CTask::ETag CTask::Tag()
 {
 	return mTag;
 }
-//CTask::ETag CTask::Tag()
-//{
-//	return mTag;
-//}
