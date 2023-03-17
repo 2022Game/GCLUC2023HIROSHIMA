@@ -13,10 +13,10 @@ private:
 	static CPlayer* spinstance;  //プレイヤーのインスタンス
 	static int sHp;              //プレイヤーのHP
 	static int sStamina;         //プレイヤーのスタミナ
+	static int sCoolTime;        //スタミナのクールタイム
 
 	int mInvincible;             //無敵カウンタ
 	int mAnimationCount;         //アニメーションカウンタ
-	int mDeathCount;             //死亡時のアニメーション用
 
 	float mJumpY;                //プレイヤーのジャンプ時のY座標
 	CInput mInput;               //キー入力判定
@@ -35,8 +35,9 @@ public:
 	static int HP();
 	//プレイヤーのスタミナを取得
 	static int Stamina();
-	//プレイヤーの死亡カウンタを取得(アニメーション用)
-	int DeathCount();
+
+	//衝突処理
+	void Collision(CCharacter* m, CCharacter* o);
 
 	//更新処理
 	void Update();

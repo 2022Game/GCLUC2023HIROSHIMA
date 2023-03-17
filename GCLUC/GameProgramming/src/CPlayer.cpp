@@ -13,13 +13,13 @@
 CPlayer* CPlayer::spinstance = nullptr;
 int CPlayer::sHp = 0;
 int CPlayer::sStamina = 0;
+int CPlayer::sCoolTime = 0;
 
 //コンストラクタ
 CPlayer::CPlayer(float x, float y, float w, float h, CTexture* pt)
 	: CCharacter((int)ETaskPriority::ECharacter)
 	, mInvincible(0)
 	, mAnimationCount(0)
-	, mDeathCount(0)
 	, mJumpY(0.0f)
 	, mpMagicBullet(nullptr)
 {
@@ -55,10 +55,23 @@ int CPlayer::Stamina()
 	return sStamina;
 }
 
-//死亡カウンタを取得
-int CPlayer::DeathCount()
+//衝突処理
+void CPlayer::Collision(CCharacter* m, CCharacter* o)
 {
-	return mDeathCount;
+	//めり込[み調整変数
+	float x, y;
+	switch (o->Tag())
+	{
+	case ETag::EENEMY:
+		if (CRectangle::Collision(o, &x, &y))
+		{
+		}
+		break;
+	case ETag::EPLAYER:
+		break;
+	case ETag::EZERO:
+		break;
+	}
 }
 
 //更新処理
@@ -68,21 +81,35 @@ void CPlayer::Update()
 	{
 		//移動状態
 	case EState::EMOVE: Move();
+		sCoolTime++;
+		if (sCoolTime >= 25)
+			sStamina++;
 		break;
 		//ジャンプ状態
 	case EState::EJUMP: Jump();
+		sCoolTime++;
+		if (sCoolTime >= 25)
+			sStamina++;
 		break;
 		//アイドリング状態
 	case EState::EIDLING: Idling();
+		sCoolTime++;
+		if (sCoolTime >= 25)
+			sStamina++;
 		break;
 		//攻撃状態
 	case EState::EATTACK: Attack();
+		sCoolTime = 0;
 		break;
 		//被弾状態
 	case EState::EDAMAGE: Damage();
+		sCoolTime++;
+		if (sCoolTime >= 25)
+			sStamina++;
 		break;
 		//死亡状態
 	case EState::EDEATH: Death();
+		sCoolTime = 0;
 		break;
 	}
 
@@ -104,11 +131,17 @@ void CPlayer::Update()
 	//HPが0になると死亡状態にする
 	if (sHp <= 0)
 	{
-		if (mState != EState::EJUMP)
+		if (mState != EState::EJUMP && mState != EState::EDEATH)
 		{
 			mState = EState::EDEATH;
 		}
 	}
+	//スタミナの上限
+	if (sStamina >= 100)
+	{
+		sStamina = 100;
+	}
+	//クールタイムのリセット
 	CCharacter::Update();
 }
 
@@ -155,8 +188,11 @@ void CPlayer::Move()
 	//攻撃
 	if (mInput.Key('K'))
 	{
-		mState = EState::EATTACK;
-		mAnimationCount = 0;
+		if (sStamina >= 20)
+		{
+			mState = EState::EATTACK;
+			mAnimationCount = 0;
+		}
 	}
 	//ジャンプ
 	if (mState != EState::EJUMP)
@@ -247,8 +283,11 @@ void CPlayer::Idling()
 	}
 	if (mInput.Key('K'))
 	{
-		mState = EState::EATTACK;
-		mAnimationCount = 0;
+		if (sStamina >= 20)
+		{
+			mState = EState::EATTACK;
+			mAnimationCount = 0;
+		}
 	}
 	if (mInput.Key('J'))
 	{
@@ -278,13 +317,14 @@ void CPlayer::Attack()
 	//状態をアイドリングにする
 	if (mAnimationCount >= 29)
 	{
-		mAnimationCount = 0;
 		mState = EState::EIDLING;
+		mAnimationCount = 0;
 		delete mpMagicBullet;
 	}
 	//一つだけ生成
 	if (mAnimationCount == 10)
 	{
+		sStamina = sStamina - 20;
 		//右向き
 		if (mVx >= 0)
 		{
@@ -356,11 +396,11 @@ void CPlayer::Death()
 {
 	float left;
 	float right;
-	if (mAnimationCount <= 40)
+	if (mAnimationCount <= 50)
 	{
 		mAnimationCount++;
 	}
-	left = (mAnimationCount / 40) * 200;
+	left = (mAnimationCount / 50) * 200;
 	right = left + 200;
 	Texture(Texture(), left, right, 1200, 1000);
 }
