@@ -45,8 +45,8 @@ private:
 	static CWolf* spInstance3;
 	int sWEhp; //オオカミのHP
 	static int sNum;	//敵の数
-	int mWolfTime; //攻撃のオオカミ用の時間
-	int mWolfTime2; //ダメージのオオカミ用の時間
+	int mWolfTime; //ダメージのオオカミ用の時間
+	int mWolfTime2; //攻撃のオオカミ用の時間
 	int mWolfTime3; //死亡用のオオカミ用の時間
 	int mWolfEattack; //攻撃持続時間
 	int mWolfInvincible; //無敵用のオオカミ用の時間
