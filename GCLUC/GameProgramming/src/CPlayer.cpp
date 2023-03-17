@@ -65,6 +65,8 @@ void CPlayer::Collision(CCharacter* m, CCharacter* o)
 	case ETag::EENEMY:
 		if (CRectangle::Collision(o, &x, &y))
 		{
+			X(X() + x);
+			Y(Y() + y);
 		}
 		break;
 	case ETag::EPLAYER:

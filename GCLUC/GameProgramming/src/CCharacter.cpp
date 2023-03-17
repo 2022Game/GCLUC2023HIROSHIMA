@@ -10,7 +10,6 @@ CCharacter::CCharacter(int priority)
 	, mState(EState::ENULL)
 	, mVx(0.0f)
 	, mVy(0.0f)
-	, mVz(0.0f)
 {
 }
 
@@ -60,7 +59,7 @@ void CCharacter::Update()
 {
 	if (mState != EState::EJUMP)
 	{
-		mVz = Y();
+		mZ = Y();
 	}
-	CTask::Setpriority(mVz);
+	CTask::Setpriority(mZ);
 }

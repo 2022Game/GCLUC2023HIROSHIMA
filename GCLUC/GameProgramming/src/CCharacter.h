@@ -36,7 +36,6 @@ protected:
 	EState mState;
 	float mVx;  //X軸速度
 	float mVy;  //Y軸速度
-	float mVz;  //Z軸速度
 
 public:
 	//コンストラクタ
