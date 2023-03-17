@@ -91,7 +91,7 @@ void CSlime::Collision(CCharacter* m, CCharacter* o)
 						sSEhp = sSEhp - 100;
 						if (sSEhp <= 0)
 						{
-							mSlimeTime4 = 41;
+							mSlimeTime4 = 40;
 							mState = EState::EDEATH;
 						}
 						if (mState != EState::EATTACK)
@@ -100,18 +100,11 @@ void CSlime::Collision(CCharacter* m, CCharacter* o)
 						}
 					}
 				}
-		}
-		break;
-		/*if (CRectangle::Collision(o, &x,&y))
-		{
-				if (mSlimeTime3 <= 0)
-				{
-					mSlimeTime3 = 61;
-					mState = EState::EATTACK;
-				}
-		}
-		break;*/
-		//case ETag::EMAGIC: //仮の魔法
+			}
+			break;
+			//case ETag::EMAGIC: //仮の魔法
+			/*if (mState != EState::EDEATH)
+			{*/
 			/*if (CRectangle::Collision(o, &x, &y))
 			{
 				if (mSlimeInvincible <= 0)
@@ -119,10 +112,15 @@ void CSlime::Collision(CCharacter* m, CCharacter* o)
 					mSlimeInvincible = 60;
 					if (mState != EState::EDAMAGE)
 					{
-						mSlimeTime = 31;
-						sSEhp = sSEhp - 100;
 						if (mSVx < 0) { Texture(Texture(), MU); }
 						if (mSVx > 0) { Texture(Texture(), MU); }
+						mSlimeTime = 60;
+						sSEhp = sSEhp - 100;
+						if (sSEhp <= 0)
+						{
+							mSlimeTime4 = 40;
+							mState = EState::EDEATH;
+						}
 		 if(mState != EState::EATTACK)
 		 {
 						mState = EState::EDAMAGE;
@@ -130,10 +128,13 @@ void CSlime::Collision(CCharacter* m, CCharacter* o)
 					}
 				}
 			}
+			}
 		break;
 		*/
 		//break;
 		//case ETag::EDAGEKI: //仮の打撃
+		// /*if (mState != EState::EDEATH)
+		//{
 	//	if (CRectangle::Collision(o, &x, &y))
 	//	{
 	//		if (mSlimeInvincible <= 0)
@@ -141,15 +142,23 @@ void CSlime::Collision(CCharacter* m, CCharacter* o)
 	//			mSlimeInvincible = 60;
 	//			if (mState != EState::EDAMAGE)
 	//			{
-	//				mWolfTime = 31;
-	//				sWEhp = sWEhp - 25;
-	//				if (mState != EState::EATTACK)
-	//				{
-	//					mState = EState::EDAMAGE;
-	//				}
-	//			}
-	//		}
-	//	}
+	// if (mSVx < 0) { Texture(Texture(), MU); }
+			//if (mSVx > 0) { Texture(Texture(), MU); }
+	//				mSlimeTime = 60;
+	//				sSEhp = sSEhp - 25;
+	// if (sSEhp <= 0)
+			/*{
+				mSlimeTime4 = 40;
+				mState = EState::EDEATH;
+			}*/
+			//				if (mState != EState::EATTACK)
+			//				{
+			//					mState = EState::EDAMAGE;
+			//				}
+			//			}
+			//		}
+			//	}
+				//}
 		}
 	}
 }
@@ -226,27 +235,27 @@ void CSlime::Update()
 		{
 			mSlimeTime4--;
 		}
-		if (mSlimeTime4 == 40)
+		if (mSlimeTime4 == 39)
 		{
 			if (mSVx < 0) { Texture(Texture(), SLIMEDTL); }
 			if (mSVx > 0) { Texture(Texture(), SLIMEDTR); }
 		}
-		if (mSlimeTime4 == 30)
+		if (mSlimeTime4 == 29)
 		{
 			if (mSVx < 0) { Texture(Texture(), SLIMEDTL2); }
 			if (mSVx > 0) { Texture(Texture(), SLIMEDTR2); }
 		}
-		if (mSlimeTime4 == 20)
+		if (mSlimeTime4 == 19)
 		{
 			if (mSVx < 0) { Texture(Texture(), SLIMEDTL3); }
 			if (mSVx > 0) { Texture(Texture(), SLIMEDTR3); }
 		}
-		if (mSlimeTime4 == 10)
+		if (mSlimeTime4 == 9)
 		{
 			if (mSVx < 0) { Texture(Texture(), SLIMEDTL4); }
 			if (mSVx > 0) { Texture(Texture(), SLIMEDTR4); }
 		}
-		if (mSlimeTime4 == 5)
+		if (mSlimeTime4 == 4)
 		{
 			if (mSVx < 0) { Texture(Texture(), SLIMEDTL5); }
 			if (mSVx > 0) { Texture(Texture(), SLIMEDTR5); }
@@ -265,7 +274,7 @@ void CSlime::Update()
 		{
 			mSlimeTime3--;
 		}
-		if (mSlimeTime3 == 60)
+		if (mSlimeTime3 == 59)
 		{
 			if (mSVx < 0) { Texture(Texture(), SLIMENTL); }
 			if (mSVx > 0) { Texture(Texture(), SLIMENTR); }
@@ -276,13 +285,35 @@ void CSlime::Update()
 			{
 				Texture(Texture(), SLIMEATL);
 				mpEattack = new CEattack(X() - 125, Y(), 80.0f, 80.0f, CSlime::Texture6());
-				mSlimeEattack = 29;
+				mSlimeEattack = 30;
 			}
 			if (mSVx > 0)
 			{
 				Texture(Texture(), SLIMEATR);
 				mpEattack = new CEattack(X() + 125, Y(), 80.0f, 80.0f, CSlime::Texture6());
-				mSlimeEattack = 29;
+				mSlimeEattack = 30;
+			}
+		}
+		if (mSlimeTime3 == 20)
+		{
+			if (mSVx < 0)
+			{
+				Texture(Texture(), SLIMEATL);
+			}
+			if (mSVx > 0)
+			{
+				Texture(Texture(), SLIMEATR);
+			}
+		}
+		if (mSlimeTime3 == 10)
+		{
+			if (mSVx < 0)
+			{
+				Texture(Texture(), SLIMEATL);
+			}
+			if (mSVx > 0)
+			{
+				Texture(Texture(), SLIMEATR);
 			}
 		}
 		if (mSlimeTime3 <= 0)
@@ -295,14 +326,14 @@ void CSlime::Update()
 		//テスト用に死亡までつながるようにしている
 		if (sSEhp <= 0)
 		{
-			mSlimeTime4 = 41;
+			mSlimeTime4 = 40;
 			mState = EState::EDEATH;
 		}
 		if (mSlimeTime > 0)
 		{
 			mSlimeTime--;
 		}
-		if (mSlimeTime == 30)
+		if (mSlimeTime == 29)
 		{
 			/*if (mSVx < 0) { Texture(Texture(), MU); }
 			if (mSVx > 0) { Texture(Texture(), MU); }*/
@@ -364,7 +395,7 @@ void CSlime::Update()
 			{
 				if (mSlimeTime3 <= 0)
 				{
-					mSlimeTime3 = 61;
+					mSlimeTime3 = 60;
 					mState = EState::EATTACK;
 				}
 			}
@@ -377,7 +408,7 @@ void CSlime::Update()
 			{
 				if (mSlimeTime3 <= 0)
 				{
-					mSlimeTime3 = 61;
+					mSlimeTime3 = 60;
 					mState = EState::EATTACK;
 				}
 			}
