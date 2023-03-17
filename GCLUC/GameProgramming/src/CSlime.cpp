@@ -1,7 +1,10 @@
 #include "CSlime.h"
+#include "CEattack.h"
 #include "CApplication.h"
 #include "CCharacter.h"
 
+//無
+#define MU 0,0,0,0
 //立ち絵
 #define SLIMENTL 37,163,176,63
 #define SLIMENTR 163,37,176,63
@@ -35,7 +38,7 @@
 
 #define SLIMEHP 300 //スライムのHP
 
-int CSlime::sSEhp = 0;
+//int CSlime::sSEhp = 0;
 
 int CSlime::sNum = 0;
 
@@ -73,54 +76,82 @@ void CSlime::Collision(CCharacter* m, CCharacter* o)
 	switch (o->Tag())
 	{
 	case ETag::EPLAYER:
-		//折り返しに当たった時
-		if (CRectangle::Collision(o, &x, &y))
+		if (mState != EState::EDEATH)
 		{
-			//めり込まない位置まで戻す
-			X(X() + x);
-			Y(Y() + y);
-			//X軸速度を反転させる
-			mVx = -mVx;
+			if (CRectangle::Collision(o, &x, &y))
+			{
+				if (mSlimeInvincible <= 0)
+				{
+					mSlimeInvincible = 60;
+					if (mState != EState::EDAMAGE)
+					{
+						mSlimeTime = 60;
+						if (mSVx < 0) { Texture(Texture(), MU); }
+						if (mSVx > 0) { Texture(Texture(), MU); }
+						sSEhp = sSEhp - 100;
+						if (sSEhp <= 0)
+						{
+							mSlimeTime4 = 41;
+							mState = EState::EDEATH;
+						}
+						if (mState != EState::EATTACK)
+						{
+							mState = EState::EDAMAGE;
+						}
+					}
+				}
 		}
 		break;
-	}
-	//case ETag::EENEMY:
-	//	break;
-	//case ETag::EPLAYER:
-	//	if (CRectangle::Collision(o))
-	//	{
-	//		if (o->State() == EState::EJUMP)
-	//		{
-	//			if (mState != EState::ECRY)
-	//			{
-	//				mSuraTime = 90;
-	//				sEHp--;
-	//			}
-	//			mState = EState::ECRY;
-	//		}
-	//	}
-	//	break;
-	//case ETag::EBLOCK:
+		/*if (CRectangle::Collision(o, &x,&y))
+		{
+				if (mSlimeTime3 <= 0)
+				{
+					mSlimeTime3 = 61;
+					mState = EState::EATTACK;
+				}
+		}
+		break;*/
+		//case ETag::EMAGIC: //仮の魔法
+			/*if (CRectangle::Collision(o, &x, &y))
+			{
+				if (mSlimeInvincible <= 0)
+				{
+					mSlimeInvincible = 60;
+					if (mState != EState::EDAMAGE)
+					{
+						mSlimeTime = 31;
+						sSEhp = sSEhp - 100;
+						if (mSVx < 0) { Texture(Texture(), MU); }
+						if (mSVx > 0) { Texture(Texture(), MU); }
+		 if(mState != EState::EATTACK)
+		 {
+						mState = EState::EDAMAGE;
+		 }
+					}
+				}
+			}
+		break;
+		*/
+		//break;
+		//case ETag::EDAGEKI: //仮の打撃
 	//	if (CRectangle::Collision(o, &x, &y))
 	//	{
-	//		X(X() + x);
-	//		Y(Y() + y);
-	//		//着地した時
-	//		if (y != 0.0f)
+	//		if (mSlimeInvincible <= 0)
 	//		{
-	//			//Y軸速度を0にする
-	//			mVy = 0.0f;
-	//			if (y > 0.0f)
+	//			mSlimeInvincible = 60;
+	//			if (mState != EState::EDAMAGE)
 	//			{
-	//				if (mState != EState::ECRY && mState != EState::EDEATH)
+	//				mWolfTime = 31;
+	//				sWEhp = sWEhp - 25;
+	//				if (mState != EState::EATTACK)
 	//				{
-	//					mState = EState::EMOVE;
+	//					mState = EState::EDAMAGE;
 	//				}
 	//			}
 	//		}
 	//	}
-	//	break;
-	//}
+		}
+	}
 }
 
 CSlime::CSlime(float x, float y, float w, float h, CTexture* pt)
@@ -141,7 +172,19 @@ CSlime::CSlime(float x, float y, float w, float h, CTexture* pt)
 
 void CSlime::Update()
 {
+	if (mSlimeEattack > 0)
+	{
+		mSlimeEattack--;
+		if (mSlimeEattack <= 0)
+		{
+			delete mpEattack;;
+		}
+	}
 	CCharacter::Update();
+	if (mSlimeInvincible >= 0)
+	{
+		mSlimeInvincible--;
+	}
 	//テスト用入力キー
 	if (mInput.Key('4'))
 	{
@@ -150,20 +193,29 @@ void CSlime::Update()
 	}
 	if (mInput.Key('5'))
 	{
-		mSlimeTime3 = 40;
+		mSlimeTime3 = 61;
 		mState = EState::EATTACK;
 	}
-	if (mInput.Key('8'))
+	if (mSlimeInvincible != 10 && mInput.Key('8'))
 	{
+		mSlimeInvincible = 10;
 		if (mState != EState::EDAMAGE)
 		{
-			mSlimeTime = 11;
+			mSlimeTime = 31;
 			sSEhp = sSEhp - 100;
 			mState = EState::EDAMAGE;
 		}
 	}
 	switch (mState)
 	{
+		if (mSlimeEattack > 0)
+		{
+			mSlimeEattack--;
+			if (mSlimeEattack <= 0)
+			{
+				delete mpEattack;;
+			}
+		}
 	case EState::EMUTEKI:
 		break;
 	case EState::EDEATH: //死亡時
@@ -213,18 +265,29 @@ void CSlime::Update()
 		{
 			mSlimeTime3--;
 		}
-		if (mSlimeTime3 == 29)
+		if (mSlimeTime3 == 60)
 		{
 			if (mSVx < 0) { Texture(Texture(), SLIMENTL); }
 			if (mSVx > 0) { Texture(Texture(), SLIMENTR); }
 		}
-		if (mSlimeTime3 == 10)
+		if (mSlimeTime3 == 30)
 		{
-			if (mSVx < 0) { Texture(Texture(), SLIMEATL); }
-			if (mSVx > 0) { Texture(Texture(), SLIMEATR); }
+			if (mSVx < 0)
+			{
+				Texture(Texture(), SLIMEATL);
+				mpEattack = new CEattack(X() - 125, Y(), 80.0f, 80.0f, CSlime::Texture6());
+				mSlimeEattack = 29;
+			}
+			if (mSVx > 0)
+			{
+				Texture(Texture(), SLIMEATR);
+				mpEattack = new CEattack(X() + 125, Y(), 80.0f, 80.0f, CSlime::Texture6());
+				mSlimeEattack = 29;
+			}
 		}
-		if (mSlimeTime3 == 0)
+		if (mSlimeTime3 <= 0)
 		{
+			//delete mpEattack;
 			mState = EState::EMOVE;
 		}
 		break;
@@ -239,7 +302,12 @@ void CSlime::Update()
 		{
 			mSlimeTime--;
 		}
-		if (mSlimeTime == 10)
+		if (mSlimeTime == 30)
+		{
+			/*if (mSVx < 0) { Texture(Texture(), MU); }
+			if (mSVx > 0) { Texture(Texture(), MU); }*/
+		}
+		if (mSlimeTime == 59)
 		{
 			if (mSVx < 0) { Texture(Texture(), SLIMEDAL); }
 			if (mSVx > 0) { Texture(Texture(), SLIMEDAR); }
@@ -249,7 +317,7 @@ void CSlime::Update()
 			mState = EState::EMOVE;
 		}
 		break;
-	case EState::EJUMP:
+	case EState::EMOVE2:
 		mSlimeTime2--;
 		X(X() + mSVx);
 		if (X() != CPlayer::Instance()->X())
@@ -290,8 +358,30 @@ void CSlime::Update()
 		}
 		break;
 	case EState::EMOVE:
+		if (X() > CPlayer::Instance()->X() - 125 && X() < CPlayer::Instance()->X() + 125)
+		{
+			if (Y() > CPlayer::Instance()->Y() - 125 && Y() < CPlayer::Instance()->Y() + 125)
+			{
+				if (mSlimeTime3 <= 0)
+				{
+					mSlimeTime3 = 61;
+					mState = EState::EATTACK;
+				}
+			}
+		}
 		mSlimeTime2--;
 		X(X() + mSVx);
+		if (X() > CPlayer::Instance()->X() - 125 && X() < CPlayer::Instance()->X() + 125)
+		{
+			if (Y() > CPlayer::Instance()->Y() - 125 && Y() < CPlayer::Instance()->Y() + 125)
+			{
+				if (mSlimeTime3 <= 0)
+				{
+					mSlimeTime3 = 61;
+					mState = EState::EATTACK;
+				}
+			}
+		}
 		if (X() != CPlayer::Instance()->X())
 		{
 			Y(Y() + mSVy);
@@ -322,10 +412,10 @@ void CSlime::Update()
 					mSVy = -mSVy;
 				}
 			}
-			if (mState != EState::EJUMP && mSlimeTime2 < 30)
+			if (mState != EState::EMOVE2 && mSlimeTime2 < 30)
 			{
 				mSVy = JUMPV0;
-				mState = EState::EJUMP;
+				mState = EState::EMOVE2;
 			}
 		}
 	}
