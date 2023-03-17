@@ -1,6 +1,8 @@
 #include "CWolf.h"
 #include "CApplication.h"
 
+//無
+#define MU 0,0,0,0
 //立ち絵
 #define WOLFNTL 2,200,196,12
 #define WOLFNTR 200,2,196,12
@@ -28,7 +30,7 @@
 
 #define WOLFHP 300 
 
-int CWolf::sWEhp = 0;
+//int CWolf::sWEhp = 0;
 
 int CWolf::sNum = 0;
 
@@ -66,54 +68,71 @@ void CWolf::Collision(CCharacter* m, CCharacter* o)
 	switch (o->Tag())
 	{
 	case ETag::EPLAYER:
-		//折り返しに当たった時
+		if (mState != EState::EDEATH)
+		{
 		if (CRectangle::Collision(o, &x, &y))
 		{
-			//めり込まない位置まで戻す
-			X(X() + x);
-			Y(Y() + y);
-			//X軸速度を反転させる
-			//mVx = -mVx;
+			if (mWolfInvincible <= 0)
+			{
+				mWolfInvincible = 60;
+				if (mState != EState::EDAMAGE)
+				{
+					if (mWVx < 0) { Texture(Texture(), MU); }
+					if (mWVx > 0) { Texture(Texture(), MU); }
+					mWolfTime = 60;
+					sWEhp = sWEhp - 100;
+					if (sWEhp <= 0)
+					{
+						mWolfTime3 = 21;
+						mState = EState::EDEATH;
+					}
+					if (mState != EState::EATTACK)
+					{
+						mState = EState::EDAMAGE;
+					}
+				}
+			}
 		}
+		//break;
+		//case ETag::EMAGIC: //仮の魔法
+		//	if (CRectangle::Collision(o, &x, &y))
+		//	{
+		//		if (mWolfInvincible <= 0)
+		//		{
+		//			mWolfInvincible = 60;
+		//			if (mState != EState::EDAMAGE)
+		//			{
+		//				mWolfTime = 60;
+		//				sWEhp = sWEhp - 100;
+		//  if (mWVx < 0) { Texture(Texture(), MU); }
+		//	if (mWVx > 0) { Texture(Texture(), MU); }
+		//				if (mState != EState::EATTACK)
+		//				{
+		//					mState = EState::EDAMAGE;
+		//				}
+		//			}
+		//		}
+		//	}
 		break;
-	}
-	//case ETag::EENEMY:
-	//	break;
-	//case ETag::EPLAYER:
-	//	if (CRectangle::Collision(o))
-	//	{
-	//		if (o->State() == EState::EJUMP)
-	//		{
-	//			if (mState != EState::ECRY)
-	//			{
-	//				mSuraTime = 90;
-	//				sEHp--;
-	//			}
-	//			mState = EState::ECRY;
-	//		}
-	//	}
-	//	break;
-	//case ETag::EBLOCK:
+		//case ETag::EDAGEKI: //仮の打撃
 	//	if (CRectangle::Collision(o, &x, &y))
 	//	{
-	//		X(X() + x);
-	//		Y(Y() + y);
-	//		//着地した時
-	//		if (y != 0.0f)
+	//		if (mWolfInvincible <= 0)
 	//		{
-	//			//Y軸速度を0にする
-	//			mVy = 0.0f;
-	//			if (y > 0.0f)
+	//			mWolfInvincible = 60;
+	//			if (mState != EState::EDAMAGE)
 	//			{
-	//				if (mState != EState::ECRY && mState != EState::EDEATH)
+	//				mWolfTime = 31;
+	//				sWEhp = sWEhp - 25;
+	//				if (mState != EState::EATTACK)
 	//				{
-	//					mState = EState::EMOVE;
+	//					mState = EState::EDAMAGE;
 	//				}
 	//			}
 	//		}
 	//	}
-	//	break;
-	//}
+		}
+	}
 }
 
 CWolf::CWolf(float x, float y, float w, float h, CTexture* pt)
@@ -134,11 +153,23 @@ CWolf::CWolf(float x, float y, float w, float h, CTexture* pt)
 
 void CWolf::Update()
 {
+	if (mWolfEattack > 0)
+	{
+		mWolfEattack--;
+		if (mWolfEattack <= 0)
+		{
+			delete mpEattack;;
+		}
+	}
 	CCharacter::Update();
+	if (mWolfInvincible >= 0)
+	{
+		mWolfInvincible--;
+	}
 	//テスト用入力キー
 	if (mInput.Key('1'))
 	{
-		mWolfTime2 = 41;
+		mWolfTime2 = 61;
 		mState = EState::EATTACK;
 	}
 	if (mInput.Key('2'))
@@ -152,12 +183,12 @@ void CWolf::Update()
 		mState = EState::EDEATH;
 	}
 
-	if (mWolfTime4 != 10 && mInput.Key('9'))
+	if (mWolfInvincible != 10 && mInput.Key('9'))
 	{
-		mWolfTime4 = 10;
+		mWolfInvincible = 10;
 		if (mState != EState::EDAMAGE)
 		{
-			mWolfTime = 11;
+			mWolfTime = 31;
 			sWEhp = sWEhp - 100;
 			mState = EState::EDAMAGE;
 		}
@@ -195,24 +226,34 @@ void CWolf::Update()
 		{
 			mWolfTime2--;
 		}
-		if (mWolfTime2 == 40)
+		if (mWolfTime2 == 30)
 		{
 			if (mWVx < 0) { Texture(Texture(), WOLFATL); }
 			if (mWVx > 0) { Texture(Texture(), WOLFATR); }
 		}
-		if (mWolfTime2 == 20)
+		if (mWolfTime2 == 15)
 		{
 			if (mWVx < 0) { Texture(Texture(), WOLFATL2); }
 			if (mWVx > 0) { Texture(Texture(), WOLFATR2); }
 		}
-		if (mWolfTime2 == 10)
+		if (mWolfTime2 == 5)
 		{
-			if (mWVx < 0) { Texture(Texture(), WOLFATL3); }
-			if (mWVx > 0) { Texture(Texture(), WOLFATR3); }
+			if (mWVx < 0)
+			{
+				Texture(Texture(), WOLFATL3);
+				mpEattack = new CEattack(X() - 125, Y(), 80.0f, 80.0f, CWolf::Texture7());
+				mWolfEattack = 4;
+			}
+			if (mWVx > 0)
+			{
+				Texture(Texture(), WOLFATR3);
+				mpEattack = new CEattack(X() + 125, Y(), 80.0f, 80.0f, CWolf::Texture7());
+				mWolfEattack = 4;
+			}
 		}
-
 		if (mWolfTime2 == 0)
 		{
+			//delete mpEattack;
 			mState = EState::EMOVE;
 		}
 		break;
@@ -226,29 +267,66 @@ void CWolf::Update()
 		{
 			mWolfTime--;
 		}
-		if (mWolfTime == 10)
+		if (mWolfTime == 30)
+		{
+			/*if (mWVx < 0) { Texture(Texture(), MU); }
+			if (mWVx > 0) { Texture(Texture(), MU); }*/
+		}
+		if (mWolfTime == 59)
 		{
 			if (mWVx < 0) { Texture(Texture(), WOLFDAL); }
 			if (mWVx > 0) { Texture(Texture(), WOLFDAR); }
 		}
 		if (mWolfTime == 0)
 		{
-			mWolfTime4 = 0; //テスト用
 			mState = EState::EMOVE;
 		}
 		break;
 	case EState::EMOVE:
-		//プレイヤーを追尾する
-		X(X() + mWVx);
 		if (X() < CPlayer::Instance()->X())
 		{
-			if (mWVx < 0)
-				mWVx = -mWVx;
+			mWLR = 1;
 		}
 		else
 		{
-			if (mWVx > 0)
-				mWVx = -mWVx;
+			mWLR = 2;
+		}
+
+		//プレイヤーを追尾する
+		if (mWLR == 1)
+		{
+			if (X() < CPlayer::Instance()->X() - 125)
+			{
+				X(X() + mWVx);
+				if (X() < CPlayer::Instance()->X())
+				{
+					if (mWVx < 0)
+						mWVx = -mWVx;
+				}
+			}
+		}
+		if (mWLR == 2)
+		{
+			if (X() > CPlayer::Instance()->X() + 125)
+			{
+				X(X() + mWVx);
+				if (X() > CPlayer::Instance()->X())
+				{
+					if (mWVx > 0)
+						mWVx = -mWVx;
+				}
+			}
+		}
+		if (X() > CPlayer::Instance()->X() - 125 && X() < CPlayer::Instance()->X() + 125)
+		{
+			if (Y() > CPlayer::Instance()->Y() - 125 && Y() < CPlayer::Instance()->Y() + 125)
+			{
+				if (mWolfTime2 <= 0)
+				{
+					mWolfTime2 = 31;
+					mState = EState::EATTACK;
+				}
+			}
 		}
 		if (Instance3()->Y() != CPlayer::Instance()->Y())
 		{
@@ -264,10 +342,6 @@ void CWolf::Update()
 					mWVy = -mWVy;
 			}
 		}
-		/*if (Instance3()->Y() == CPlayer::Instance()->Y())
-		{
-			Y(0);
-		}*/
 		const int PITCH = 32;//画像を切り替える間隔
 		if ((int)X() % PITCH < PITCH / 2)
 		{

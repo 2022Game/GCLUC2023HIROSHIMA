@@ -17,6 +17,7 @@
     <ClCompile Include="src\CCamera.cpp" />
     <ClCompile Include="src\CCharacter.cpp" />
     <ClCompile Include="src\CCharacterManager.cpp" />
+    <ClCompile Include="src\CEattack.cpp" />
     <ClCompile Include="src\CEnemy.cpp" />
     <ClCompile Include="src\CEnemy2.cpp" />
     <ClCompile Include="src\CFont.cpp" />
@@ -43,6 +44,7 @@
     <ClInclude Include="src\CCamera.h" />
     <ClInclude Include="src\CCharacter.h" />
     <ClInclude Include="src\CCharacterManager.h" />
+    <ClInclude Include="src\CEattack.h" />
     <ClInclude Include="src\CEnemy.h" />
     <ClInclude Include="src\CEnemy2.h" />
     <ClInclude Include="src\CFont.h" />
