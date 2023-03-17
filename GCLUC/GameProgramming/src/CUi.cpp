@@ -7,6 +7,7 @@ CUi::CUi()
 	: mHp(0)
 	, mTime(0)
 	, mEnemy(0)
+	, mHeart(20, 770, 24, 24, &mTexture100)
 {
 	mFont.Load("FontWhite.png", 1, 64);
 	mTexture100.Load("ƒvƒŒƒCƒ„[HP.png");
@@ -45,146 +46,6 @@ void CUi::Enemy(int enemy)
 void CUi::Hp(int hp)
 {
 	mHp = hp;
-	if (mHp == 10)
-	{
-		mpHeart = new CHeart(40, 770.0f, 20.0f, 20.0f, 0, 49, 49, 0, &mTexture100);
-		mpHeart->Render();
-		mpHeart = new CHeart(80, 770.0f, 20.0f, 20.0f, 0, 49, 49, 0, &mTexture100);
-		mpHeart->Render();
-		mpHeart = new CHeart(120, 770.0f, 20.0f, 20.0f, 0, 49, 49, 0, &mTexture100);
-		mpHeart->Render();
-		mpHeart = new CHeart(160, 770.0f, 20.0f, 20.0f, 0, 49, 49, 0, &mTexture100);
-		mpHeart->Render();
-		mpHeart = new CHeart(200, 770.0f, 20.0f, 20.0f, 0, 49, 49, 0, &mTexture100);
-		mpHeart->Render();
-		mpHeart = new CHeart(240, 770.0f, 20.0f, 20.0f, 0, 49, 49, 0, &mTexture100);
-		mpHeart->Render();
-		mpHeart = new CHeart(280, 770.0f, 20.0f, 20.0f, 0, 49, 49, 0, &mTexture100);
-		mpHeart->Render();
-		mpHeart = new CHeart(320, 770.0f, 20.0f, 20.0f, 0, 49, 49, 0, &mTexture100);
-		mpHeart->Render();
-		mpHeart = new CHeart(360, 770.0f, 20.0f, 20.0f, 0, 49, 49, 0, &mTexture100);
-		mpHeart->Render();
-		mpHeart = new CHeart(400, 770.0f, 20.0f, 20.0f, 0, 49, 49, 0, &mTexture100);
-		mpHeart->Render();
-	}
-	if (mHp == 9)
-	{
-		mpHeart = new CHeart(40, 770.0f, 20.0f, 20.0f, 0, 49, 49, 0, &mTexture100);
-		mpHeart->Render();
-		mpHeart = new CHeart(80, 770.0f, 20.0f, 20.0f, 0, 49, 49, 0, &mTexture100);
-		mpHeart->Render();
-		mpHeart = new CHeart(120, 770.0f, 20.0f, 20.0f, 0, 49, 49, 0, &mTexture100);
-		mpHeart->Render();
-		mpHeart = new CHeart(160, 770.0f, 20.0f, 20.0f, 0, 49, 49, 0, &mTexture100);
-		mpHeart->Render();
-		mpHeart = new CHeart(200, 770.0f, 20.0f, 20.0f, 0, 49, 49, 0, &mTexture100);
-		mpHeart->Render();
-		mpHeart = new CHeart(240, 770.0f, 20.0f, 20.0f, 0, 49, 49, 0, &mTexture100);
-		mpHeart->Render();
-		mpHeart = new CHeart(280, 770.0f, 20.0f, 20.0f, 0, 49, 49, 0, &mTexture100);
-		mpHeart->Render();
-		mpHeart = new CHeart(320, 770.0f, 20.0f, 20.0f, 0, 49, 49, 0, &mTexture100);
-		mpHeart->Render();
-		mpHeart = new CHeart(360, 770.0f, 20.0f, 20.0f, 0, 49, 49, 0, &mTexture100);
-		mpHeart->Render();
-	}
-	if (mHp == 8)
-	{
-		mpHeart = new CHeart(40, 770.0f, 20.0f, 20.0f, 0, 49, 49, 0, &mTexture100);
-		mpHeart->Render();
-		mpHeart = new CHeart(80, 770.0f, 20.0f, 20.0f, 0, 49, 49, 0, &mTexture100);
-		mpHeart->Render();
-		mpHeart = new CHeart(120, 770.0f, 20.0f, 20.0f, 0, 49, 49, 0, &mTexture100);
-		mpHeart->Render();
-		mpHeart = new CHeart(160, 770.0f, 20.0f, 20.0f, 0, 49, 49, 0, &mTexture100);
-		mpHeart->Render();
-		mpHeart = new CHeart(200, 770.0f, 20.0f, 20.0f, 0, 49, 49, 0, &mTexture100);
-		mpHeart->Render();
-		mpHeart = new CHeart(240, 770.0f, 20.0f, 20.0f, 0, 49, 49, 0, &mTexture100);
-		mpHeart->Render();
-		mpHeart = new CHeart(280, 770.0f, 20.0f, 20.0f, 0, 49, 49, 0, &mTexture100);
-		mpHeart->Render();
-		mpHeart = new CHeart(320, 770.0f, 20.0f, 20.0f, 0, 49, 49, 0, &mTexture100);
-		mpHeart->Render();
-	}
-	if (mHp == 7)
-	{
-		mpHeart = new CHeart(40, 770.0f, 20.0f, 20.0f, 0, 49, 49, 0, &mTexture100);
-		mpHeart->Render();
-		mpHeart = new CHeart(80, 770.0f, 20.0f, 20.0f, 0, 49, 49, 0, &mTexture100);
-		mpHeart->Render();
-		mpHeart = new CHeart(120, 770.0f, 20.0f, 20.0f, 0, 49, 49, 0, &mTexture100);
-		mpHeart->Render();
-		mpHeart = new CHeart(160, 770.0f, 20.0f, 20.0f, 0, 49, 49, 0, &mTexture100);
-		mpHeart->Render();
-		mpHeart = new CHeart(200, 770.0f, 20.0f, 20.0f, 0, 49, 49, 0, &mTexture100);
-		mpHeart->Render();
-		mpHeart = new CHeart(240, 770.0f, 20.0f, 20.0f, 0, 49, 49, 0, &mTexture100);
-		mpHeart->Render();
-		mpHeart = new CHeart(280, 770.0f, 20.0f, 20.0f, 0, 49, 49, 0, &mTexture100);
-		mpHeart->Render();
-	}
-	if (mHp == 6)
-	{
-		mpHeart = new CHeart(40, 770.0f, 20.0f, 20.0f, 0, 49, 49, 0, &mTexture100);
-		mpHeart->Render();
-		mpHeart = new CHeart(80, 770.0f, 20.0f, 20.0f, 0, 49, 49, 0, &mTexture100);
-		mpHeart->Render();
-		mpHeart = new CHeart(120, 770.0f, 20.0f, 20.0f, 0, 49, 49, 0, &mTexture100);
-		mpHeart->Render();
-		mpHeart = new CHeart(160, 770.0f, 20.0f, 20.0f, 0, 49, 49, 0, &mTexture100);
-		mpHeart->Render();
-		mpHeart = new CHeart(200, 770.0f, 20.0f, 20.0f, 0, 49, 49, 0, &mTexture100);
-		mpHeart->Render();
-		mpHeart = new CHeart(240, 770.0f, 20.0f, 20.0f, 0, 49, 49, 0, &mTexture100);
-		mpHeart->Render();
-	}
-	if (mHp == 5)
-	{
-		mpHeart = new CHeart(40, 770.0f, 20.0f, 20.0f, 0, 49, 49, 0, &mTexture100);
-		mpHeart->Render();
-		mpHeart = new CHeart(80, 770.0f, 20.0f, 20.0f, 0, 49, 49, 0, &mTexture100);
-		mpHeart->Render();
-		mpHeart = new CHeart(120, 770.0f, 20.0f, 20.0f, 0, 49, 49, 0, &mTexture100);
-		mpHeart->Render();
-		mpHeart = new CHeart(160, 770.0f, 20.0f, 20.0f, 0, 49, 49, 0, &mTexture100);
-		mpHeart->Render();
-		mpHeart = new CHeart(200, 770.0f, 20.0f, 20.0f, 0, 49, 49, 0, &mTexture100);
-		mpHeart->Render();
-	}
-	if (mHp == 4)
-	{
-		mpHeart = new CHeart(40, 770.0f, 20.0f, 20.0f, 0, 49, 49, 0, &mTexture100);
-		mpHeart->Render();
-		mpHeart = new CHeart(80, 770.0f, 20.0f, 20.0f, 0, 49, 49, 0, &mTexture100);
-		mpHeart->Render();
-		mpHeart = new CHeart(120, 770.0f, 20.0f, 20.0f, 0, 49, 49, 0, &mTexture100);
-		mpHeart->Render();
-		mpHeart = new CHeart(160, 770.0f, 20.0f, 20.0f, 0, 49, 49, 0, &mTexture100);
-		mpHeart->Render();
-	}
-	if (mHp == 3)
-	{
-		mpHeart = new CHeart(40, 770.0f, 20.0f, 20.0f, 0, 49, 49, 0, &mTexture100);
-		mpHeart->Render();
-		mpHeart = new CHeart(80, 770.0f, 20.0f, 20.0f, 0, 49, 49, 0, &mTexture100);
-		mpHeart->Render();
-		mpHeart = new CHeart(120, 770.0f, 20.0f, 20.0f, 0, 49, 49, 0, &mTexture100);
-		mpHeart->Render();
-	}
-	if (mHp == 2)
-	{
-		mpHeart = new CHeart(40, 770.0f, 20.0f, 20.0f, 0, 49, 49, 0, &mTexture100);
-		mpHeart->Render();
-		mpHeart = new CHeart(80, 770.0f, 20.0f, 20.0f, 0, 49, 49, 0, &mTexture100);
-		mpHeart->Render();
-	}
-	if (mHp == 1)
-	{
-		mpHeart = new CHeart(40, 770.0f, 20.0f, 20.0f, 0, 49, 49, 0, &mTexture100);
-		mpHeart->Render();
-	}
 }
 
 void CUi::Time(int time)
@@ -197,4 +58,162 @@ void CUi::Render()
 	char str[16];
 	sprintf(str, "TIME:%03d", mTime);
 	mFont.Draw(1120, 780, 10, 20, str);
+
+	if (mHp == 10)
+	{
+		mHeart.Set(30, 770, 24, 24);
+		mHeart.Render();
+		mHeart.X(80);
+		mHeart.Render();
+		mHeart.X(130);
+		mHeart.Render();
+		mHeart.X(180);
+		mHeart.Render();
+		mHeart.X(230);
+		mHeart.Render();
+		mHeart.X(280);
+		mHeart.Render();
+		mHeart.X(330);
+		mHeart.Render();
+		mHeart.X(380);
+		mHeart.Render();
+		mHeart.X(430);
+		mHeart.Render();
+		mHeart.X(480);
+		mHeart.Render();
+	}
+	if (mHp == 9)
+	{
+		mHeart.Set(30, 770, 24, 24);
+		mHeart.Render();
+		mHeart.X(80);
+		mHeart.Render();
+		mHeart.X(130);
+		mHeart.Render();
+		mHeart.X(180);
+		mHeart.Render();
+		mHeart.X(230);
+		mHeart.Render();
+		mHeart.X(280);
+		mHeart.Render();
+		mHeart.X(330);
+		mHeart.Render();
+		mHeart.X(380);
+		mHeart.Render();
+		mHeart.X(430);
+		mHeart.Render();
+	}
+	if (mHp == 8)
+	{
+		mHeart.Set(30, 770, 24, 24);
+		mHeart.Render();
+		mHeart.X(80);
+		mHeart.Render();
+		mHeart.X(130);
+		mHeart.Render();
+		mHeart.X(180);
+		mHeart.Render();
+		mHeart.X(230);
+		mHeart.Render();
+		mHeart.X(280);
+		mHeart.Render();
+		mHeart.X(330);
+		mHeart.Render();
+		mHeart.X(380);
+		mHeart.Render();
+	}
+	if (mHp == 7)
+	{
+		mHeart.Set(30, 770, 24, 24);
+		mHeart.Render();
+		mHeart.X(80);
+		mHeart.Render();
+		mHeart.X(130);
+		mHeart.Render();
+		mHeart.X(180);
+		mHeart.Render();
+		mHeart.X(230);
+		mHeart.Render();
+		mHeart.X(280);
+		mHeart.Render();
+		mHeart.X(330);
+		mHeart.Render();
+	}
+	if (mHp == 7)
+	{
+		mHeart.Set(30, 770, 24, 24);
+		mHeart.Render();
+		mHeart.X(80);
+		mHeart.Render();
+		mHeart.X(130);
+		mHeart.Render();
+		mHeart.X(180);
+		mHeart.Render();
+		mHeart.X(230);
+		mHeart.Render();
+		mHeart.X(280);
+		mHeart.Render();
+		mHeart.X(330);
+		mHeart.Render();
+	}
+	if (mHp == 6)
+	{
+		mHeart.Set(30, 770, 24, 24);
+		mHeart.Render();
+		mHeart.X(80);
+		mHeart.Render();
+		mHeart.X(130);
+		mHeart.Render();
+		mHeart.X(180);
+		mHeart.Render();
+		mHeart.X(230);
+		mHeart.Render();
+		mHeart.X(280);
+		mHeart.Render();
+	}
+	if (mHp == 5)
+	{
+		mHeart.Set(30, 770, 24, 24);
+		mHeart.Render();
+		mHeart.X(80);
+		mHeart.Render();
+		mHeart.X(130);
+		mHeart.Render();
+		mHeart.X(180);
+		mHeart.Render();
+		mHeart.X(230);
+		mHeart.Render();
+	}
+	if (mHp == 4)
+	{
+		mHeart.Set(30, 770, 24, 24);
+		mHeart.Render();
+		mHeart.X(80);
+		mHeart.Render();
+		mHeart.X(130);
+		mHeart.Render();
+		mHeart.X(180);
+		mHeart.Render();
+	}
+	if (mHp == 3)
+	{
+		mHeart.Set(30, 770, 24, 24);
+		mHeart.Render();
+		mHeart.X(80);
+		mHeart.Render();
+		mHeart.X(130);
+		mHeart.Render();
+	}
+	if (mHp == 2)
+	{
+		mHeart.Set(30, 770, 24, 24);
+		mHeart.Render();
+		mHeart.X(80);
+		mHeart.Render();
+	}
+	if (mHp == 1)
+	{
+		mHeart.Set(30, 770, 24, 24);
+		mHeart.Render();
+	}
 }
