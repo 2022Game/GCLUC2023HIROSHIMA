@@ -6,7 +6,10 @@ private:
 	float mY; //Y座標
 	float mW; //幅
 	float mH; //高さ
+	float az;
 
+protected:
+	float mZ;
 public:
 	//コンストラクタ
 	CRectangle();

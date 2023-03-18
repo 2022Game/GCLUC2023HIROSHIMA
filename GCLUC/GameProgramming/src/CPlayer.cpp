@@ -68,6 +68,7 @@ void CPlayer::Collision(CCharacter* m, CCharacter* o)
 			X(X() + x);
 			Y(Y() + y);
 		}
+
 		break;
 	case ETag::EPLAYER:
 		break;
