@@ -9,7 +9,10 @@ enum class ETaskPriority
 	ETITLE,             //タイトル画面
 	ECharacter,         //キャラクター
 	ECharacterManager,  //キャラクターマネージャー
-	EBackGround = 1000, //背景
+	EBackGround = 1003, //背景
+	EBackGround2 = 1003,
+	EBackGround3 = 1003,
+	EBackGround4 = 1003,
 	EUI = 0,             //ハート
 };
 
@@ -27,6 +30,7 @@ private:
 	CTask* mpprev;   //前のタスクへのポインタ
 	CTask* mpnext;   //次のタスクへのポインタ
 	int mpriority;   //優先度
+	static int mPc;
 
 protected:
 	ETag mTag;
@@ -42,7 +46,7 @@ public:
 	void Setpriority(int priority);
 	//優先度を取得
 	int GetPriority() const;
-
+	static int Pc();
 	//タスクを削除
 	void Delete();
 
