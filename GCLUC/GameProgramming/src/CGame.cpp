@@ -41,8 +41,13 @@ void CGame::Clear()
 {
 	CTaskManager::Instance()->Update();
 	CTaskManager::Instance()->Render();
-	CameraSet();
-	CCamera::End();
+	/*CameraSet();
+	CCamera::End();*/
+	if (mH == 1)
+	{
+		mpBackGround4 = new CBackGround4(640.0f, 400.0f, 640.0f, 400.0f, 2, 2665, 1564, 68, CApplication::Texture5());
+		mH = 2;
+	}
 	//UI処理
 //	mpUi->Hp(CPlayer::Hp());
 }
@@ -58,8 +63,13 @@ void CGame::Over()
 {
 	CTaskManager::Instance()->Update();
 	CTaskManager::Instance()->Render();
-	CameraSet();
-	CCamera::End();
+	if (mH == 1)
+	{
+		mpBackGround4 = new CBackGround4(640.0f, 400.0f, 640.0f, 400.0f, 2, 2665, 1564, 68, CApplication::Texture4());
+		mH = 2;
+	}
+	/*CameraSet();
+	CCamera::End();*/
 	//UI処理
 //	mpUi->Hp(CPlayer::Hp());
 	/*mpUi->Enemy(CEnemy2::Num());*/
@@ -74,7 +84,7 @@ void CGame::Start()
 	CTaskManager::Instance()-> Render();
 	if (mH == 0)
 	{
-		mpBackGround = new CBackGround(640.0f, 400.0f, 640.0f, 400.0f, 0, 1279, 799, 0, CApplication::Texture3());
+		mpBackGround4 = new CBackGround4(640.0f, 400.0f, 640.0f, 400.0f, 0, 1279, 799, 0, CApplication::Texture3());
 		mH = 1;
 	}
 //	CameraSet();
@@ -98,16 +108,22 @@ void CGame::Start()
 
 void CGame::Stage1()
 {
-	mpWolf = new CWolf( 800.0f ,250.0f ,80.0f, 80.0f, CWolf::Texture7());
+	mpWolf = new CWolf( 800.0f ,250.0f ,80.0f, 60.0f, CWolf::Texture7());
 	mpPlayer = new CPlayer(400.0f, 250.0f, 110.0f, 110.0f, CApplication::Texture());
-	mpSlime = new CSlime(1000.0f, 100.0f, 80.0f, 80.0f, CSlime::Texture6());
-	mpBackGround = new CBackGround(640.0f, 400.0f, 640.0f, 400.0f, 0, 1279, 719, 0, CApplication::Texture2());
+	mpSlime = new CSlime(1000.0f, 100.0f, 80.0f, 60.0f, CSlime::Texture6());
+	mpBackGround = new CBackGround(640.0f, 400.0f, 640.0f, 400.0f, 0, 1279, 799, 0, CApplication::Texture6());
+	mpBackGround2 = new CBackGround2(640.0f, 400.0f, 640.0f, 400.0f, 0, 1279, 799, 0, CApplication::Texture7());
+	mpBackGround3 = new CBackGround3(640.0f, 400.0f, 640.0f, 400.0f, 0, 1279, 799, 0, CApplication::Texture8());
+	mpBackGround = new CBackGround(1920.0f, 400.0f, 640.0f, 400.0f, 0, 1279, 799, 0, CApplication::Texture6());
+	mpBackGround2 = new CBackGround2(1920.0f, 400.0f, 640.0f, 400.0f, 0, 1279, 799, 0, CApplication::Texture7());
+	mpBackGround3 = new CBackGround3(1920.0f, 400.0f, 640.0f, 400.0f, 0, 1279, 799, 0, CApplication::Texture8());
 	//mpHeart = new CHeart(95.0f, 750.0f, 90.0f, 40.0f, 0, 49, 49, 0, CApplication::Texture100());
 }
 
 //更新処理
 void CGame::Update()
 {
+	mNum = CWolf::Num() + CSlime::Num();
 	//更新、衝突、削除、描画
 	//CApplication::CharacterManager()->Update();
 	//CApplication::CharacterManager()->Collision();
@@ -140,4 +156,9 @@ void CGame::CameraSet()
 	//	, y - WINDOW_HEIGHT / 2
 	//	, y + WINDOW_HEIGHT / 2
 	//);
+}
+int CGame::mNum = 0;
+int CGame::Num()
+{
+	return mNum;
 }

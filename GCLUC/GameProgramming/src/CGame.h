@@ -4,6 +4,9 @@
 #include "CEnemy.h"
 #include "CEnemy2.h"
 #include "CBackGround.h"
+#include "CBackGround2.h"
+#include "CBackGround3.h"
+#include "CBackGround4.h"
 #include "CHeart.h"
 #include "CInput.h"
 #include "CSlime.h"
@@ -27,6 +30,9 @@ private:
 	CSlime* mpSlime;
 	CWolf* mpWolf;
 	CBackGround* mpBackGround;
+	CBackGround2* mpBackGround2;
+	CBackGround3* mpBackGround3;
+	CBackGround4* mpBackGround4;
 	CHeart* mpHeart;
 	CInput mInput;
 
@@ -35,9 +41,11 @@ private:
 	int mTime; //経過時間
 	int mH;
 	int mCt;
+	static int mNum;
 	CUi* mpUi;         //UIクラスのポインタ
 
 public:
+	static int Num();
 	//コンストラクタ
 	CGame();
 	//デストラクタ

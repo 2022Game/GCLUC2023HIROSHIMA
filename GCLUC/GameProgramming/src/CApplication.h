@@ -39,7 +39,11 @@ private:
 	static CTexture mTexture3; //スタート画面テクスチャ
 	static CTexture mTexture4; //ゲームオーバー画面テクスチャ
 	static CTexture mTexture5; //ゲームクリア画面テクスチャ
+	static CTexture mTexture6;
+	static CTexture mTexture7;
+	static CTexture mTexture8;
 	static CTexture mTexture100; //ハート表示テクスチャ
+	int mRb;
 
 public:
 	static CTexture* Texture();
@@ -47,7 +51,11 @@ public:
 	static CTexture* Texture3();
 	static CTexture* Texture4();
 	static CTexture* Texture5();
+	static CTexture* Texture6();
+	static CTexture* Texture7();
+	static CTexture* Texture8();
 	static CTexture* Texture100();
+	CApplication();
 	//最初に一度だけ実行するプログラム
 	void Start();
 	//繰り返し実行するプログラム
