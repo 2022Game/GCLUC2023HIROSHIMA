@@ -3,6 +3,11 @@
 
 CTexture CApplication::mTexture;
 
+CApplication::CApplication()
+	:mRb(0)
+{
+}
+
 CTexture* CApplication::Texture()
 {
 	return &mTexture;
@@ -15,6 +20,9 @@ void CApplication::Start()
 	mTexture3.Load("(仮).png");
 	mTexture4.Load("(仮)2.png");
 	mTexture5.Load("(仮)3.png");
+	mTexture6.Load("背景.png");
+	mTexture7.Load("背景2.png");
+	mTexture8.Load("背景3.png");
 	mTexture100.Load("プレイヤーHP.png");
 	mFont.Load("FontWhite.png", 1, 64);
 	mState = EState::ESTART;
@@ -23,14 +31,18 @@ void CApplication::Start()
 
 void CApplication::Update()
 {
+	mRb--;
 	switch (mState)
 	{
 	case EState::ESTART:	//状態がスタート
 		mpGame->Start();	//スタート画面表示
 		//mCharacterManager.Add(mpBackGround);
-		if (mInput.Key(VK_RETURN))
-		{	//状態をプレイ中にする
-			mState = EState::ESTAGE1;
+		if (mRb < 0)
+		{
+			if (mInput.Key(VK_RETURN))
+			{	//状態をプレイ中にする
+				mState = EState::ESTAGE1;
+			}
 		}
 		break;
 	case EState::ESTAGE1:
@@ -39,7 +51,17 @@ void CApplication::Update()
 	break;
 	case EState::EPLAY:
 		mpGame->Update();
-		if (mInput.Key(VK_SPACE))
+		if (CGame::Num() == 0)
+		{
+			mpGame->Clear();
+			mState = EState::ECLEAR;
+		}
+		if (CPlayer::HP() == 0)
+		{
+			mpGame->Over();
+			mState = EState::EOVER;
+		}
+		/*if (mInput.Key(VK_SPACE))
 		{
 			mpBackGround = new CBackGround(640.0f, 400.0f, 640.0f, 400.0f, 2, 2665, 1564, 68, &mTexture4);
 				mState = EState::EOVER;
@@ -48,7 +70,7 @@ void CApplication::Update()
 		{
 			mpBackGround = new CBackGround(640.0f, 400.0f, 640.0f, 400.0f, 2, 2665, 1564, 68, &mTexture5);
 			mState = EState::ECLEAR;
-		}
+		}*/
 		////ゲームオーバーか判定
 		//if (mpGame->IsOver())
 		//{	//状態をゲームオーバーにする
@@ -74,6 +96,7 @@ void CApplication::Update()
 			mpGame = new CGame();
 			//状態をスタートにする
 			mState = EState::ESTART;
+			mRb = 10;
 		}
 		break;
 
@@ -85,6 +108,7 @@ void CApplication::Update()
 			delete mpGame;
 			mpGame = new CGame();
 			mState = EState::ESTART;
+			mRb = 10;
 		}
 		break;
 	}
@@ -109,7 +133,21 @@ CTexture* CApplication::Texture5()
 {
 	return &mTexture5;
 }
-
+CTexture CApplication::mTexture6;
+CTexture* CApplication::Texture6()
+{
+	return &mTexture6;
+}
+CTexture CApplication::mTexture7;
+CTexture* CApplication::Texture7()
+{
+	return &mTexture7;
+}
+CTexture CApplication::mTexture8;
+CTexture* CApplication::Texture8()
+{
+	return &mTexture8;
+}
 CTexture CApplication::mTexture100;
 CTexture* CApplication::Texture100()
 {
