@@ -1,13 +1,16 @@
 #include "CMagicBullet.h"
 #include "CPlayer.h"
+
 #define MAGICBULLET 0, 200, 1400, 1200
 #define MAGICBULLET2 200, 0, 1400, 1200 
+
 //コンストラクタ
 CMagicBullet::CMagicBullet(float x, float y, float w, float h, CTexture* pt)
 	:CCharacter((int)ETaskPriority::ECharacter)
 {
 	Set(x, y, w, h );
 	Texture(pt, MAGICBULLET);
+	mTag = ETag::EBULLET;
 	mState = EState::ENULL;
 }
 
