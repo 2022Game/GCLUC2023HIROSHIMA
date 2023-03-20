@@ -176,7 +176,7 @@ void CWolf::Update()
 		mWolfEattack--;
 		if (mWolfEattack <= 0)
 		{
-			delete mpEattack;;
+			delete mpWolfAttackBox;
 		}
 	}
 	CCharacter::Update();
@@ -264,13 +264,13 @@ void CWolf::Update()
 			if (mWVx < 0)
 			{
 				Texture(Texture(), WOLFATL3);
-				mpEattack = new CEattack(X() - 125, Y(), 80.0f, 80.0f, CWolf::Texture7());
+				mpWolfAttackBox = new CWolfAttackBox(X() - 125, Y(), 80.0f, 80.0f, CWolf::Texture7());
 				mWolfEattack = 4;
 			}
 			if (mWVx > 0)
 			{
 				Texture(Texture(), WOLFATR3);
-				mpEattack = new CEattack(X() + 125, Y(), 80.0f, 80.0f, CWolf::Texture7());
+				mpWolfAttackBox = new CWolfAttackBox(X() + 125, Y(), 80.0f, 80.0f, CWolf::Texture7());
 				mWolfEattack = 4;
 			}
 		}

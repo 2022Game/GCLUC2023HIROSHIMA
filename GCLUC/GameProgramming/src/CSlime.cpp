@@ -1,5 +1,5 @@
 #include "CSlime.h"
-#include "CEattack.h"
+#include "CSlimeAttackBox.h"
 #include "CApplication.h"
 #include "CCharacter.h"
 
@@ -186,7 +186,7 @@ void CSlime::Update()
 		mSlimeEattack--;
 		if (mSlimeEattack <= 0)
 		{
-			delete mpEattack;;
+			delete mpSlimeAttackBox;;
 		}
 	}
 	CCharacter::Update();
@@ -222,7 +222,7 @@ void CSlime::Update()
 			mSlimeEattack--;
 			if (mSlimeEattack <= 0)
 			{
-				delete mpEattack;;
+				delete mpSlimeAttackBox;;
 			}
 		}
 	case EState::EMUTEKI:
@@ -284,13 +284,13 @@ void CSlime::Update()
 			if (mSVx < 0)
 			{
 				Texture(Texture(), SLIMEATL);
-				mpEattack = new CEattack(X() - 125, Y(), 80.0f, 80.0f, CSlime::Texture6());
+				mpSlimeAttackBox = new CSlimeAttackBox(X() - 125, Y(), 80.0f, 80.0f, CSlime::Texture6());
 				mSlimeEattack = 30;
 			}
 			if (mSVx > 0)
 			{
 				Texture(Texture(), SLIMEATR);
-				mpEattack = new CEattack(X() + 125, Y(), 80.0f, 80.0f, CSlime::Texture6());
+				mpSlimeAttackBox = new CSlimeAttackBox(X() + 125, Y(), 80.0f, 80.0f, CSlime::Texture6());
 				mSlimeEattack = 30;
 			}
 		}
@@ -457,3 +457,4 @@ CTexture* CSlime::Texture6()
 	return &mTexture6;
 }
 CTexture CSlime::mTexture6;
+
