@@ -137,10 +137,7 @@ void CPlayer::Update()
 			mState = EState::EDAMAGE;
 		}
 	}
-	if (mInput.Key('X'))
-	{
-		sStamina = sStamina -5;
-	}
+
 	//HPが0になると死亡状態にする
 	if (sHp <= 0)
 	{
@@ -154,7 +151,7 @@ void CPlayer::Update()
 	{
 		sStamina = 100;
 	}
-	//スタミナの加減
+	//スタミナの下限
 	else if (sStamina < 0)
 	{
 		sStamina = 0;
@@ -414,11 +411,11 @@ void CPlayer::Death()
 {
 	float left;
 	float right;
-	if (mAnimationCount <= 50)
+	if (mAnimationCount <= 60)
 	{
 		mAnimationCount++;
 	}
-	left = (mAnimationCount / 50) * 200;
+	left = (mAnimationCount / 60) * 200;
 	right = left + 200;
 	Texture(Texture(), left, right, 1200, 1000);
 }

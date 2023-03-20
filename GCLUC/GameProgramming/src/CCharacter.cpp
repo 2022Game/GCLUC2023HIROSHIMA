@@ -59,7 +59,6 @@ void CCharacter::Update()
 {
 	if (mState != EState::EJUMP)
 	{
-		mZ = Y();
+		CTask::Setpriority(Z());
 	}
-	CTask::Setpriority(mZ);
 }

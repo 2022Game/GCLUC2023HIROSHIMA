@@ -2,15 +2,15 @@
 #include <stdio.h>
 #include "glut.h"
 
-#define COLLISIONX 50
+#define COLLISIONZ 50
 //コンストラクタ
 CRectangle::CRectangle()
 	:mX(0.0f)
 	,mY(0.0f)
+	,mZ(0.0f)
 	,mW(0.0f)
 	,mH(0.0f)
-	,az(0.0f)
-	,mZ(0.0f)
+	,maz(0.0f)
 {
 	printf("インスタンスが生まれました\n");
 }
@@ -42,16 +42,17 @@ bool CRectangle::Collision(CRectangle* r, float* ax, float* ay)
 	*ax = 0;
 	*ay = 0;
 
-	//Z軸当たり判定
-	if (mZ < r->mZ)
-		az = r->mZ - mZ;
-	else
-		az = mZ - r->mZ;
-	//azを絶対値にする
-	if (az < 0.0f)
-		az = -az;
-	//定数と比較(azが0～50の間ならCollision)
-	if (0 < az && az <= COLLISIONX)
+	//奥行当たり判定
+	if (mZ > r->mZ)
+		maz = mZ - r->mZ;
+	if (r->mZ > mZ)
+		maz = r->mZ - mZ;
+
+	//mazを絶対値にする
+	if (maz < 0.0f)
+		maz = -maz;
+	//定数と比較(mazが0～100の間ならCollision)
+	if (0 < maz && maz <= COLLISIONZ)
 	{
 		//X軸当たり判定
 		if (mX  < r->mX)
@@ -87,10 +88,10 @@ bool CRectangle::Collision(CRectangle* r, float* ax, float* ay)
 		{//X修正、Yは0
 			*ay = 0.0f;
 			//左の時
-			*ax = *ax / 3;
+			*ax = *ax / 2;
 			//右の時
 			if (mX > r->mX)
-				*ax = -*ax / 3;
+				*ax = -*ax / 2;
 		}
 		return true;
 	}
@@ -129,6 +130,12 @@ float CRectangle::X()
 float CRectangle::Y()
 {
 	return mY;
+}
+
+float CRectangle::Z()
+{
+	mZ = mY - mH;
+	return mZ;
 }
 
 float CRectangle::W()

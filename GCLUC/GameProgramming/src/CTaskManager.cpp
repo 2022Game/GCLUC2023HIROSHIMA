@@ -155,6 +155,7 @@ void CTaskManager::Collision()
 {
 	CTask* next = mhead;
 	CTask* tugi;
+	CTask* mae;
 	while (next != nullptr)
 	{
 		tugi = next->mpnext;
@@ -162,6 +163,12 @@ void CTaskManager::Collision()
 		{
 			next->Collision(((CCharacter*)next),(CCharacter*)tugi);
 			tugi = tugi->mpnext;
+			mae = next->mpprev;
+			while (mae != nullptr)
+			{
+				mae->Collision(((CCharacter*)next), (CCharacter*)mae);
+				mae = mae->mpprev;
+			}
 		}
 		next = next->mpnext;
 	}

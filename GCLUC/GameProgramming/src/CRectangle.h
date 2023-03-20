@@ -4,12 +4,11 @@ class CRectangle
 private:
 	float mX; //X座標
 	float mY; //Y座標
+	float mZ; //Z座標
 	float mW; //幅
 	float mH; //高さ
-	float az;
+	float maz; //Z座標判定値
 
-protected:
-	float mZ;
 public:
 	//コンストラクタ
 	CRectangle();
@@ -32,6 +31,7 @@ public:
 	void Set(float x, float y, float w, float h);
 	float X();
 	float Y();
+	float Z();
 	float W();
 	float H();
 	void Y(float y);
