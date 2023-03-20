@@ -107,7 +107,7 @@ void CApplication::Update()
 			//ゲームのインスタンス生成
 			mpGame = new CGame();
 			//状態をスタートにする
-			mState = EState::ESTART;
+			mpGame->Stage1();
 			mRb = 10;
 		}
 		break;
