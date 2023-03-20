@@ -2,15 +2,15 @@
 #include "CCharacter.h"
 #include "CTexture.h"
 #include "CInput.h"
-#include "CEattack.h"
+#include "CWolfAttackBox.h"
 
 //仮のイラスト
-#define WOLFX 2.0f 
-#define WOLFY 2.0f
+#define WOLFX 2.5f 
+#define WOLFY 2.5f
 
 class CWolf : public CCharacter
 {
-	friend CEattack;
+	friend CWolfAttackBox;
 public:
 	enum class EState	//状態
 	{
@@ -41,7 +41,7 @@ public:
 	static CTexture mTexture7;
 	static CTexture* Texture7();
 private:
-	CEattack* mpEattack;
+	CWolfAttackBox* mpWolfAttackBox;
 	static CWolf* spInstance3;
 	int sWEhp; //オオカミのHP
 	static int sNum;	//敵の数

@@ -102,16 +102,22 @@
     <ClCompile Include="src\CBackGround4.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\CWolfAttakcBox.cpp">
+    <ClCompile Include="src\CWolfAttackBox.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\CSlimeAttakcBox.cpp">
+    <ClCompile Include="src\CSlimeAttackBox.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\CBossAttakcBox.cpp">
+    <ClCompile Include="src\CBossAttackBox.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="src\CItem.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CGage.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CBossAttackBox2.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -200,16 +206,22 @@
     <ClInclude Include="src\CBackGround4.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\CWolfAttakcBox.h">
+    <ClInclude Include="src\CWolfAttackBox.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\CSlimeAttakcBox.h">
+    <ClInclude Include="src\CSlimeAttackBox.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\CBossAttakcBox.h">
+    <ClInclude Include="src\CBossAttackBox.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
     <ClInclude Include="src\CItem.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CGage.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CBossAttackBox2.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
   </ItemGroup>

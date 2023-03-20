@@ -12,6 +12,7 @@
 #include "CSound.h"
 #include "CBackGround.h"
 #include "CHeart.h"
+#include "CGage.h"
 
 
 class CApplication
@@ -44,6 +45,8 @@ private:
 	static CTexture mTexture8;
 	static CTexture mTexture100; //ハート表示テクスチャ
 	int mRb;
+	static CTexture mTexture101; //スタミナ表示テクスチャ
+	static CTexture mTexture102; //スタミナゲージ表示テクスチャ
 
 public:
 	static CTexture* Texture();
@@ -55,6 +58,8 @@ public:
 	static CTexture* Texture7();
 	static CTexture* Texture8();
 	static CTexture* Texture100();
+	static CTexture* Texture101();
+	static CTexture* Texture102();
 	CApplication();
 	//最初に一度だけ実行するプログラム
 	void Start();

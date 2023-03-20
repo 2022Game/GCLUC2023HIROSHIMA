@@ -1,6 +1,8 @@
 #pragma once
 #include "CFont.h"
 #include "CHeart.h"
+#include "CStamina.h"
+#include "CGage.h"
 /*
 * CUi
 * ユーザーインタフェースクラス
@@ -8,14 +10,19 @@
 class CUi:public CRectangle
 {
 private:
+	CStamina mStamina;
+	CGage mGage;
 	CHeart mHeart;
 	int mEnemy;	//敵の数
 	int mHp;    //プレイヤーのHP
+	int mStaminagage; //プレイヤーのスタミナ
 	int mTime;	//経過時間
 	CFont mFont;
 
 public:
 	CTexture mTexture100;
+	CTexture mTexture101;
+	CTexture mTexture102;
 	//コンストラクタ
 	CUi();
 	//デストラクタ
@@ -30,7 +37,10 @@ public:
 
 	//Enemy(敵の数)
 	void Enemy(int enemy);
+	//Hp(体力)
 	void Hp(int hp);
+	//Stamina(スタミナ)
+	void Stamina(int stamina);
 	//Time(時間)
 	void Time(int time);
 	void Render();
