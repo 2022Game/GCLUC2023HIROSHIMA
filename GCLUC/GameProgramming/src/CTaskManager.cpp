@@ -163,12 +163,12 @@ void CTaskManager::Collision()
 		{
 			next->Collision(((CCharacter*)next),(CCharacter*)tugi);
 			tugi = tugi->mpnext;
-			mae = next->mpprev;
-			while (mae != nullptr)
-			{
-				mae->Collision(((CCharacter*)next), (CCharacter*)mae);
-				mae = mae->mpprev;
-			}
+		}
+		mae = next->mpprev;
+		while (mae != nullptr)
+		{
+			next->Collision(((CCharacter*)next), (CCharacter*)mae);
+			mae = mae->mpprev;
 		}
 		next = next->mpnext;
 	}
