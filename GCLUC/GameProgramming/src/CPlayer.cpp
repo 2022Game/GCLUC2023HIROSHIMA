@@ -131,10 +131,6 @@ void CPlayer::Update()
 			mState = EState::EDAMAGE;
 		}
 	}
-	if (mInput.Key('X'))
-	{
-		sStamina = sStamina -5;
-	}
 	//HP‚ª0‚É‚È‚é‚Æ€–Só‘Ô‚É‚·‚é
 	if (sHp <= 0)
 	{

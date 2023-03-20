@@ -45,7 +45,7 @@ void CGame::Clear()
 	CCamera::End();*/
 	if (mH == 1)
 	{
-		mpBackGround4 = new CBackGround4(640.0f, 400.0f, 640.0f, 400.0f, 2, 2665, 1564, 68, CApplication::Texture5());
+		mpBackGround4 = new CBackGround4(640.0f, 400.0f, 640.0f, 400.0f, 0, 1281, 801, 0, CApplication::Texture5());
 		mH = 2;
 	}
 	//UIˆ—
@@ -65,7 +65,7 @@ void CGame::Over()
 	CTaskManager::Instance()->Render();
 	if (mH == 1)
 	{
-		mpBackGround4 = new CBackGround4(640.0f, 400.0f, 640.0f, 400.0f, 2, 2665, 1564, 68, CApplication::Texture4());
+		mpBackGround4 = new CBackGround4(640.0f, 400.0f, 640.0f, 400.0f, 0, 1281, 801, 0, CApplication::Texture4());
 		mH = 2;
 	}
 	/*CameraSet();
@@ -84,7 +84,7 @@ void CGame::Start()
 	CTaskManager::Instance()-> Render();
 	if (mH == 0)
 	{
-		mpBackGround4 = new CBackGround4(640.0f, 400.0f, 640.0f, 400.0f, 0, 1279, 799, 0, CApplication::Texture3());
+		mpBackGround4 = new CBackGround4(640.0f, 400.0f, 640.0f, 400.0f, 0, 1281, 801, 0, CApplication::Texture3());
 		mH = 1;
 	}
 //	CameraSet();

@@ -17,9 +17,9 @@ void CApplication::Start()
 {
 	mTexture.Load("PlayerImage.png");
 	mTexture2.Load("背景(仮) .png");
-	mTexture3.Load("(仮).png");
-	mTexture4.Load("(仮)2.png");
-	mTexture5.Load("(仮)3.png");
+	mTexture3.Load("タイトル画面 .png");
+	mTexture4.Load("ゲームオーバー.png");
+	mTexture5.Load("ゲームクリア.png");
 	mTexture6.Load("背景.png");
 	mTexture7.Load("背景2.png");
 	mTexture8.Load("背景3.png");
@@ -91,8 +91,18 @@ void CApplication::Update()
 		//ゲームオーバー処理
 		mpGame->Over();
 		//エンターキー入力時
-		if (mInput.Key(VK_RETURN))
+		if (mInput.Key('N'))
 		{	//ゲームのインスタンス削除
+			delete mpGame;
+			//ゲームのインスタンス生成
+			mpGame = new CGame();
+			//状態をスタートにする
+			mState = EState::ESTART;
+			mRb = 10;
+		}
+		else if (mInput.Key('Y'))
+		{
+			//ゲームのインスタンス削除
 			delete mpGame;
 			//ゲームのインスタンス生成
 			mpGame = new CGame();
