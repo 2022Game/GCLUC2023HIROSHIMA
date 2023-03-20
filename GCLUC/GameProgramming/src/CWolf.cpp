@@ -4,33 +4,31 @@
 //–³
 #define MU 0,0,0,0
 //—§‚¿ŠG
-#define WOLFNTL 2,200,196,12
-#define WOLFNTR 200,2,196,12
+#define WOLFNTL 2,200,200,12
+#define WOLFNTR 200,2,200,12
 //ˆÚ“®‚P
-#define WOLFMOVEL 1003,1188,184,18
-#define WOLFMOVER 1188,1003,184,18
+#define WOLFMOVEL 1003,1188,197,18
+#define WOLFMOVER 1188,1003,197,18
 //ˆÚ“®‚Q@//ˆÚ“®‚P‚ÌŒã‚ÉˆÚ“®‚Q‚ğ•\¦‚·‚é
-#define WOLFMOVEL2 1210,1393,188,28
-#define WOLFMOVER2 1393,1210,188,28
+#define WOLFMOVEL2 1210,1393,198,28
+#define WOLFMOVER2 1393,1210,198,28
 //ƒ_ƒ[ƒW
-#define WOLFDAL 205,397,192,35
-#define WOLFDAR 397,205,192,35
+#define WOLFDAL 205,407,200,35
+#define WOLFDAR 407,205,200,35
 //UŒ‚‘O
-#define WOLFATL 801,996,196,23
-#define WOLFATR 996,801,196,23
+#define WOLFATL 801,996,200,23
+#define WOLFATR 996,801,200,23
 //UŒ‚‚P
-#define WOLFATL2 408,599,198,15
-#define WOLFATR2 598,408,198,15
+#define WOLFATL2 408,608,200,15
+#define WOLFATR2 608,408,200,15
 //UŒ‚‚Q@//UŒ‚‚P‚ÌŒã‚ÉUŒ‚‚Q‚ğ•\¦‚·‚é
-#define WOLFATL3 608,797,198,15
-#define WOLFATR3 797,608,198,15
+#define WOLFATL3 608,799,200,15
+#define WOLFATR3 799,608,200,15
 //€–S
-#define WOLFDTL 1421,1593,194,27
-#define WOLFDTR 1593,1421,194,27
+#define WOLFDTL 1412,1593,198,27
+#define WOLFDTR 1593,1412,198,27
 
 #define WOLFHP 300 
-
-//int CWolf::sWEhp = 0;
 
 int CWolf::sNum = 0;
 
@@ -156,7 +154,7 @@ void CWolf::Collision(CCharacter* m, CCharacter* o)
 CWolf::CWolf(float x, float y, float w, float h, CTexture* pt)
 	: CCharacter((int)ETaskPriority::ECharacter)
 {
-	mTexture7.Load("q˜T.png");
+	mTexture7.Load("q˜T2.png");
 	Set(x, y, w, h);
 	Texture(pt, WOLFMOVEL); //ŠJn‚Ì—§‚¿ŠG
 	mState = EState::EMOVE;
@@ -184,40 +182,12 @@ void CWolf::Update()
 	{
 		mWolfInvincible--;
 	}
-	//ƒeƒXƒg—p“ü—ÍƒL[
-	if (mInput.Key('1'))
-	{
-		mWolfTime2 = 61;
-		mState = EState::EATTACK;
-	}
-	if (mInput.Key('2'))
-	{
-		mWolfTime = 11;
-		mState = EState::EDAMAGE;
-	}
-	if (mInput.Key('3'))
-	{
-		mWolfTime3 = 21;
-		mState = EState::EDEATH;
-	}
-
-	if (mWolfInvincible != 10 && mInput.Key('9'))
-	{
-		mWolfInvincible = 10;
-		if (mState != EState::EDAMAGE)
-		{
-			mWolfTime = 31;
-			sWEhp = sWEhp - 100;
-			mState = EState::EDAMAGE;
-		}
-	}
 	switch (mState)
 	{
 	case EState::EMUTEKI:
 		break;
 	case EState::EDEATH: //€–S
 		//HP‚ª‚O‚É‚È‚Á‚½”•bŒã‚ÉÁ–Å‚³‚¹‚é
-		//ƒeƒXƒg—p
 		if (mWolfTime3 >= 0)
 		{
 			mWolfTime3--;
@@ -234,6 +204,7 @@ void CWolf::Update()
 		}
 		if (mWolfTime3 == 0)
 		{
+			Texture(Texture(), 0, 0, 0, 0); //‰¼
 			sNum--;
 		}
 		break;
@@ -276,7 +247,6 @@ void CWolf::Update()
 		}
 		if (mWolfTime2 == 0)
 		{
-			//delete mpEattack;
 			mState = EState::EMOVE;
 		}
 		break;
@@ -289,11 +259,6 @@ void CWolf::Update()
 		if (mWolfTime > 0)
 		{
 			mWolfTime--;
-		}
-		if (mWolfTime == 29)
-		{
-			/*if (mWVx < 0) { Texture(Texture(), MU); }
-			if (mWVx > 0) { Texture(Texture(), MU); }*/
 		}
 		if (mWolfTime == 59)
 		{
@@ -365,7 +330,7 @@ void CWolf::Update()
 					mWVy = -mWVy;
 			}
 		}
-		const int PITCH = 32;//‰æ‘œ‚ğØ‚è‘Ö‚¦‚éŠÔŠu
+		const int PITCH = 64;//‰æ‘œ‚ğØ‚è‘Ö‚¦‚éŠÔŠu
 		if ((int)X() % PITCH < PITCH / 2)
 		{
 			if (mWVx < 0)
