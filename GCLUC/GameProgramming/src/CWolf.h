@@ -5,8 +5,8 @@
 #include "CWolfAttackBox.h"
 
 //‰¼‚ÌƒCƒ‰ƒXƒg
-#define WOLFX 2.0f 
-#define WOLFY 2.0f
+#define WOLFX 2.5f 
+#define WOLFY 2.5f
 
 class CWolf : public CCharacter
 {

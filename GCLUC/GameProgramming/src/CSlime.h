@@ -5,7 +5,7 @@
 #include "CSlimeAttackBox.h"
 
 //仮のイラスト
-#define SLIME "スライム.png"
+#define SLIME "スライム3.png"
 #define SLIMEX 1.5f 
 #define SLIMEY 1.5f
 

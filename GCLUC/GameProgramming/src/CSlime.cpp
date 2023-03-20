@@ -6,8 +6,8 @@
 //–³
 #define MU 0,0,0,0
 //—§‚¿ŠG
-#define SLIMENTL 37,163,176,63
-#define SLIMENTR 163,37,176,63
+#define SLIMENTL 37,179,176,63
+#define SLIMENTR 179,37,176,63
 //ƒWƒƒƒ“ƒv
 #define SLIMEJPL 629,775,189,29
 #define SLIMEJPR 775,629,189,29
