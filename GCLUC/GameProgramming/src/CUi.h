@@ -3,6 +3,7 @@
 #include "CHeart.h"
 #include "CStamina.h"
 #include "CGage.h"
+#include "CBossHp.h"
 /*
 * CUi
 * ユーザーインタフェースクラス
@@ -10,6 +11,7 @@
 class CUi:public CRectangle
 {
 private:
+	//CBossHp mBossHp;
 	CStamina mStamina;
 	CGage mGage;
 	CHeart mHeart;
@@ -41,6 +43,8 @@ public:
 	void Hp(int hp);
 	//Stamina(スタミナ)
 	void Stamina(int stamina);
+	//BossHp(ボスHP)
+	void BEhp(int behp);
 	//Time(時間)
 	void Time(int time);
 	void Render();

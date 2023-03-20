@@ -19,6 +19,7 @@
     <ClCompile Include="src\CBoss.cpp" />
     <ClCompile Include="src\CBossAttackBox2.cpp" />
     <ClCompile Include="src\CBossAttackBox.cpp" />
+    <ClCompile Include="src\CBossHp.cpp" />
     <ClCompile Include="src\CCamera.cpp" />
     <ClCompile Include="src\CCharacter.cpp" />
     <ClCompile Include="src\CCharacterManager.cpp" />
@@ -55,6 +56,7 @@
     <ClInclude Include="src\CBoss.h" />
     <ClInclude Include="src\CBossAttackBox2.h" />
     <ClInclude Include="src\CBossAttackBox.h" />
+    <ClInclude Include="src\CBossHp.h" />
     <ClInclude Include="src\CCamera.h" />
     <ClInclude Include="src\CCharacter.h" />
     <ClInclude Include="src\CCharacterManager.h" />
