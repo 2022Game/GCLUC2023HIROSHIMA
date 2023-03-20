@@ -17,7 +17,7 @@
 #define BOSSDTL 1206,1796,433,133
 #define BOSSDTR 1796,1206,433,133
 
-#define BOSSHP 1300
+#define BOSSHP 600
 
 #define BOSSSR 648,1194,500,0
 #define BOSSSL 1194,648,500,0
@@ -118,27 +118,6 @@ void CBoss::Collision(CCharacter* m, CCharacter* o)
 			//		}
 			//	}
 			//	break;
-			//case ETag::EBLOCK:
-			//	if (CRectangle::Collision(o, &x, &y))
-			//	{
-			//		X(X() + x);
-			//		Y(Y() + y);
-			//		//’…’n‚µ‚½Žž
-			//		if (y != 0.0f)
-			//		{
-			//			//YŽ²‘¬“x‚ð0‚É‚·‚é
-			//			mVy = 0.0f;
-			//			if (y > 0.0f)
-			//			{
-			//				if (mState != EState::ECRY && mState != EState::EDEATH)
-			//				{
-			//					mState = EState::EMOVE;
-			//				}
-			//			}
-			//		}
-			//	}
-			//	break;
-			//}
 		}
 	}
 }
@@ -175,7 +154,15 @@ void CBoss::Update()
 		mBossEattack--;
 		if (mBossEattack <= 0)
 		{
-			delete mpEattack;;
+			delete mpBossAttackBox;
+		}
+	}
+	if (mBossEattack2 > 0)
+	{
+		mBossEattack2--;
+		if (mBossEattack2 <= 0)
+		{
+			delete mpBossAttackBox2;
 		}
 	}
 	if (mInput.Key('6'))
@@ -231,13 +218,13 @@ void CBoss::Update()
 			if (mBVx < 0)
 			{
 				Texture(Texture(), BOSSAT2L);
-				mpEattack = new CEattack(X() - 300, Y(), 160.0f, 240.0f, CBoss::Texture8());
+				mpBossAttackBox = new CBossAttackBox(X() - 300, Y(), 160.0f, 240.0f, CBoss::Texture8());
 				mBossEattack = 30;
 			}
 			if (mBVx > 0)
 			{
 				Texture(Texture(), BOSSAT2R);
-				mpEattack = new CEattack(X() + 300, Y(), 160.0f, 240.0f, CBoss::Texture8());
+				mpBossAttackBox = new CBossAttackBox(X() + 300, Y(), 160.0f, 240.0f, CBoss::Texture8());
 				mBossEattack = 30;
 			}
 		}
@@ -272,8 +259,6 @@ void CBoss::Update()
 				{
 					if (mFlg3 != 0)
 					{
-						/*mFlg2 = 0;
-						mFlg3 = 0;*/
 						mFlg4 = 1;
 					}
 					mFlg3 = 1;
@@ -290,22 +275,72 @@ void CBoss::Update()
 		if (mFlg4 == 1)
 		{
 			mState = EState::EATTACK2;
-			mBossTime4 = 60;
+			mBossTime4 = 120;
 		}
 		break;
 	case EState::EATTACK2:
+		if (mBossTime4 >= 0)
+		{
+			mBossTime4--;
+		}
 		if (sBEhp <= 750)
 		{
-			if (mBossTime4 >= 0)
+			if (mBossTime4 >= 90)
 			{
-				mBossTime4--;
+				if (X() > CPlayer::Instance()->X() - 650 && X() < CPlayer::Instance()->X() + 650)
+				{
+					X(X() + mBVx);
+					mBVx = BOSSXXR;
+				}
+				/*if (X() > CPlayer::Instance()->X() - 650 && X() < CPlayer::Instance()->X() + 0)
+				{
+					X(X() + mBVx);
+					mBVx = BOSSXXL;
+				}*/
+				/*if (Instance4()->Y() != CSlime::Instance2()->Y())
+				{
+					Y(Y() + mBVy);
+					if (Y() < CSlime::Instance2()->Y())
+					{
+						if (mBVy < 0)
+							mBVy = -mBVy;
+					}
+					else
+					{
+						if (mBVy > 0)
+							mBVy = -mBVy;
+					}
+				}*/
+			}
+			if (mBossTime4 == 89)
+			{
+
+				//’…’n•`‰æ
+			}
+			if (mBossTime4 == 79)
+			{
+
+				//ÕŒ‚—pˆÓ•`‰æ
 			}
 			if (mBossTime4 == 59)
 			{
-				Texture(Texture(), BOSSNTR);
+				if (mBVx > 0)
+				{
+					Texture(Texture(), BOSSAT2L);
+					mpBossAttackBox2 = new CBossAttackBox2(X() - 300, Y(), 160.0f, 240.0f, CBoss::Texture8());
+					mBossEattack2 = 59;
+				}
+				if (mBVx < 0)
+				{
+					Texture(Texture(), BOSSAT2R);
+					mpBossAttackBox2 = new CBossAttackBox2(X() + 300, Y(), 160.0f, 240.0f, CBoss::Texture8());
+					mBossEattack2 = 59;
+				}
 			}
 			if (mBossTime4 < 0)
 			{
+				mBVx = BOSSX;
+				mBVy = BOSSY;
 				mFlg2 = 0;
 				mFlg3 = 0;
 				mFlg4 = 0;
@@ -399,13 +434,14 @@ void CBoss::Update()
 		const int PITCH = 64;//‰æ‘œ‚ðØ‚è‘Ö‚¦‚éŠÔŠu
 		if ((int)X() % PITCH < PITCH / 2)
 		{
+			//‰¼
 			if (mBVx < 0)
 			{
 				Texture(Texture(), BOSSNTL); //Texture(Texture(), BOSSSR);
 			}
 			else
 			{
-				Texture(Texture(), BOSSNTR); //Texture(Texture(), BOSSSSL);
+				Texture(Texture(), BOSSNTL); //Texture(Texture(), BOSSSSL);
 			}
 		}
 		else
@@ -416,7 +452,7 @@ void CBoss::Update()
 			}
 			else
 			{
-				Texture(Texture(), BOSSNTR); //Texture(Texture(), BOSSSSR);
+				Texture(Texture(), BOSSNTL); //Texture(Texture(), BOSSSSR);
 			}
 		}
 	}

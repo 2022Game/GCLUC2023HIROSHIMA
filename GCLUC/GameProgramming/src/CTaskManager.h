@@ -8,8 +8,7 @@ class CTaskManager
 private:
 	static CTaskManager* spinstance;  //CTaskManagerのインスタンス
 	CTask* mhead;                     //先頭タスクのポインタ
-	int mCharacterCount; 
-	std::vector<CTask*> mpTasks;//キャラクターの数
+	std::vector<CTask*> mpTasks;      //キャラクターの数
 
 public:
 	//コンストラクタ

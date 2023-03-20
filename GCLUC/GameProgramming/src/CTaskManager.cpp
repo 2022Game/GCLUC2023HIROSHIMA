@@ -6,7 +6,6 @@ CTaskManager* CTaskManager::spinstance = nullptr;
 //コンストラクタ
 CTaskManager::CTaskManager()
 	:mhead(nullptr)
-	,mCharacterCount(0)
 {
 
 }
@@ -46,10 +45,6 @@ void CTaskManager::ClearInstance()
 //リストに追加
 void CTaskManager::Add(CTask* task)
 {
-	if (task->mpriority == 1)
-	{
-		mCharacterCount++;
-	}
 	//リストにタスクがない時
 	if (mhead == nullptr)
 	{
@@ -124,10 +119,12 @@ void CTaskManager::Delete(CTask* task)
 void CTaskManager::AllDelete()
 {
 	CTask* next = mhead;
+	CTask* gomi;
 	while (next != nullptr)
 	{
+		gomi = next->mpnext;
 		next->Delete();
-		next = next->mpnext;
+		next = gomi;
 	}
 }
 

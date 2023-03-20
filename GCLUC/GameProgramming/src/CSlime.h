@@ -2,16 +2,16 @@
 #include "CCharacter.h"
 #include "CTexture.h"
 #include "CInput.h"
-#include "CEattack.h"
+#include "CSlimeAttackBox.h"
 
 //仮のイラスト
-#define SLIME "スライム.png"
+#define SLIME "スライム3.png"
 #define SLIMEX 1.5f 
 #define SLIMEY 1.5f
 
 class CSlime : public CCharacter
 {
-	friend CEattack;
+	friend CSlimeAttackBox;
 public:
 	enum class EState	//状態
 	{
@@ -42,7 +42,7 @@ public:
 	static CTexture mTexture6;
 	static CTexture* Texture6();
 private:
-	CEattack* mpEattack;
+	CSlimeAttackBox* mpSlimeAttackBox;
 	CSlime* mpSlime;
 	static CSlime* spInstance2;
 	int sSEhp; //スライムのHP

@@ -68,7 +68,13 @@ void CPlayer::Collision(CCharacter* m, CCharacter* o)
 			X(X() + x);
 			Y(Y() + y);
 		}
+		break;
+	case ETag::EATTACK:
+		if (CRectangle::Collision(o, &x, &y))
+		{
 
+		}
+	case ETag::EBULLET:
 		break;
 	case ETag::EPLAYER:
 		break;
@@ -143,6 +149,11 @@ void CPlayer::Update()
 	if (sStamina >= 100)
 	{
 		sStamina = 100;
+	}
+	//スタミナの加減
+	else if (sStamina < 0)
+	{
+		sStamina = 0;
 	}
 	//クールタイムのリセット
 	CCharacter::Update();

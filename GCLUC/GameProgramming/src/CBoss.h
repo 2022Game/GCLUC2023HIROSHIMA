@@ -2,14 +2,21 @@
 #include "CCharacter.h"
 #include "CTexture.h"
 #include "CInput.h"
-#include "CEattack.h"
+#include "CBossAttackBox.h"
+#include "CBossAttackBox2.h"
 
-#define BOSSX 1.0f 
-#define BOSSY 1.0f
+#define BOSSX 1.5f 
+#define BOSSY 1.5f
+
+#define BOSSXXR 20.0f 
+#define BOSSXXL -20.0f 
+
+#define BOSSYY 20.0f
 
 class CBoss : public CCharacter
 {
-	friend CEattack;
+	friend CBossAttackBox;
+	friend CBossAttackBox2;
 public:
 	enum class EState	//状態
 	{
@@ -43,11 +50,13 @@ public:
 	static CTexture mTexture8;
 	static CTexture* Texture8();
 private:
-	CEattack* mpEattack;
+	CBossAttackBox* mpBossAttackBox;
+	CBossAttackBox2* mpBossAttackBox2;
 	static CBoss* spInstance4;
 	static int sBEhp; //ボスのHP
 	static int sNum;	//敵の数
 	int mBossEattack; //攻撃持続時間
+	int mBossEattack2; //攻撃持続時間
 	int mBossTime; //攻撃のボス用の時間
 	int mBossTime2; //ダメージのボス用の時間
 	int mBossTime3; //死亡のボス用の時間
