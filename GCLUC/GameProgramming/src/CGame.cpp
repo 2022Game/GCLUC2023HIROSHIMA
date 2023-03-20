@@ -92,10 +92,10 @@ void CGame::Start()
 //	CApplication::CharacterManager()->Render();
 //	CCamera::End();
 	//UIˆ—
-	mpUi->Hp(CPlayer::HP());
-	mpUi->Enemy(CEnemy2::Num());
-	mpUi->Render();
-	mpUi->Start();
+	//mpUi->Hp(CPlayer::HP());
+	//mpUi->Enemy(CEnemy2::Num());
+	//mpUi->Render();
+	//mpUi->Start();
 	//if (mInput.Key(VK_RETURN))
 	//{	//ó‘Ô‚ğƒvƒŒƒC’†‚É‚·‚é
 	//	mpWolf = new CWolf(TIPSIZE * 15, TIPSIZE * 4.5, TIPSIZE, TIPSIZE, CWolf::Texture7());
@@ -143,6 +143,7 @@ void CGame::Update()
 		mCt = 0;
 	}
 	mpUi->Hp(CPlayer::HP());
+	mpUi->Stamina(CPlayer::Stamina());
 	mpUi->Enemy(CEnemy2::Num());
 	mpUi->Render();
 }
