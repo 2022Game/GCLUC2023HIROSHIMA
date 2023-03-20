@@ -4,7 +4,6 @@
 #include "CInput.h"
 #include "CWolfAttackBox.h"
 
-//仮のイラスト
 #define WOLFX 2.5f 
 #define WOLFY 2.5f
 
@@ -24,7 +23,6 @@ public:
 protected:
 public:
 	EState State();	//状態を取得する
-	bool Enabled(); //消す
 	static CWolf* Instance3();
 	int WEhp(); //オオカミのHP
 	//敵の数を設定
@@ -51,7 +49,6 @@ private:
 	int mWolfEattack; //攻撃持続時間
 	int mWolfInvincible; //無敵用のオオカミ用の時間
 	EState mState; //状態
-	bool mEnabled; //消す
 	float mWVx;	//X軸速度
 	float mWVy;	//Y軸速度
 	float mWLR;

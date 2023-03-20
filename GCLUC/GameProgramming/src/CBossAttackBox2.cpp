@@ -3,6 +3,8 @@
 
 #define MU 0, 200, 0, 0　//仮
 #define WOLFNTL 1206,1796,433,133 //仮
+#define BOSSALL 3913,4174,451,164
+#define BOSSALR 4174,3913,451,164
 
 //コンストラクタ
 CBossAttackBox2::CBossAttackBox2(float x, float y, float w, float h, CTexture* pt)
@@ -23,13 +25,13 @@ void CBossAttackBox2::Update()
 {
 	if (CBoss::Instance4()->mVx >= 0)
 	{
-		Texture(Texture(), WOLFNTL);
+		Texture(Texture(), BOSSALL);
 		mVx = -VELOCITY - 10;
 		X(X() + mVx);
 	}
 	else
 	{
-		Texture(Texture(), WOLFNTL);
+		Texture(Texture(), BOSSALR);
 		mVx = VELOCITY + 10;
 		X(X() + mVx);
 	}
