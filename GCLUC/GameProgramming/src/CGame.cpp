@@ -20,12 +20,13 @@ CGame::CGame()
 CGame::~CGame()
 {
 	//全てのインスタンス削除
+	CTaskManager::Instance()->AllDelete();
 	//CApplication::CharacterManager()->AllDelete();
 	//UIを生成している時
 	if (mpUi != nullptr)
 	{	//UIを削除し、初期化
 		delete mpUi;
-		mpUi = nullptr;
+		mpUi = 0;
 	}
 }
 

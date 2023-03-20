@@ -51,6 +51,7 @@ public:
 	//デストラクタ
 	~CGame();
 
+	/*bool Allderet*/
 	//ゲームクリア判定
 	//bool IsClear();
 	//ゲームクリア処理
