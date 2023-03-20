@@ -6,39 +6,37 @@
 //無
 #define MU 0,0,0,0
 //立ち絵
-#define SLIMENTL 37,179,176,63
-#define SLIMENTR 179,37,176,63
+#define SLIMENTL 37,164,179,63
+#define SLIMENTR 164,37,179,63
 //ジャンプ
 #define SLIMEJPL 629,775,189,29
 #define SLIMEJPR 775,629,189,29
 //降下
-#define SLIMEDWL 1036,1175,170,5
-#define SLIMEDWR 1175,1036,170,5
+#define SLIMEDWL 1036,1175,190,5
+#define SLIMEDWR 1175,1036,190,5
 //ダメージ
-#define SLIMEDAL 230,369,174,62
-#define SLIMEDAR 369,230,174,62
+#define SLIMEDAL 230,369,179,62
+#define SLIMEDAR 369,230,179,62
 //攻撃
-#define SLIMEATL 408,589,188,18
-#define SLIMEATR 589,408,188,18
+#define SLIMEATL 408,593,188,18
+#define SLIMEATR 593,408,188,18
 //死亡
-#define SLIMEDTL 812,988,186,89
-#define SLIMEDTR 988,812,186,89
-#define SLIMEDTL2 812,988,186,69
-#define SLIMEDTR2 988,812,186,69
-#define SLIMEDTL3 812,988,186,49
-#define SLIMEDTR3 988,812,186,49
-#define SLIMEDTL4 812,988,186,29
-#define SLIMEDTR4 988,812,186,29
-#define SLIMEDTL5 812,988,186,9
-#define SLIMEDTR5 988,812,186,9
+#define SLIMEDTL 812,990,190,89
+#define SLIMEDTR 990,812,190,89
+#define SLIMEDTL2 812,990,190,69
+#define SLIMEDTR2 990,812,190,69
+#define SLIMEDTL3 812,990,190,49
+#define SLIMEDTR3 990,812,190,49
+#define SLIMEDTL4 812,990,190,29
+#define SLIMEDTR4 990,812,190,29
+#define SLIMEDTL5 812,990,190,9
+#define SLIMEDTR5 990,812,190,9
 
 #define GRAVITY (TIPSIZE / 250.0f)	
 #define GRAVITY2 (TIPSIZE / 120.0f)//重力加速度
 #define JUMPV0 (TIPSIZE / 8.0f)	//ジャンプの初速
 
-#define SLIMEHP 300 //スライムのHP
-
-//int CSlime::sSEhp = 0;
+#define SLIMEHP 100 //スライムのHP
 
 int CSlime::sNum = 0;
 
@@ -166,7 +164,7 @@ void CSlime::Collision(CCharacter* m, CCharacter* o)
 CSlime::CSlime(float x, float y, float w, float h, CTexture* pt)
 	: CCharacter((int)ETaskPriority::ECharacter)
 {
-	mTexture6.Load("スライム.png");
+	mTexture6.Load("スライム3.png");
 	Set(x, y, w, h);
 	Texture(pt, SLIMENTL); //テスト用の開始時の立ち絵
 	mState = EState::EMOVE;
@@ -194,27 +192,6 @@ void CSlime::Update()
 	{
 		mSlimeInvincible--;
 	}
-	//テスト用入力キー
-	if (mInput.Key('4'))
-	{
-		mSlimeTime = 11;
-		mState = EState::EDAMAGE;
-	}
-	if (mInput.Key('5'))
-	{
-		mSlimeTime3 = 61;
-		mState = EState::EATTACK;
-	}
-	if (mSlimeInvincible != 10 && mInput.Key('8'))
-	{
-		mSlimeInvincible = 10;
-		if (mState != EState::EDAMAGE)
-		{
-			mSlimeTime = 31;
-			sSEhp = sSEhp - 100;
-			mState = EState::EDAMAGE;
-		}
-	}
 	switch (mState)
 	{
 		if (mSlimeEattack > 0)
@@ -228,9 +205,6 @@ void CSlime::Update()
 	case EState::EMUTEKI:
 		break;
 	case EState::EDEATH: //死亡時
-		//mVy -= GRAVITY;
-		//ここのスライムタイムはテスト用。の
-		//後に死亡用とダメージ用に別々にする
 		if (mSlimeTime4 >= 0)
 		{
 			mSlimeTime4--;
@@ -262,6 +236,7 @@ void CSlime::Update()
 		}
 		if (mSlimeTime4 == 0)
 		{
+			Texture(Texture(), 0,0,0,0);//仮
 			sNum--;
 		}
 		break;
@@ -318,12 +293,10 @@ void CSlime::Update()
 		}
 		if (mSlimeTime3 <= 0)
 		{
-			//delete mpEattack;
 			mState = EState::EMOVE;
 		}
 		break;
 	case EState::EDAMAGE: //ダメージ時
-		//テスト用に死亡までつながるようにしている
 		if (sSEhp <= 0)
 		{
 			mSlimeTime4 = 40;
@@ -335,8 +308,6 @@ void CSlime::Update()
 		}
 		if (mSlimeTime == 29)
 		{
-			/*if (mSVx < 0) { Texture(Texture(), MU); }
-			if (mSVx > 0) { Texture(Texture(), MU); }*/
 		}
 		if (mSlimeTime == 59)
 		{
@@ -353,7 +324,6 @@ void CSlime::Update()
 		X(X() + mSVx);
 		if (X() != CPlayer::Instance()->X())
 		{
-			//X(X() + mSVx);
 			Y(Y() + mSVy);
 			if (mSlimeTime2 > 0)
 			{
@@ -457,4 +427,3 @@ CTexture* CSlime::Texture6()
 	return &mTexture6;
 }
 CTexture CSlime::mTexture6;
-

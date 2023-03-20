@@ -2,27 +2,31 @@
 #include "CApplication.h"
 
 #define MU 0,0,0,0
-//—§‚¿ŠG
-#define BOSSNTL 2442,2984,500,0
-#define BOSSNTR 2984,2442,500,0
+//ˆÚ“®A—§‚¿ŠG
+#define BOSSNTL 2570,3127,523,25
+#define BOSSNTR 3127,2570,523,25
+//‘–‚è
+#define BOSSRUNL 3184,3779,523,10
+#define BOSSRUNR 3779,3184,523,10
 //UŒ‚Žž
-#define BOSSAT1L 43,583,500,21
-#define BOSSAT1R 583,43,500,21
-#define BOSSAT2L 626,1182,488,23
-#define BOSSAT2R 1182,626,488,23
+#define BOSSAT1L 151,728,534,46
+#define BOSSAT1R 728,151,534,46
+#define BOSSAT2L 756,1327,523,48
+#define BOSSAT2R 1327,756,523,48
+//‘åUŒ‚
+#define BOSSAT3L 626,1182,488,23
+#define BOSSAT3R 1182,626,488,23
 //ƒ_ƒ[ƒW
-#define BOSSDAL 1842,2384,500,0
-#define BOSSDAR 2384,1842,500,0
+#define BOSSDAL 1965,2527,524,25
+#define BOSSDAR 2527,1965,524,25
 //Ž€–S
-#define BOSSDTL 1206,1796,433,133
-#define BOSSDTR 1796,1206,433,133
+#define BOSSDTL 1350,1939,470,153
+#define BOSSDTR 1939,1350,470,153
+//™ôšK
+#define BOSSALL 3913,4174,451,164
+#define BOSSALR 4174,3913,451,164
 
-#define BOSSHP 600
-
-#define BOSSSR 648,1194,500,0
-#define BOSSSL 1194,648,500,0
-#define BOSSSSR 1206,1796,500,0
-#define BOSSSSL 1796,1206,500,0
+#define BOSSHP 1300
 
 int CBoss::sBEhp = 0;
 
@@ -125,7 +129,7 @@ void CBoss::Collision(CCharacter* m, CCharacter* o)
 CBoss::CBoss(float x, float y, float w, float h, CTexture* pt)
 	: CCharacter((int)ETaskPriority::ECharacter)
 {
-	mTexture8.Load("ƒ{ƒX.png");
+	mTexture8.Load("ƒ{ƒX3.png");
 	Set(x, y, w, h);
 	Texture(pt, BOSSNTL);
 	mState = EState::EMOVE;
@@ -165,12 +169,6 @@ void CBoss::Update()
 			delete mpBossAttackBox2;
 		}
 	}
-	if (mInput.Key('6'))
-	{
-		mBossInvincible = 20;
-		mBossTime2 = 20;
-		mState = EState::EDAMAGE;
-	}
 	if (mBossInvincible >= 0)
 	{
 		mBossInvincible--;
@@ -192,6 +190,7 @@ void CBoss::Update()
 		}
 		if (mBossTime3 == 0)
 		{
+			Texture(Texture(), 0, 0, 0, 0);//‰¼
 			sNum--;
 		}
 		break;
@@ -291,50 +290,52 @@ void CBoss::Update()
 				{
 					X(X() + mBVx);
 					mBVx = BOSSXXR;
+					if (mBVx > 0)
+					{
+						Texture(Texture(), BOSSRUNR);
+					}
+					if (mBVx < 0)
+					{
+						Texture(Texture(), BOSSRUNL);
+					}
 				}
-				/*if (X() > CPlayer::Instance()->X() - 650 && X() < CPlayer::Instance()->X() + 0)
-				{
-					X(X() + mBVx);
-					mBVx = BOSSXXL;
-				}*/
-				/*if (Instance4()->Y() != CSlime::Instance2()->Y())
-				{
-					Y(Y() + mBVy);
-					if (Y() < CSlime::Instance2()->Y())
-					{
-						if (mBVy < 0)
-							mBVy = -mBVy;
-					}
-					else
-					{
-						if (mBVy > 0)
-							mBVy = -mBVy;
-					}
-				}*/
 			}
 			if (mBossTime4 == 89)
 			{
-
-				//’…’n•`‰æ
-			}
-			if (mBossTime4 == 79)
-			{
-
-				//ÕŒ‚—pˆÓ•`‰æ
+				if (mBVx > 0)
+				{
+					Texture(Texture(), BOSSNTL);
+				}
+				if (mBVx < 0)
+				{
+					Texture(Texture(), BOSSNTR);
+				}
+				//•`‰æ
 			}
 			if (mBossTime4 == 59)
 			{
 				if (mBVx > 0)
 				{
-					Texture(Texture(), BOSSAT2L);
+					Texture(Texture(), BOSSAT1L);
 					mpBossAttackBox2 = new CBossAttackBox2(X() - 300, Y(), 160.0f, 240.0f, CBoss::Texture8());
 					mBossEattack2 = 59;
 				}
 				if (mBVx < 0)
 				{
-					Texture(Texture(), BOSSAT2R);
+					Texture(Texture(), BOSSAT1R);
 					mpBossAttackBox2 = new CBossAttackBox2(X() + 300, Y(), 160.0f, 240.0f, CBoss::Texture8());
 					mBossEattack2 = 59;
+				}
+			}
+			if (mBossTime4 == 39)
+			{
+				if (mBVx > 0)
+				{
+					Texture(Texture(), BOSSNTL);
+				}
+				if (mBVx < 0)
+				{
+					Texture(Texture(), BOSSNTR);
 				}
 			}
 			if (mBossTime4 < 0)
@@ -434,25 +435,24 @@ void CBoss::Update()
 		const int PITCH = 64;//‰æ‘œ‚ðØ‚è‘Ö‚¦‚éŠÔŠu
 		if ((int)X() % PITCH < PITCH / 2)
 		{
-			//‰¼
 			if (mBVx < 0)
 			{
-				Texture(Texture(), BOSSNTL); //Texture(Texture(), BOSSSR);
+				Texture(Texture(), BOSSNTL);
 			}
 			else
 			{
-				Texture(Texture(), BOSSNTL); //Texture(Texture(), BOSSSSL);
+				Texture(Texture(), BOSSRUNR);
 			}
 		}
 		else
 		{
 			if (mBVx > 0)
 			{
-				Texture(Texture(), BOSSNTL); //Texture(Texture(), BOSSSL);
+				Texture(Texture(), BOSSNTR);
 			}
 			else
 			{
-				Texture(Texture(), BOSSNTL); //Texture(Texture(), BOSSSSR);
+				Texture(Texture(), BOSSRUNL);
 			}
 		}
 	}
