@@ -20,9 +20,11 @@ public:
 	{
 		ENULL,     //空
 		EMOVE,	   //移動
+		EMOVE2,    //移動2
 		EJUMP,	   //ジャンプ
 		EIDLING,   //アイドリング
 		EATTACK,   //攻撃
+		EATTACK2,  //攻撃2
 		EDAMAGE,   //ダメージ時
 		EDEATH,    //死亡
 	};
