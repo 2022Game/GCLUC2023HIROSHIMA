@@ -12,7 +12,7 @@ CBossAttackBox2::CBossAttackBox2(float x, float y, float w, float h, CTexture* p
 {
 	Set(x, y, w, h);
 	Texture(pt, WOLFNTL);
-	mState = EState::EATTACK;
+	mTag = ETag::EATTACK;
 }
 
 //デストラクタ
