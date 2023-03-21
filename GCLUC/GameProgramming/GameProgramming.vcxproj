@@ -16,6 +16,7 @@
     <ClCompile Include="src\CBackGround2.cpp" />
     <ClCompile Include="src\CBackGround3.cpp" />
     <ClCompile Include="src\CBackGround4.cpp" />
+    <ClCompile Include="src\CBlock.cpp" />
     <ClCompile Include="src\CBoss.cpp" />
     <ClCompile Include="src\CBossAttackBox2.cpp" />
     <ClCompile Include="src\CBossAttackBox.cpp" />
@@ -54,6 +55,7 @@
     <ClInclude Include="src\CBackGround2.h" />
     <ClInclude Include="src\CBackGround3.h" />
     <ClInclude Include="src\CBackGround4.h" />
+    <ClInclude Include="src\CBlock.h" />
     <ClInclude Include="src\CBoss.h" />
     <ClInclude Include="src\CBossAttackBox2.h" />
     <ClInclude Include="src\CBossAttackBox.h" />
