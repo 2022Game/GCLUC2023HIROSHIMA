@@ -65,7 +65,34 @@ void CWolf::Collision(CCharacter* m, CCharacter* o)
 	float x, y;
 	switch (o->Tag())
 	{
-	/*case ETag::EPLAYER:
+		/*case ETag::EPLAYER:
+			if (mState != EState::EDEATH)
+			{
+				if (CRectangle::Collision(o, &x, &y))
+				{
+					if (mWolfInvincible <= 0)
+					{
+						mWolfInvincible = 60;
+						if (mState != EState::EDAMAGE)
+						{
+							if (mWVx < 0) { Texture(Texture(), MU); }
+							if (mWVx > 0) { Texture(Texture(), MU); }
+							mWolfTime = 60;
+							sWEhp = sWEhp - 100;
+							if (sWEhp <= 0)
+							{
+								mWolfTime3 = 20;
+								mState = EState::EDEATH;
+							}
+							if (mState != EState::EATTACK)
+							{
+								mState = EState::EDAMAGE;
+							}
+						}
+					}
+				}
+				break;*/
+	case ETag::EBULLET: //‰¼‚Ì–‚–@
 		if (mState != EState::EDEATH)
 		{
 			if (CRectangle::Collision(o, &x, &y))
@@ -91,33 +118,6 @@ void CWolf::Collision(CCharacter* m, CCharacter* o)
 					}
 				}
 			}
-			break;*/
-			case ETag::EBULLET: //‰¼‚Ì–‚–@
-			 if (mState != EState::EDEATH)
-			{
-					if (CRectangle::Collision(o, &x, &y))
-					{
-						if (mWolfInvincible <= 0)
-						{
-							mWolfInvincible = 60;
-							if (mState != EState::EDAMAGE)
-							{
-				     if (mWVx < 0) { Texture(Texture(), MU); }
-					   if (mWVx > 0) { Texture(Texture(), MU); }
-				              mWolfTime = 60;
-								sWEhp = sWEhp - 100;
-				 if (sWEhp <= 0)
-				{
-					mWolfTime3 = 20;
-					mState = EState::EDEATH;
-				}
-								if (mState != EState::EATTACK)
-								{
-									mState = EState::EDAMAGE;
-								}
-							}
-						}
-					}
 			break;
 			//case ETag::EDAGEKI: //‰¼‚Ì‘ÅŒ‚
 			// // if (mState != EState::EDEATH)
@@ -168,6 +168,18 @@ CWolf::CWolf(float x, float y, float w, float h, CTexture* pt)
 
 void CWolf::Update()
 {
+	if (mWolfTime2 >= 0)
+	{
+		mWolfTime2--;
+	}
+	if (mWolfTime3 >= 0)
+	{
+		mWolfTime3--;
+	}
+	if (mWolfTime > 0)
+	{
+		mWolfTime--;
+	}
 	if (mWolfEattack > 0)
 	{
 		mWolfEattack--;
@@ -187,10 +199,6 @@ void CWolf::Update()
 		break;
 	case EState::EDEATH: //Ž€–SŽž
 		//HP‚ª‚O‚É‚È‚Á‚½”•bŒã‚ÉÁ–Å‚³‚¹‚é
-		if (mWolfTime3 >= 0)
-		{
-			mWolfTime3--;
-		}
 		if (mWolfTime3 == 19)
 		{
 			if (mWVx < 0) { Texture(Texture(), WOLFDAL); }
@@ -210,10 +218,6 @@ void CWolf::Update()
 	case EState::ESTOP: //’âŽ~ŽžAƒN[ƒ‹ƒ^ƒCƒ€ŠÔ
 		break;
 	case EState::EATTACK: //UŒ‚Žž
-		if (mWolfTime2 >= 0)
-		{
-			mWolfTime2--;
-		}
 		if (mWolfTime2 == 29)
 		{
 			if (mWVx < 0) { Texture(Texture(), WOLFATL); }
@@ -254,10 +258,6 @@ void CWolf::Update()
 		{
 			mWolfTime3 = 20;
 			mState = EState::EDEATH;
-		}
-		if (mWolfTime > 0)
-		{
-			mWolfTime--;
 		}
 		if (mWolfTime == 59)
 		{
@@ -304,9 +304,9 @@ void CWolf::Update()
 				}
 			}
 		}
-		if (X() > CPlayer::Instance()->X() - 125 && X() < CPlayer::Instance()->X() + 125)
+		if (X() > CPlayer::Instance()->X() - 150 && X() < CPlayer::Instance()->X() + 150)
 		{
-			if (Y() > CPlayer::Instance()->Y() - 125 && Y() < CPlayer::Instance()->Y() + 125)
+			if (Z() > CPlayer::Instance()->Z() - 25 && Z() < CPlayer::Instance()->Z() + 25)
 			{
 				if (mWolfTime2 <= 0)
 				{
@@ -315,10 +315,10 @@ void CWolf::Update()
 				}
 			}
 		}
-		if (Instance3()->Y() != CPlayer::Instance()->Y())
+		if (Z() != CPlayer::Instance()->Z())
 		{
 			Y(Y() + mWVy);
-			if (Y() < CPlayer::Instance()->Y())
+			if (Z() < CPlayer::Instance()->Z())
 			{
 				if (mWVy < 0)
 					mWVy = -mWVy;

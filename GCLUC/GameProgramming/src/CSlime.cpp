@@ -99,10 +99,10 @@ void CSlime::Collision(CCharacter* m, CCharacter* o)
 					}
 				}
 			}*/
-			break;
-			case ETag::EBULLET: //‰¼‚Ì–‚–@
-			if (mState != EState::EDEATH)
-			{
+		break;
+	case ETag::EBULLET: //‰¼‚Ì–‚–@
+		if (mState != EState::EDEATH)
+		{
 			if (CRectangle::Collision(o, &x, &y))
 			{
 				if (mSlimeInvincible <= 0)
@@ -119,42 +119,42 @@ void CSlime::Collision(CCharacter* m, CCharacter* o)
 							mSlimeTime4 = 40;
 							mState = EState::EDEATH;
 						}
-		 if(mState != EState::EATTACK)
-		 {
-						mState = EState::EDAMAGE;
-		 }
+						if (mState != EState::EATTACK)
+						{
+							mState = EState::EDAMAGE;
+						}
 					}
 				}
 			}
-		break;
-		//break;
-		//case ETag::EDAGEKI: //‰¼‚Ì‘ÅŒ‚
-		// /*if (mState != EState::EDEATH)
-		//{
-	//	if (CRectangle::Collision(o, &x, &y))
-	//	{
-	//		if (mSlimeInvincible <= 0)
-	//		{
-	//			mSlimeInvincible = 60;
-	//			if (mState != EState::EDAMAGE)
-	//			{
-	// if (mSVx < 0) { Texture(Texture(), MU); }
-			//if (mSVx > 0) { Texture(Texture(), MU); }
-	//				mSlimeTime = 60;
-	//				sSEhp = sSEhp - 25;
-	// if (sSEhp <= 0)
-			/*{
-				mSlimeTime4 = 40;
-				mState = EState::EDEATH;
-			}*/
-			//				if (mState != EState::EATTACK)
-			//				{
-			//					mState = EState::EDAMAGE;
-			//				}
-			//			}
-			//		}
-			//	}
-				//}
+			break;
+			//break;
+			//case ETag::EDAGEKI: //‰¼‚Ì‘ÅŒ‚
+			// /*if (mState != EState::EDEATH)
+			//{
+		//	if (CRectangle::Collision(o, &x, &y))
+		//	{
+		//		if (mSlimeInvincible <= 0)
+		//		{
+		//			mSlimeInvincible = 60;
+		//			if (mState != EState::EDAMAGE)
+		//			{
+		// if (mSVx < 0) { Texture(Texture(), MU); }
+				//if (mSVx > 0) { Texture(Texture(), MU); }
+		//				mSlimeTime = 60;
+		//				sSEhp = sSEhp - 25;
+		// if (sSEhp <= 0)
+				/*{
+					mSlimeTime4 = 40;
+					mState = EState::EDEATH;
+				}*/
+				//				if (mState != EState::EATTACK)
+				//				{
+				//					mState = EState::EDAMAGE;
+				//				}
+				//			}
+				//		}
+				//	}
+					//}
 		}
 	}
 }
@@ -177,6 +177,18 @@ CSlime::CSlime(float x, float y, float w, float h, CTexture* pt)
 
 void CSlime::Update()
 {
+	if (mSlimeTime > 0)
+	{
+		mSlimeTime--;
+	}
+	if (mSlimeTime4 >= 0)
+	{
+		mSlimeTime4--;
+	}
+	if (mSlimeTime3 > 0)
+	{
+		mSlimeTime3--;
+	}
 	if (mSlimeEattack > 0)
 	{
 		mSlimeEattack--;
@@ -203,10 +215,6 @@ void CSlime::Update()
 	case EState::EMUTEKI:
 		break;
 	case EState::EDEATH: //Ž€–SŽž
-		if (mSlimeTime4 >= 0)
-		{
-			mSlimeTime4--;
-		}
 		if (mSlimeTime4 == 39)
 		{
 			if (mSVx < 0) { Texture(Texture(), SLIMEDTL); }
@@ -234,7 +242,7 @@ void CSlime::Update()
 		}
 		if (mSlimeTime4 == 0)
 		{
-			Texture(Texture(), 0,0,0,0);//‰¼
+			Texture(Texture(), 0, 0, 0, 0);//‰¼
 			sNum--;
 		}
 		break;
@@ -243,10 +251,6 @@ void CSlime::Update()
 		if (mSVx > 0) { Texture(Texture(), SLIMENTR); }
 		break;
 	case EState::EATTACK: //UŒ‚Žž
-		if (mSlimeTime3 > 0)
-		{
-			mSlimeTime3--;
-		}
 		if (mSlimeTime3 == 59)
 		{
 			if (mSVx < 0) { Texture(Texture(), SLIMENTL); }
@@ -299,10 +303,6 @@ void CSlime::Update()
 		{
 			mSlimeTime4 = 40;
 			mState = EState::EDEATH;
-		}
-		if (mSlimeTime > 0)
-		{
-			mSlimeTime--;
 		}
 		if (mSlimeTime == 29)
 		{
@@ -357,22 +357,11 @@ void CSlime::Update()
 		}
 		break;
 	case EState::EMOVE:
-		if (X() > CPlayer::Instance()->X() - 125 && X() < CPlayer::Instance()->X() + 125)
-		{
-			if (Y() > CPlayer::Instance()->Y() - 125 && Y() < CPlayer::Instance()->Y() + 125)
-			{
-				if (mSlimeTime3 <= 0)
-				{
-					mSlimeTime3 = 60;
-					mState = EState::EATTACK;
-				}
-			}
-		}
 		mSlimeTime2--;
 		X(X() + mSVx);
 		if (X() > CPlayer::Instance()->X() - 125 && X() < CPlayer::Instance()->X() + 125)
 		{
-			if (Y() > CPlayer::Instance()->Y() - 125 && Y() < CPlayer::Instance()->Y() + 125)
+			if (Z() > CPlayer::Instance()->Z() - 25 && Z() < CPlayer::Instance()->Z() + 25)
 			{
 				if (mSlimeTime3 <= 0)
 				{
@@ -396,7 +385,7 @@ void CSlime::Update()
 					mSVx = -mSVx;
 				Texture(Texture(), SLIMEDWL);
 			}
-			if (Y() < CPlayer::Instance()->Y())
+			if (Z() < CPlayer::Instance()->Z())
 			{
 				if (mSVy < 0)
 				{

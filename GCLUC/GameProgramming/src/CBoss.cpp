@@ -65,62 +65,62 @@ void CBoss::Collision(CCharacter* m, CCharacter* o)
 	float x, y;
 	switch (o->Tag())
 	{
-	//case ETag::EPLAYER:
-	//	//ê‹ÇËï‘ÇµÇ…ìñÇΩÇ¡ÇΩéû
-	//	if (mState != EState::EDEATH)
-	//	{
-	//		if (CRectangle::Collision(o, &x, &y))
-	//		{
-	//			if (mBossInvincible <= 0)
-	//			{
-	//				mBossInvincible = 60;
-	//				if (mState != EState::EDAMAGE)
-	//				{
-	//					mBossTime2 = 60;
-	//					if (mBVx < 0) { Texture(Texture(), MU); }
-	//					if (mBVx > 0) { Texture(Texture(), MU); }
-	//					sBEhp = sBEhp - 100;
-	//					if (sBEhp <= 0)
-	//					{
-	//						mBossTime3 = 40;
-	//						mState = EState::EDEATH;
-	//					}
-	//					if (mState != EState::EATTACK && mState != EState::EATTACK2)
-	//					{
-	//						mState = EState::EDAMAGE;
-	//					}
-	//				}
-	//			}
-	//		}
-			break;
-			//}
-			case ETag::EBULLET:
-			 if (mState != EState::EDEATH && mState != EState::EATTACK2)
+		//case ETag::EPLAYER:
+		//	//ê‹ÇËï‘ÇµÇ…ìñÇΩÇ¡ÇΩéû
+		//	if (mState != EState::EDEATH)
+		//	{
+		//		if (CRectangle::Collision(o, &x, &y))
+		//		{
+		//			if (mBossInvincible <= 0)
+		//			{
+		//				mBossInvincible = 60;
+		//				if (mState != EState::EDAMAGE)
+		//				{
+		//					mBossTime2 = 60;
+		//					if (mBVx < 0) { Texture(Texture(), MU); }
+		//					if (mBVx > 0) { Texture(Texture(), MU); }
+		//					sBEhp = sBEhp - 100;
+		//					if (sBEhp <= 0)
+		//					{
+		//						mBossTime3 = 40;
+		//						mState = EState::EDEATH;
+		//					}
+		//					if (mState != EState::EATTACK && mState != EState::EATTACK2)
+		//					{
+		//						mState = EState::EDAMAGE;
+		//					}
+		//				}
+		//			}
+		//		}
+		break;
+		//}
+	case ETag::EBULLET:
+		if (mState != EState::EDEATH && mState != EState::EATTACK2)
+		{
+			if (CRectangle::Collision(o, &x, &y))
 			{
-				if (CRectangle::Collision(o, &x, &y))
+				if (mBossInvincible <= 0)
 				{
-					if (mBossInvincible <= 0)
+					mBossInvincible = 60;
+					if (mState != EState::EDAMAGE)
 					{
-						mBossInvincible = 60;
-						if (mState != EState::EDAMAGE)
+						mBossTime2 = 60;
+						if (mBVx < 0) { Texture(Texture(), MU); }
+						if (mBVx > 0) { Texture(Texture(), MU); }
+						sBEhp = sBEhp - 100;
+						if (sBEhp <= 0)
 						{
-							mBossTime2 = 60;
-							if (mBVx < 0) { Texture(Texture(), MU); }
-							if (mBVx > 0) { Texture(Texture(), MU); }
-							sBEhp = sBEhp - 100;
-							if (sBEhp <= 0)
-							{
-								mBossTime3 = 40;
-								mState = EState::EDEATH;
-							}
-							if (mState != EState::EATTACK)
-							{
-								mState = EState::EDAMAGE;
-							}
+							mBossTime3 = 40;
+							mState = EState::EDEATH;
+						}
+						if (mState != EState::EATTACK)
+						{
+							mState = EState::EDAMAGE;
 						}
 					}
 				}
-				break;
+			}
+			break;
 		}
 	}
 }
@@ -389,9 +389,9 @@ void CBoss::Update()
 		break;
 	case EState::EMOVE: //à⁄ìÆ
 		CCharacter::Update();
-		if (X() > CPlayer::Instance()->X() - 250 && X() < CPlayer::Instance()->X() + 250)
+		if (X() > CPlayer::Instance()->X() - 300 && X() < CPlayer::Instance()->X() + 300)
 		{
-			if (Y() > CPlayer::Instance()->Y() - 125 && Y() < CPlayer::Instance()->Y() + 125)
+			if (Z() > CPlayer::Instance()->Z() - 125 && Z() < CPlayer::Instance()->Z() + 125)
 			{
 				if (mBossTime <= 0)
 				{
@@ -434,10 +434,10 @@ void CBoss::Update()
 				}
 			}
 		}
-		if (Instance4()->Y() != CPlayer::Instance()->Y())
+		if (Z() != CPlayer::Instance()->Z())
 		{
 			Y(Y() + mBVy);
-			if (Y() < CPlayer::Instance()->Y())
+			if (Z() < CPlayer::Instance()->Z())
 			{
 				if (mBVy < 0)
 					mBVy = -mBVy;
