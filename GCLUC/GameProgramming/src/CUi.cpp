@@ -1,20 +1,26 @@
 #include <stdio.h>
 #include "CUi.h"
 #include "CPlayer.h"
+#include "CBoss.h"
 
 //コンストラクタ
 CUi::CUi()
 	: mHp(0)
 	, mTime(0)
 	, mEnemy(0)
+	, mBEhp(0)
 	, mHeart(20, 770, 24, 24, &mTexture100)
 	, mGage(20, 700, 24, 24, &mTexture101)
 	, mStamina(20, 700, 24, 24, &mTexture102)
+	, mBossHp(20,20,24,24,&mTexture103)
+	, mBossHpGage(20,20,24,24,&mTexture104)
 {
 	mFont.Load("FontWhite.png", 1, 64);
 	mTexture100.Load("プレイヤーHP.png");
 	mTexture101.Load("MPゲージ.png");
 	mTexture102.Load("プレイヤーMP.png");
+	mTexture103.Load("ボスHP.png");
+	mTexture104.Load("ボスHP枠.png");
 }
 
 //デストラクタ
@@ -25,15 +31,15 @@ CUi::~CUi()
 //クリア表示
 void CUi::Clear()
 {
-	mFont.Draw(36, 300, 18, 36, "GAME CLEAR!!");
-	mFont.Draw(36, 200, 18, 36, "PUSH ENTER KEY!");
+	/*mFont.Draw(36, 300, 18, 36, "GAME CLEAR!!");
+	mFont.Draw(36, 200, 18, 36, "PUSH ENTER KEY!");*/
 }
 
 //ゲームオーバー表示
 void CUi::Over()
 {
-	mFont.Draw(36, 300, 18, 36, "GAME OVER!!");
-	mFont.Draw(36, 200, 18, 36, "PUSH ENTER KEY!");
+	/*mFont.Draw(36, 300, 18, 36, "GAME OVER!!");
+	mFont.Draw(36, 200, 18, 36, "PUSH ENTER KEY!");*/
 }
 
 //スタート表示
@@ -57,6 +63,11 @@ void CUi::Stamina(int stamina)
 	mStaminagage = stamina;
 }
 
+void CUi::BEhp(int behp)
+{
+	mBEhp = behp;
+}
+
 void CUi::Time(int time)
 {
 	mTime = time;
@@ -64,9 +75,9 @@ void CUi::Time(int time)
 
 void CUi::Render()
 {
-	char str[16];
-	sprintf(str, "TIME:%03d", mTime);
-	mFont.Draw(1120, 780, 10, 20, str);
+	char str[32];
+	sprintf(str, "%03d", mTime);
+	mFont.Draw(1210, 770, 14, 28, str);
 
 	if (mHp == 10)
 	{
@@ -771,5 +782,258 @@ void CUi::Render()
 	{
 		mGage.Set(209, 700, 198, 30);
 		mGage.Render();
+	}
+	//ボスHP
+	if (mBEhp == 1300)
+	{
+		mBossHpGage.Set(630, 30, 415, 30);
+		mBossHpGage.Render();
+		mBossHp.Set(270,30,30,18);
+		mBossHp.Render();
+		mBossHp.Set(330, 30, 30, 18);
+		mBossHp.Render();
+		mBossHp.Set(390, 30, 30, 18);
+		mBossHp.Render();
+		mBossHp.Set(450, 30, 30, 18);
+		mBossHp.Render();
+		mBossHp.Set(510, 30, 30, 18);
+		mBossHp.Render();
+		mBossHp.Set(570, 30, 30, 18);
+		mBossHp.Render();
+		mBossHp.Set(630, 30, 30, 18);
+		mBossHp.Render();
+		mBossHp.Set(690, 30, 30, 18);
+		mBossHp.Render();
+		mBossHp.Set(750, 30, 30, 18);
+		mBossHp.Render();
+		mBossHp.Set(810, 30, 30, 18);
+		mBossHp.Render();
+		mBossHp.Set(870, 30, 30, 18);
+		mBossHp.Render();
+		mBossHp.Set(930, 30, 30, 18);
+		mBossHp.Render();
+		mBossHp.Set(990, 30, 30, 18);
+		mBossHp.Render();
+	}
+	if (mBEhp == 10)
+	{
+		mBossHpGage.Set(630, 30, 415, 30);
+		mBossHpGage.Render();
+		mBossHp.Set(270, 30, 30, 18);
+		mBossHp.Render();
+		mBossHp.Set(330, 30, 30, 18);
+		mBossHp.Render();
+		mBossHp.Set(390, 30, 30, 18);
+		mBossHp.Render();
+		mBossHp.Set(450, 30, 30, 18);
+		mBossHp.Render();
+		mBossHp.Set(510, 30, 30, 18);
+		mBossHp.Render();
+		mBossHp.Set(570, 30, 30, 18);
+		mBossHp.Render();
+		mBossHp.Set(630, 30, 30, 18);
+		mBossHp.Render();
+		mBossHp.Set(690, 30, 30, 18);
+		mBossHp.Render();
+		mBossHp.Set(750, 30, 30, 18);
+		mBossHp.Render();
+		mBossHp.Set(810, 30, 30, 18);
+		mBossHp.Render();
+		mBossHp.Set(870, 30, 30, 18);
+		mBossHp.Render();
+		mBossHp.Set(930, 30, 30, 18);
+		mBossHp.Render();
+	}
+	if (mBEhp == 10)
+	{
+		mBossHpGage.Set(630, 30, 415, 30);
+		mBossHpGage.Render();
+		mBossHp.Set(270, 30, 30, 18);
+		mBossHp.Render();
+		mBossHp.Set(330, 30, 30, 18);
+		mBossHp.Render();
+		mBossHp.Set(390, 30, 30, 18);
+		mBossHp.Render();
+		mBossHp.Set(450, 30, 30, 18);
+		mBossHp.Render();
+		mBossHp.Set(510, 30, 30, 18);
+		mBossHp.Render();
+		mBossHp.Set(570, 30, 30, 18);
+		mBossHp.Render();
+		mBossHp.Set(630, 30, 30, 18);
+		mBossHp.Render();
+		mBossHp.Set(690, 30, 30, 18);
+		mBossHp.Render();
+		mBossHp.Set(750, 30, 30, 18);
+		mBossHp.Render();
+		mBossHp.Set(810, 30, 30, 18);
+		mBossHp.Render();
+		mBossHp.Set(870, 30, 30, 18);
+		mBossHp.Render();
+	}
+	if (mBEhp == 10)
+	{
+		mBossHpGage.Set(630, 30, 415, 30);
+		mBossHpGage.Render();
+		mBossHp.Set(270, 30, 30, 18);
+		mBossHp.Render();
+		mBossHp.Set(330, 30, 30, 18);
+		mBossHp.Render();
+		mBossHp.Set(390, 30, 30, 18);
+		mBossHp.Render();
+		mBossHp.Set(450, 30, 30, 18);
+		mBossHp.Render();
+		mBossHp.Set(510, 30, 30, 18);
+		mBossHp.Render();
+		mBossHp.Set(570, 30, 30, 18);
+		mBossHp.Render();
+		mBossHp.Set(630, 30, 30, 18);
+		mBossHp.Render();
+		mBossHp.Set(690, 30, 30, 18);
+		mBossHp.Render();
+		mBossHp.Set(750, 30, 30, 18);
+		mBossHp.Render();
+		mBossHp.Set(810, 30, 30, 18);
+		mBossHp.Render();
+	}
+	if (mBEhp == 10)
+	{
+		mBossHpGage.Set(630, 30, 415, 30);
+		mBossHpGage.Render();
+		mBossHp.Set(270, 30, 30, 18);
+		mBossHp.Render();
+		mBossHp.Set(330, 30, 30, 18);
+		mBossHp.Render();
+		mBossHp.Set(390, 30, 30, 18);
+		mBossHp.Render();
+		mBossHp.Set(450, 30, 30, 18);
+		mBossHp.Render();
+		mBossHp.Set(510, 30, 30, 18);
+		mBossHp.Render();
+		mBossHp.Set(570, 30, 30, 18);
+		mBossHp.Render();
+		mBossHp.Set(630, 30, 30, 18);
+		mBossHp.Render();
+		mBossHp.Set(690, 30, 30, 18);
+		mBossHp.Render();
+		mBossHp.Set(750, 30, 30, 18);
+		mBossHp.Render();
+	}
+	if (mBEhp == 10)
+	{
+		mBossHpGage.Set(630, 30, 415, 30);
+		mBossHpGage.Render();
+		mBossHp.Set(270, 30, 30, 18);
+		mBossHp.Render();
+		mBossHp.Set(330, 30, 30, 18);
+		mBossHp.Render();
+		mBossHp.Set(390, 30, 30, 18);
+		mBossHp.Render();
+		mBossHp.Set(450, 30, 30, 18);
+		mBossHp.Render();
+		mBossHp.Set(510, 30, 30, 18);
+		mBossHp.Render();
+		mBossHp.Set(570, 30, 30, 18);
+		mBossHp.Render();
+		mBossHp.Set(630, 30, 30, 18);
+		mBossHp.Render();
+		mBossHp.Set(690, 30, 30, 18);
+		mBossHp.Render();
+	}
+	if (mBEhp == 10)
+	{
+		mBossHpGage.Set(630, 30, 415, 30);
+		mBossHpGage.Render();
+		mBossHp.Set(270, 30, 30, 18);
+		mBossHp.Render();
+		mBossHp.Set(330, 30, 30, 18);
+		mBossHp.Render();
+		mBossHp.Set(390, 30, 30, 18);
+		mBossHp.Render();
+		mBossHp.Set(450, 30, 30, 18);
+		mBossHp.Render();
+		mBossHp.Set(510, 30, 30, 18);
+		mBossHp.Render();
+		mBossHp.Set(570, 30, 30, 18);
+		mBossHp.Render();
+		mBossHp.Set(630, 30, 30, 18);
+		mBossHp.Render();
+	}
+	if (mBEhp == 10)
+	{
+		mBossHpGage.Set(630, 30, 415, 30);
+		mBossHpGage.Render();
+		mBossHp.Set(270, 30, 30, 18);
+		mBossHp.Render();
+		mBossHp.Set(330, 30, 30, 18);
+		mBossHp.Render();
+		mBossHp.Set(390, 30, 30, 18);
+		mBossHp.Render();
+		mBossHp.Set(450, 30, 30, 18);
+		mBossHp.Render();
+		mBossHp.Set(510, 30, 30, 18);
+		mBossHp.Render();
+		mBossHp.Set(570, 30, 30, 18);
+		mBossHp.Render();
+	}
+	if (mBEhp == 10)
+	{
+		mBossHpGage.Set(630, 30, 415, 30);
+		mBossHpGage.Render();
+		mBossHp.Set(270, 30, 30, 18);
+		mBossHp.Render();
+		mBossHp.Set(330, 30, 30, 18);
+		mBossHp.Render();
+		mBossHp.Set(390, 30, 30, 18);
+		mBossHp.Render();
+		mBossHp.Set(450, 30, 30, 18);
+		mBossHp.Render();
+		mBossHp.Set(510, 30, 30, 18);
+		mBossHp.Render();
+	}
+	if (mBEhp == 10)
+	{
+		mBossHpGage.Set(630, 30, 415, 30);
+		mBossHpGage.Render();
+		mBossHp.Set(270, 30, 30, 18);
+		mBossHp.Render();
+		mBossHp.Set(330, 30, 30, 18);
+		mBossHp.Render();
+		mBossHp.Set(390, 30, 30, 18);
+		mBossHp.Render();
+		mBossHp.Set(450, 30, 30, 18);
+		mBossHp.Render();
+	}
+	if (mBEhp == 10)
+	{
+		mBossHpGage.Set(630, 30, 415, 30);
+		mBossHpGage.Render();
+		mBossHp.Set(270, 30, 30, 18);
+		mBossHp.Render();
+		mBossHp.Set(330, 30, 30, 18);
+		mBossHp.Render();
+		mBossHp.Set(390, 30, 30, 18);
+		mBossHp.Render();
+	}
+	if (mBEhp == 10)
+	{
+		mBossHpGage.Set(630, 30, 415, 30);
+		mBossHpGage.Render();
+		mBossHp.Set(270, 30, 30, 18);
+		mBossHp.Render();
+		mBossHp.Set(330, 30, 30, 18);
+		mBossHp.Render();
+	}
+	if (mBEhp == 10)
+	{
+		mBossHpGage.Set(630, 30, 415, 30);
+		mBossHpGage.Render();
+		mBossHp.Set(270, 30, 30, 18);
+		mBossHp.Render();
+	}
+	if (mBEhp == 10)
+	{
+		mBossHpGage.Set(630, 30, 415, 30);
+		mBossHpGage.Render();
 	}
 }

@@ -4,6 +4,7 @@
 #include "CStamina.h"
 #include "CGage.h"
 #include "CBossHp.h"
+#include "CBossHpGage.h"
 /*
 * CUi
 * ユーザーインタフェースクラス
@@ -11,10 +12,12 @@
 class CUi:public CRectangle
 {
 private:
-	//CBossHp mBossHp;
+	CBossHpGage mBossHpGage;
+	CBossHp mBossHp;
 	CStamina mStamina;
 	CGage mGage;
 	CHeart mHeart;
+	int mBEhp;  //ボスのHP
 	int mEnemy;	//敵の数
 	int mHp;    //プレイヤーのHP
 	int mStaminagage; //プレイヤーのスタミナ
@@ -25,6 +28,8 @@ public:
 	CTexture mTexture100;
 	CTexture mTexture101;
 	CTexture mTexture102;
+	CTexture mTexture103;
+	CTexture mTexture104;
 	//コンストラクタ
 	CUi();
 	//デストラクタ
