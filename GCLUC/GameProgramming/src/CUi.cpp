@@ -31,9 +31,9 @@ CUi::~CUi()
 //クリア表示
 void CUi::Clear()
 {
-	/*char str[32];
+	char str[32];
 	sprintf(str, "%03d", mTime);
-	mFont.Draw(1200, 500, 16, 28, str);*/
+	mFont.Draw(1200, 500, 16, 28, str);
 }
 
 //ゲームオーバー表示
@@ -72,6 +72,13 @@ void CUi::BEhp(int behp)
 void CUi::Time(int time)
 {
 	mTime = time;
+}
+
+void CUi::DrawResult()
+{
+	char str[32];
+	sprintf(str, "%03d", mTime);
+	mFont.Draw(600, 195, 40, 40, str);
 }
 
 void CUi::Render()

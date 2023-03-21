@@ -52,5 +52,7 @@ public:
 	void BEhp(int behp);
 	//Time(ŠÔ)
 	void Time(int time);
+	//ƒŠƒUƒ‹ƒg
+	void DrawResult();
 	void Render();
 };
