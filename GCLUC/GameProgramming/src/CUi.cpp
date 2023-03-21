@@ -15,7 +15,7 @@ CUi::CUi()
 	, mBossHp(20,20,24,24,&mTexture103)
 	, mBossHpGage(20,20,24,24,&mTexture104)
 {
-	mFont.Load("FontWhite.png", 1, 64);
+	mFont.Load("いろはマル.png", 1, 64);
 	mTexture100.Load("プレイヤーHP.png");
 	mTexture101.Load("MPゲージ.png");
 	mTexture102.Load("プレイヤーMP.png");
@@ -31,8 +31,9 @@ CUi::~CUi()
 //クリア表示
 void CUi::Clear()
 {
-	/*mFont.Draw(36, 300, 18, 36, "GAME CLEAR!!");
-	mFont.Draw(36, 200, 18, 36, "PUSH ENTER KEY!");*/
+	/*char str[32];
+	sprintf(str, "%03d", mTime);
+	mFont.Draw(1200, 500, 16, 28, str);*/
 }
 
 //ゲームオーバー表示
@@ -77,7 +78,7 @@ void CUi::Render()
 {
 	char str[32];
 	sprintf(str, "%03d", mTime);
-	mFont.Draw(1210, 770, 14, 28, str);
+	mFont.Draw(1200, 770, 16, 28, str);
 
 	if (mHp == 10)
 	{
