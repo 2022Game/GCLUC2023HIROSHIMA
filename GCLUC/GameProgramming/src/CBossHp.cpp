@@ -2,10 +2,10 @@
 #include "CApplication.h"
 
 CBossHp::CBossHp(float x, float y, float w, float h, CTexture* pt)
-	: mLeft(0)
-	, mRight(164)
-	, mBottom(50)
-	, mTop(0)
+	: mLeft(4)
+	, mRight(42)
+	, mBottom(32)
+	, mTop(4)
 {
 	Set(x, y, w, h);
 	mpTexture = pt;
