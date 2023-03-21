@@ -67,6 +67,7 @@ private:
 	int mFlg3;
 	int mFlg4;
 	int mFlg5;
+	int mBoss; //‰¼
 	EState mState; //ó‘Ô
 	bool mEnabled; //Á‚·
 	float mBVx;	//X²‘¬“x

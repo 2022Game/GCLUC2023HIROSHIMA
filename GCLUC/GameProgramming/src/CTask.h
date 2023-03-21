@@ -6,6 +6,7 @@ class CCharacter;
 
 enum class ETaskPriority
 {
+	EUI,                //UI
 	ETITLE,             //タイトル画面
 	ECharacter,         //キャラクター
 	ECharacterManager,  //キャラクターマネージャー
@@ -13,7 +14,6 @@ enum class ETaskPriority
 	EBackGround2 = 1003,
 	EBackGround3 = 1003,
 	EBackGround4 = 1003,
-	EUI = 0,             //ハート
 };
 
 class CTask
@@ -26,7 +26,8 @@ public:
 		EPLAYER,    //プレイヤー
 		EENEMY,     //敵
 		EBULLET,    //プレイヤーの攻撃
-		EATTACK,    //敵の攻撃
+		EATTACK,    //敵の攻撃(回避可能)
+		EATTACK2,   //敵の攻撃(当たると確定ダメージ)
 	};
 private:
 	CTask* mpprev;   //前のタスクへのポインタ
