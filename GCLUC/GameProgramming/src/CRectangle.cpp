@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include "glut.h"
 
-#define COLLISIONZ 90
+#define COLLISIONZ 75
 //コンストラクタ
 CRectangle::CRectangle()
 	:mX(0.0f)
