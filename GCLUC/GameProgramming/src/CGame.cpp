@@ -62,6 +62,7 @@ void CGame::Clear()
 //ゲームオーバー処理
 void CGame::Over()
 {
+	delete mpPlayer;
 	CTaskManager::Instance()->Update();
 	CTaskManager::Instance()->Render();
 	if (mH == 1)

@@ -1,8 +1,7 @@
 #include "CPlayer.h"
 #include "CApplication.h"
 
-//アイドリングテクスチャ(右向き)
-#define DEFAULT  0, 200, 400, 200
+#define DEFAULT  0, 200, 400, 200   //アイドリングテクスチャ(右向き)
 
 #define JUMPV0 30               	//ジャンプの初速
 #define GRAVITY 2.0f	            //重力加速度
@@ -10,6 +9,7 @@
 #define PLAYERHP 10                 //プレイヤーのHP
 #define STAMINA 100                 //プレイヤーのスタミナ
 
+//初期化
 CPlayer* CPlayer::spinstance = nullptr;
 int CPlayer::sHp = 0;
 int CPlayer::sStamina = 0;
@@ -58,22 +58,29 @@ int CPlayer::Stamina()
 //衝突処理
 void CPlayer::Collision(CCharacter* m, CCharacter* o)
 {
-	//めり込[み調整変数
+	//めり込み調整変数
 	float x, y;
 	switch (o->Tag())
 	{
-	case ETag::EENEMY:
-		if (CRectangle::Collision(o, &x, &y))
-		{
-			X(X() + x);
-			Y(Y() + y);
-		}
-		break;
 	case ETag::EATTACK:
 		if (CRectangle::Collision(o, &x, &y))
 		{
-
+			//無敵状態以外の時
+			if (mState != EState::EJUMP && mState != EState::EDAMAGE)
+			{
+				sHp = sHp - 1;
+				mState = EState::EDAMAGE;
+			}
 		}
+		break;
+	case ETag::EATTACK2:
+		if (CRectangle::Collision(o, &x, &y))
+		{
+			sHp = sHp - 2;
+			mState = EState::EDAMAGE;
+		}
+	case ETag::EENEMY:
+		break;
 	case ETag::EBULLET:
 		break;
 	case ETag::EPLAYER:
@@ -91,19 +98,17 @@ void CPlayer::Update()
 		//移動状態
 	case EState::EMOVE: Move();
 		sCoolTime++;
-		if (sCoolTime >= 25)
+		if (sCoolTime >= 30)
 			sStamina++;
 		break;
 		//ジャンプ状態
 	case EState::EJUMP: Jump();
-		sCoolTime++;
-		if (sCoolTime >= 25)
-			sStamina++;
+		sCoolTime = 0;
 		break;
 		//アイドリング状態
 	case EState::EIDLING: Idling();
 		sCoolTime++;
-		if (sCoolTime >= 25)
+		if (sCoolTime >= 30)
 			sStamina++;
 		break;
 		//攻撃状態
@@ -113,7 +118,7 @@ void CPlayer::Update()
 		//被弾状態
 	case EState::EDAMAGE: Damage();
 		sCoolTime++;
-		if (sCoolTime >= 25)
+		if (sCoolTime >= 40)
 			sStamina++;
 		break;
 		//死亡状態
@@ -156,7 +161,6 @@ void CPlayer::Update()
 	{
 		sStamina = 0;
 	}
-	//クールタイムのリセット
 	CCharacter::Update();
 }
 
@@ -212,12 +216,13 @@ void CPlayer::Move()
 	//ジャンプ
 	if (mState != EState::EJUMP)
 	{
-		if (mInput.Key('J'))
+		if (mInput.Key('J') && sStamina >= 5)
 		{
 			mJumpY = Y();
 			mVy = JUMPV0;
 			mState = EState::EJUMP;
 			mAnimationCount = 0;
+			sStamina = sStamina - 5;
 		}
 	}
 	//何も入力されていない時アイドリング状態にする
@@ -304,12 +309,13 @@ void CPlayer::Idling()
 			mAnimationCount = 0;
 		}
 	}
-	if (mInput.Key('J'))
+	if (mInput.Key('J') && sStamina >= 5)
 	{
 		mJumpY = Y();
 		mVy = JUMPV0;
 		mState = EState::EJUMP;
 		mAnimationCount = 0;
+		sStamina = sStamina - 5;
 	}
 }
 

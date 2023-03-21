@@ -65,7 +65,7 @@ void CWolf::Collision(CCharacter* m, CCharacter* o)
 	float x, y;
 	switch (o->Tag())
 	{
-	case ETag::EPLAYER:
+	/*case ETag::EPLAYER:
 		if (mState != EState::EDEATH)
 		{
 			if (CRectangle::Collision(o, &x, &y))
@@ -91,34 +91,33 @@ void CWolf::Collision(CCharacter* m, CCharacter* o)
 					}
 				}
 			}
-			//break;
-			//case ETag::EMAGIC: //‰¼‚Ì–‚–@
-			// if (mState != EState::EDEATH)
-			//{
-			//	//	if (CRectangle::Collision(o, &x, &y))
-			//	//	{
-			//	//		if (mWolfInvincible <= 0)
-			//	//		{
-			//	//			mWolfInvincible = 60;
-			//	//			if (mState != EState::EDAMAGE)
-			//	//			{
-			//	//     if (mWVx < 0) { Texture(Texture(), MU); }
-			//	//	   if (mWVx > 0) { Texture(Texture(), MU); }
-			//	//              mWolfTime = 60;
-			//	//				sWEhp = sWEhp - 100;
-			//	// if (sWEhp <= 0)
-			//	/*{
-			//		mWolfTime3 = 20;
-			//		mState = EState::EDEATH;
-			//	}*/
-			//	//				if (mState != EState::EATTACK)
-			//	//				{
-			//	//					mState = EState::EDAMAGE;
-			//	//				}
-			//	//			}
-			//	//		}
-			//	//	}
-			//}
+			break;*/
+			case ETag::EBULLET: //‰¼‚Ì–‚–@
+			 if (mState != EState::EDEATH)
+			{
+					if (CRectangle::Collision(o, &x, &y))
+					{
+						if (mWolfInvincible <= 0)
+						{
+							mWolfInvincible = 60;
+							if (mState != EState::EDAMAGE)
+							{
+				     if (mWVx < 0) { Texture(Texture(), MU); }
+					   if (mWVx > 0) { Texture(Texture(), MU); }
+				              mWolfTime = 60;
+								sWEhp = sWEhp - 100;
+				 if (sWEhp <= 0)
+				{
+					mWolfTime3 = 20;
+					mState = EState::EDEATH;
+				}
+								if (mState != EState::EATTACK)
+								{
+									mState = EState::EDAMAGE;
+								}
+							}
+						}
+					}
 			break;
 			//case ETag::EDAGEKI: //‰¼‚Ì‘ÅŒ‚
 			// // if (mState != EState::EDEATH)

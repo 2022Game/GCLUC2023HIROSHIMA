@@ -9,7 +9,7 @@ CWolfAttackBox::CWolfAttackBox(float x, float y, float w, float h, CTexture* pt)
 {
 	Set(x, y, w, h);
 	Texture(pt, WOLFNTL);
-	mState = EState::EATTACK;
+	mTag = ETag::EATTACK;
 }
 
 //デストラクタ
