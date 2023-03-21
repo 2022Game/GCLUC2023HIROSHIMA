@@ -23,6 +23,8 @@ private:
 		ESTART,	//ゲーム開始
 		EPLAY,	//ゲーム中
 		ESTAGE1,
+		ESTAGE2,
+		EBOSS,
 		ECLEAR,	//ゲームクリア
 		EOVER,	//ゲームオーバー
 	};
@@ -43,8 +45,18 @@ private:
 	static CTexture mTexture6;
 	static CTexture mTexture7;
 	static CTexture mTexture8;
+	static CTexture mTexture9;
 	static CTexture mTexture100; //ハート表示テクスチャ
 	int mRb;
+	int mMc;
+	int mEs;
+	int mNc;
+	int mIg;
+	int mBd;
+	static int mMm;
+	static int mSi;
+	static int mMu;
+	static int mDi;
 	static CTexture mTexture101; //スタミナ表示テクスチャ
 	static CTexture mTexture102; //スタミナゲージ表示テクスチャ
 
@@ -57,9 +69,14 @@ public:
 	static CTexture* Texture6();
 	static CTexture* Texture7();
 	static CTexture* Texture8();
+	static CTexture* Texture9();
 	static CTexture* Texture100();
 	static CTexture* Texture101();
 	static CTexture* Texture102();
+	static int Mm();
+	static int Si();
+	static int Mu();
+	static int Di();
 	CApplication();
 	//最初に一度だけ実行するプログラム
 	void Start();

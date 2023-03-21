@@ -2,8 +2,11 @@
 #include "CApplication.h"
 void CBackGround::Update()
 {
-	float x = X() - 0.5f;
-	X(x);
+	if (CApplication::Mm() > 0)
+	{
+		float x = X() - 2.0f;
+		X(x);
+	}
 }
 CBackGround::CBackGround(float x, float y, float w, float h, float l, float r, float b, float t, CTexture* pt)
 	: CCharacter((int)ETaskPriority::EBackGround)
@@ -11,4 +14,3 @@ CBackGround::CBackGround(float x, float y, float w, float h, float l, float r, f
 	Set(x, y, w, h);
 	Texture(pt, l, r, b, t);
 }
-//ta

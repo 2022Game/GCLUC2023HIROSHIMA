@@ -5,6 +5,9 @@ CTexture CApplication::mTexture;
 
 CApplication::CApplication()
 	:mRb(0)
+	, mMc(0)
+	, mEs(0)
+	, mNc(0)
 {
 }
 
@@ -23,6 +26,7 @@ void CApplication::Start()
 	mTexture6.Load("背景.png");
 	mTexture7.Load("背景2.png");
 	mTexture8.Load("背景3.png");
+	mTexture9.Load("アイテム.png");
 	mTexture100.Load("プレイヤーHP.png");
 	mTexture101.Load("MPゲージ.png");
 	mTexture102.Load("プレイヤーMP.png");
@@ -33,12 +37,12 @@ void CApplication::Start()
 
 void CApplication::Update()
 {
+	mMm--;
 	mRb--;
 	switch (mState)
 	{
 	case EState::ESTART:	//状態がスタート
 		mpGame->Start();	//スタート画面表示
-		//mCharacterManager.Add(mpBackGround);
 		if (mRb < 0)
 		{
 			if (mInput.Key(VK_RETURN))
@@ -51,40 +55,90 @@ void CApplication::Update()
 		mpGame->Stage1();
 		mState = EState::EPLAY;
 	break;
+	case EState::ESTAGE2:
+		mpGame->Stage2();
+		mState = EState::EPLAY;
+		break;
+	case EState::EBOSS:
+		mpGame->Boss();
+		mState = EState::EPLAY;
+		break;
 	case EState::EPLAY:
 		mpGame->Update();
-		if (CGame::Num() == 0)
-		{
-			mpGame->Clear();
-			mState = EState::ECLEAR;
-		}
-		if (CPlayer::HP() == 0)
+		if (CPlayer::HP() <= 0)
 		{
 			mpGame->Over();
 			mState = EState::EOVER;
 		}
-		/*if (mInput.Key(VK_SPACE))
+		if (CItem::Ih() == 1)
 		{
-			mpBackGround = new CBackGround(640.0f, 400.0f, 640.0f, 400.0f, 2, 2665, 1564, 68, &mTexture4);
-				mState = EState::EOVER;
+			if (mMc == 1)
+			{
+				mMc = 2;
+			}
+
 		}
-		if (mInput.Key(VK_BACK))
+		if (mMc == 2)
 		{
-			mpBackGround = new CBackGround(640.0f, 400.0f, 640.0f, 400.0f, 2, 2665, 1564, 68, &mTexture5);
-			mState = EState::ECLEAR;
-		}*/
-		////ゲームオーバーか判定
-		//if (mpGame->IsOver())
-		//{	//状態をゲームオーバーにする
-		//	mState = EState::EOVER;
-		//	//ゲームオーバー
-		//	mSoundOver.Play();
-		//}
-		//ゲームクリアか判定
-		//if (mpGame->IsClear())
-		//{	//状態をゲームクリアにする
-		//	mState = EState::ECLEAR;
-		//}
+			CApplication::mMm = 300;
+			CApplication::mMu = 0;
+			mMc = 3;
+			mEs = 2;
+		}
+		if (mEs == 2)
+		{
+			if (CApplication::mMm < 0)
+			{
+				mState = EState::EBOSS;
+				mMc = 3;
+				mNc = 2;
+				mEs = 3;
+			}
+		}
+		if (mMu == 1)
+		{
+			if (CGame::Num() == 0)
+			{
+				mSi = 1;
+			}
+		}
+		if (CGame::Id() == 1)
+		{
+			mSi = 2;
+		}
+		if (CGame::Num() == 0)
+		{
+			if (mMc == 0)
+			{
+				CApplication::mMm = 400;
+				mEs = 1;
+				mMc = 1;
+			}
+			if (mEs == 1)
+			{
+				if (CApplication::mMm == 0)
+				{
+					CApplication::mMu = 1;
+
+					mState = EState::ESTAGE2;
+				}
+			}
+
+		}
+		if (mBd == 1)
+		{
+			if (CBoss::BEhp() <= 0)
+			{
+				mState = EState::ECLEAR;
+			}
+		}
+		if (mMc == 3)
+		{
+			if (CBoss::Num() == 1)
+			{
+				mBd = 1;
+			}
+		}
 		break;
 
 	case EState::EOVER:
@@ -99,6 +153,12 @@ void CApplication::Update()
 			//状態をスタートにする
 			mState = EState::ESTART;
 			mRb = 10;
+			mMc = 0;
+			mNc = 0;
+			mEs = 0;
+			mMu = 0;
+			mBd = 0;
+			mDi = 1;
 		}
 		else if (mInput.Key('Y'))
 		{
@@ -107,8 +167,14 @@ void CApplication::Update()
 			//ゲームのインスタンス生成
 			mpGame = new CGame();
 			//状態をスタートにする
-			mpGame->Stage1();
+			mState = EState::ESTAGE1;
 			mRb = 10;
+			mMc = 0;
+			mNc = 0;
+			mEs = 0;
+			mMu = 0;
+			mBd = 0;
+			mDi = 1;
 		}
 		break;
 
@@ -121,6 +187,12 @@ void CApplication::Update()
 			mpGame = new CGame();
 			mState = EState::ESTART;
 			mRb = 10;
+			mMc = 0;
+			mNc = 0;
+			mEs = 0;
+			mMu = 0;
+			mBd = 0;
+			mDi = 1;
 		}
 		break;
 	}
@@ -160,6 +232,11 @@ CTexture* CApplication::Texture8()
 {
 	return &mTexture8;
 }
+CTexture CApplication::mTexture9;
+CTexture* CApplication::Texture9()
+{
+	return &mTexture9;
+}
 CTexture CApplication::mTexture100;
 CTexture* CApplication::Texture100()
 {
@@ -174,4 +251,24 @@ CTexture CApplication::mTexture102;
 CTexture* CApplication::Texture102()
 {
 	return &mTexture102;
+}
+int CApplication::mMm = 0;
+int CApplication::Mm()
+{
+	return mMm;
+}
+int CApplication::mMu = 0;
+int CApplication::Mu()
+{
+	return mMu;
+}
+int CApplication::mSi = 0;
+int CApplication::Si()
+{
+	return mSi;
+}
+int CApplication::mDi = 0;
+int CApplication::Di()
+{
+	return mDi;
 }

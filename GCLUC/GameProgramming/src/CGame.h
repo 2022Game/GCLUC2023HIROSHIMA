@@ -11,16 +11,13 @@
 #include "CInput.h"
 #include "CSlime.h"
 #include "CWolf.h"
+#include "CBoss.h"
+#include "CItem.h"
+#include "CBlock.h"
 
 //定数の定義
 #define TEXTURE "image.png"//テクスチャのファイル名
 #define TIPSIZE 40.0f //基本サイズ
-/*
-* CGameクラス
-* ゲームクラス
-* ゲームのマップを作成し、
-* キャラクタを配置する
-*/
 class CGame
 {
 private:
@@ -29,6 +26,9 @@ private:
 	CEnemy2* mpEnemy2; //敵２のポインタ
 	CSlime* mpSlime;
 	CWolf* mpWolf;
+	CBoss* mpBoss;
+	CItem* mpItem;
+	CBlock* mpBlock;
 	CBackGround* mpBackGround;
 	CBackGround2* mpBackGround2;
 	CBackGround3* mpBackGround3;
@@ -41,24 +41,22 @@ private:
 	int mTime; //経過時間
 	int mH;
 	int mCt;
+	int mEs;
+	static int mId;
 	static int mNum;
 	CUi* mpUi;         //UIクラスのポインタ
 
 public:
+	static int Id();
 	static int Num();
 	//コンストラクタ
 	CGame();
 	//デストラクタ
 	~CGame();
 
-	/*bool Allderet*/
-	//ゲームクリア判定
-	//bool IsClear();
 	//ゲームクリア処理
 	void Clear();
 
-	//ゲームオーバー判定
-	//bool IsOver();
 	//ゲームオーバー処理
 	void Over();
 
@@ -66,6 +64,8 @@ public:
 	void Start();
 	//Stage1
 	void Stage1();
+	void Stage2();
+	void Boss();
 
 	//更新処理
 	void Update();

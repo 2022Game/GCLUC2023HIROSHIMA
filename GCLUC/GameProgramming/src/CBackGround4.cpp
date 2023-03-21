@@ -2,8 +2,6 @@
 #include "CApplication.h"
 void CBackGround4::Update()
 {
-	/*float x = X() - 0.5f;
-	X(x);*/
 }
 CBackGround4::CBackGround4(float x, float y, float w, float h, float l, float r, float b, float t, CTexture* pt)
 	: CCharacter((int)ETaskPriority::EBackGround4)

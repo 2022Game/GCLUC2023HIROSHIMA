@@ -14,6 +14,7 @@ enum class ETaskPriority
 	EBackGround2 = 1003,
 	EBackGround3 = 1003,
 	EBackGround4 = 1003,
+	EBLOCK = 0,
 };
 
 class CTask
@@ -28,6 +29,8 @@ public:
 		EBULLET,    //プレイヤーの攻撃
 		EATTACK,    //敵の攻撃(回避可能)
 		EATTACK2,   //敵の攻撃(当たると確定ダメージ)
+		EITEM,
+		EBLOCK,
 	};
 private:
 	CTask* mpprev;   //前のタスクへのポインタ
