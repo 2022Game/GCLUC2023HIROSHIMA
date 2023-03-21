@@ -65,63 +65,62 @@ void CBoss::Collision(CCharacter* m, CCharacter* o)
 	float x, y;
 	switch (o->Tag())
 	{
-	case ETag::EPLAYER:
-		//折り返しに当たった時
-		if (mState != EState::EDEATH)
-		{
-			if (CRectangle::Collision(o, &x, &y))
+	//case ETag::EPLAYER:
+	//	//折り返しに当たった時
+	//	if (mState != EState::EDEATH)
+	//	{
+	//		if (CRectangle::Collision(o, &x, &y))
+	//		{
+	//			if (mBossInvincible <= 0)
+	//			{
+	//				mBossInvincible = 60;
+	//				if (mState != EState::EDAMAGE)
+	//				{
+	//					mBossTime2 = 60;
+	//					if (mBVx < 0) { Texture(Texture(), MU); }
+	//					if (mBVx > 0) { Texture(Texture(), MU); }
+	//					sBEhp = sBEhp - 100;
+	//					if (sBEhp <= 0)
+	//					{
+	//						mBossTime3 = 40;
+	//						mState = EState::EDEATH;
+	//					}
+	//					if (mState != EState::EATTACK && mState != EState::EATTACK2)
+	//					{
+	//						mState = EState::EDAMAGE;
+	//					}
+	//				}
+	//			}
+	//		}
+			break;
+			//}
+			case ETag::EBULLET:
+			 if (mState != EState::EDEATH && mState != EState::EATTACK2)
 			{
-				if (mBossInvincible <= 0)
+				if (CRectangle::Collision(o, &x, &y))
 				{
-					mBossInvincible = 60;
-					if (mState != EState::EDAMAGE)
+					if (mBossInvincible <= 0)
 					{
-						mBossTime2 = 60;
-						if (mBVx < 0) { Texture(Texture(), MU); }
-						if (mBVx > 0) { Texture(Texture(), MU); }
-						sBEhp = sBEhp - 100;
-						if (sBEhp <= 0)
+						mBossInvincible = 60;
+						if (mState != EState::EDAMAGE)
 						{
-							mBossTime3 = 40;
-							mState = EState::EDEATH;
-						}
-						if (mState != EState::EATTACK && mState != EState::EATTACK2)
-						{
-							mState = EState::EDAMAGE;
+							mBossTime2 = 60;
+							if (mBVx < 0) { Texture(Texture(), MU); }
+							if (mBVx > 0) { Texture(Texture(), MU); }
+							sBEhp = sBEhp - 100;
+							if (sBEhp <= 0)
+							{
+								mBossTime3 = 40;
+								mState = EState::EDEATH;
+							}
+							if (mState != EState::EATTACK)
+							{
+								mState = EState::EDAMAGE;
+							}
 						}
 					}
 				}
-			}
-			break;
-			//}
-			//case ETag::E魔法:　//仮
-			// if (mState != EState::EDEATH)
-			//{
-			//	if (CRectangle::Collision(o, &x, &y))
-			//	{
-			//		if (mBossInvincible <= 0)
-			//		{
-			//			mBossInvincible = 60;
-			//			if (mState != EState::EDAMAGE)
-			//			{
-			//				//mBossTime = 60;
-			//				if (mBVx < 0) { Texture(Texture(), MU); }
-			//				if (mBVx > 0) { Texture(Texture(), MU); }
-			//				sBEhp = sBEhp - 100;
-			//				if (sBEhp <= 0)
-			//				{
-			//					mBossTime3 = 40;
-			//					mState = EState::EDEATH;
-			//				}
-			//				if (mState != EState::EATTACK)
-			//				{
-			//					mBossTime2 = 60;
-			//					mState = EState::EDAMAGE;
-			//				}
-			//			}
-			//		}
-			//	}
-			//	break;
+				break;
 		}
 	}
 }
@@ -148,9 +147,30 @@ CBoss::CBoss(float x, float y, float w, float h, CTexture* pt)
 
 void CBoss::Update()
 {
+	if (mBossInvincible > 0)
+	{
+		mBossInvincible--;
+	}
+	if (mBossTime2 >= 0)
+	{
+		mBossTime2--;
+	}
+	if (mBossTime4 >= 0)
+	{
+		mBossTime4--;
+	}
+	if (mBossTime >= 0)
+	{
+		mBossTime--;
+	}
+	if (mBossTime3 >= 0)
+	{
+		mBossTime3--;
+	}
 	if (mFlg1 != 1 && sBEhp <= 750)
 	{
 		mFlg1 = 1;
+		mBossTime4 = 120;
 		mState = EState::EATTACK2;
 	}
 	if (mBossEattack > 0)
@@ -169,20 +189,16 @@ void CBoss::Update()
 			delete mpBossAttackBox2;
 		}
 	}
-	if (mBossInvincible >= 0)
-	{
-		mBossInvincible--;
-	}
 	CCharacter::Update();
 	switch (mState)
 	{
 	case EState::EMUTEKI:
 		break;
 	case EState::EDEATH://死亡時
-		if (mBossTime3 >= 0)
+		/*if (mBossTime3 >= 0)
 		{
 			mBossTime3--;
-		}
+		}*/
 		if (mBossTime3 == 39)
 		{
 			if (mBVx < 0) { Texture(Texture(), BOSSDTL); }
@@ -197,10 +213,10 @@ void CBoss::Update()
 	case EState::ESTOP: //停止時、クールタイム間
 		break;
 	case EState::EATTACK: //攻撃時
-		if (mBossTime >= 0)
+		/*if (mBossTime >= 0)
 		{
 			mBossTime--;
-		}
+		}*/
 		if (mBossTime == 59)
 		{
 			if (mBVx < 0)
@@ -278,10 +294,10 @@ void CBoss::Update()
 		}
 		break;
 	case EState::EATTACK2:
-		if (mBossTime4 >= 0)
+		/*if (mBossTime4 >= 0)
 		{
 			mBossTime4--;
-		}
+		}*/
 		if (sBEhp <= 750)
 		{
 			if (mBossTime4 >= 90)
@@ -355,10 +371,10 @@ void CBoss::Update()
 			mBossTime3 = 40;
 			mState = EState::EDEATH;
 		}
-		if (mBossTime2 >= 0)
+		/*if (mBossTime2 >= 0)
 		{
 			mBossTime2--;
-		}
+		}*/
 		if (mBossTime2 == 59)
 		{
 			if (mBVx < 0) { Texture(Texture(), BOSSDAL); }

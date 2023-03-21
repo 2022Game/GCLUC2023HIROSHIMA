@@ -74,7 +74,7 @@ void CSlime::Collision(CCharacter* m, CCharacter* o)
 	switch (o->Tag())
 	{
 	case ETag::EPLAYER:
-		if (mState != EState::EDEATH)
+		/*if (mState != EState::EDEATH)
 		{
 			if (CRectangle::Collision(o, &x, &y))
 			{
@@ -98,12 +98,12 @@ void CSlime::Collision(CCharacter* m, CCharacter* o)
 						}
 					}
 				}
-			}
+			}*/
 			break;
-			//case ETag::EMAGIC: //‰¼‚Ì–‚–@
-			/*if (mState != EState::EDEATH)
-			{*/
-			/*if (CRectangle::Collision(o, &x, &y))
+			case ETag::EBULLET: //‰¼‚Ì–‚–@
+			if (mState != EState::EDEATH)
+			{
+			if (CRectangle::Collision(o, &x, &y))
 			{
 				if (mSlimeInvincible <= 0)
 				{
@@ -126,9 +126,7 @@ void CSlime::Collision(CCharacter* m, CCharacter* o)
 					}
 				}
 			}
-			}
 		break;
-		*/
 		//break;
 		//case ETag::EDAGEKI: //‰¼‚Ì‘ÅŒ‚
 		// /*if (mState != EState::EDEATH)
