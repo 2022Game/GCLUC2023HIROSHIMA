@@ -50,7 +50,7 @@ void CGame::Clear()
 		mH = 2;
 	}
 	//UI処理
-//	mpUi->Hp(CPlayer::Hp());
+	mpUi->DrawResult();
 }
 
 //ゲームオーバー判定
@@ -146,6 +146,7 @@ void CGame::Update()
 	mpUi->Hp(CPlayer::HP());
 	mpUi->Stamina(CPlayer::Stamina());
 	mpUi->Enemy(CEnemy2::Num());
+	/*mpUi->DrawResult(CUi::T());*/
 	mpUi->Render();
 }
 
