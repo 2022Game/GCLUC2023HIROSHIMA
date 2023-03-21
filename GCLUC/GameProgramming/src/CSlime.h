@@ -11,17 +11,6 @@
 class CSlime : public CCharacter
 {
 	friend CSlimeAttackBox;
-public:
-	enum class EState	//状態
-	{
-		EMOVE,	//移動
-		ESTOP,	//停止
-		EMOVE2,	//ジャンプ
-		EDAMAGE,	//ダメージ
-		EDEATH, //死亡
-		EATTACK,    //攻撃
-		EMUTEKI,
-	};
 protected:
 public:
 	EState State();	//状態を取得する

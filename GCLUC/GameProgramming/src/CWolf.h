@@ -10,16 +10,6 @@
 class CWolf : public CCharacter
 {
 	friend CWolfAttackBox;
-public:
-	enum class EState	//ó‘Ô
-	{
-		EMOVE,	//ˆÚ“®
-		ESTOP,	//’â~
-		EDAMAGE,	//ƒ_ƒ[ƒW
-		EDEATH, //€–S
-		EATTACK,    //UŒ‚
-		EMUTEKI,
-	};
 protected:
 public:
 	EState State();	//ó‘Ô‚ğæ“¾‚·‚é

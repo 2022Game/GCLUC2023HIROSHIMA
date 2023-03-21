@@ -212,8 +212,6 @@ void CSlime::Update()
 				delete mpSlimeAttackBox;;
 			}
 		}
-	case EState::EMUTEKI:
-		break;
 	case EState::EDEATH: //死亡時
 		if (mSlimeTime4 == 39)
 		{
@@ -246,10 +244,6 @@ void CSlime::Update()
 			sNum--;
 		}
 		break;
-	case EState::ESTOP: //停止時、クールタイム間
-		if (mSVx < 0) { Texture(Texture(), SLIMENTL); }
-		if (mSVx > 0) { Texture(Texture(), SLIMENTR); }
-		break;
 	case EState::EATTACK: //攻撃時
 		if (mSlimeTime3 == 59)
 		{
@@ -261,13 +255,13 @@ void CSlime::Update()
 			if (mSVx < 0)
 			{
 				Texture(Texture(), SLIMEATL);
-				mpSlimeAttackBox = new CSlimeAttackBox(X() - 125, Y(), 80.0f, 80.0f, CSlime::Texture6());
+				mpSlimeAttackBox = new CSlimeAttackBox(X() - 125, Z() + 60, 80.0f, 60.0f, CSlime::Texture6());
 				mSlimeEattack = 30;
 			}
 			if (mSVx > 0)
 			{
 				Texture(Texture(), SLIMEATR);
-				mpSlimeAttackBox = new CSlimeAttackBox(X() + 125, Y(), 80.0f, 80.0f, CSlime::Texture6());
+				mpSlimeAttackBox = new CSlimeAttackBox(X() + 125, Z() + 60, 80.0f, 60.0f, CSlime::Texture6());
 				mSlimeEattack = 30;
 			}
 		}
@@ -361,7 +355,7 @@ void CSlime::Update()
 		X(X() + mSVx);
 		if (X() > CPlayer::Instance()->X() - 125 && X() < CPlayer::Instance()->X() + 125)
 		{
-			if (Z() > CPlayer::Instance()->Z() - 25 && Z() < CPlayer::Instance()->Z() + 25)
+			if (Z() > CPlayer::Instance()->Z() - 50 && Z() < CPlayer::Instance()->Z() + 50)
 			{
 				if (mSlimeTime3 <= 0)
 				{

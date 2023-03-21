@@ -17,18 +17,6 @@ class CBoss : public CCharacter
 {
 	friend CBossAttackBox;
 	friend CBossAttackBox2;
-public:
-	enum class EState	//ó‘Ô
-	{
-		EMOVE,	//ˆÚ“®
-		ESTOP,	//’â~
-		EDAMAGE,//ƒ_ƒ[ƒW
-		EDEATH, //€–S
-		EBACK, //Œã‚ë‚Ö
-		EATTACK,    //UŒ‚
-		EATTACK2, //‘åUŒ‚
-		EMUTEKI,
-	};
 protected:
 public:
 	EState State();	//ó‘Ô‚ğæ“¾‚·‚é

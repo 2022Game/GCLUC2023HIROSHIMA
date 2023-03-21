@@ -195,8 +195,6 @@ void CWolf::Update()
 	}
 	switch (mState)
 	{
-	case EState::EMUTEKI:
-		break;
 	case EState::EDEATH: //€–S
 		//HP‚ª‚O‚É‚È‚Á‚½”•bŒã‚ÉÁ–Å‚³‚¹‚é
 		if (mWolfTime3 == 19)
@@ -214,8 +212,6 @@ void CWolf::Update()
 			Texture(Texture(), 0, 0, 0, 0); //‰¼
 			sNum--;
 		}
-		break;
-	case EState::ESTOP: //’â~AƒN[ƒ‹ƒ^ƒCƒ€ŠÔ
 		break;
 	case EState::EATTACK: //UŒ‚
 		if (mWolfTime2 == 29)
@@ -238,13 +234,13 @@ void CWolf::Update()
 			if (mWVx < 0)
 			{
 				Texture(Texture(), WOLFATL3);
-				mpWolfAttackBox = new CWolfAttackBox(X() - 125, Y(), 80.0f, 80.0f, CWolf::Texture7());
+				mpWolfAttackBox = new CWolfAttackBox(X() - 125, Z() + 40, 60.0f, 40.0f, CWolf::Texture7());
 				mWolfEattack = 4;
 			}
 			if (mWVx > 0)
 			{
 				Texture(Texture(), WOLFATR3);
-				mpWolfAttackBox = new CWolfAttackBox(X() + 125, Y(), 80.0f, 80.0f, CWolf::Texture7());
+				mpWolfAttackBox = new CWolfAttackBox(X() + 125, Z() + 40, 60.0f, 40.0f, CWolf::Texture7());
 				mWolfEattack = 4;
 			}
 		}
@@ -317,22 +313,16 @@ void CWolf::Update()
 		}
 		if (Z() != CPlayer::Instance()->Z())
 		{
-			switch (CCharacter::State())
+			Y(Y() + mWVy);
+			if (Z() < CPlayer::Instance()->Z())
 			{
-			case CPlayer::EState::EMOVE:
-			{
-				Y(Y() + mWVy);
-				if (Z() < CPlayer::Instance()->Z())
-				{
-					if (mWVy < 0)
-						mWVy = -mWVy;
-				}
-				else
-				{
-					if (mWVy > 0)
-						mWVy = -mWVy;
-				}
+				if (mWVy < 0)
+					mWVy = -mWVy;
 			}
+			else
+			{
+				if (mWVy > 0)
+					mWVy = -mWVy;
 			}
 		}
 		const int PITCH = 64;//‰æ‘œ‚ğØ‚è‘Ö‚¦‚éŠÔŠu

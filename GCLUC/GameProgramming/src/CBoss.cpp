@@ -192,8 +192,6 @@ void CBoss::Update()
 	CCharacter::Update();
 	switch (mState)
 	{
-	case EState::EMUTEKI:
-		break;
 	case EState::EDEATH://Ž€–SŽž
 		/*if (mBossTime3 >= 0)
 		{
@@ -209,8 +207,6 @@ void CBoss::Update()
 			Texture(Texture(), 0, 0, 0, 0);//‰¼
 			sNum--;
 		}
-		break;
-	case EState::ESTOP: //’âŽ~ŽžAƒN[ƒ‹ƒ^ƒCƒ€ŠÔ
 		break;
 	case EState::EATTACK: //UŒ‚Žž
 		/*if (mBossTime >= 0)
@@ -384,8 +380,6 @@ void CBoss::Update()
 		{
 			mState = EState::EMOVE;
 		}
-		break;
-	case EState::EBACK: //Œã”ò
 		break;
 	case EState::EMOVE: //ˆÚ“®
 		CCharacter::Update();
