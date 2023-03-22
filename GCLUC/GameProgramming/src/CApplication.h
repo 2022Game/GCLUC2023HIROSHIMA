@@ -13,6 +13,7 @@
 #include "CBackGround.h"
 #include "CHeart.h"
 #include "CGage.h"
+#include "CFont2.h"
 
 
 class CApplication
@@ -35,6 +36,7 @@ private:
 	EState mState;
 	CInput mInput;
 	CFont mFont;
+	CFont2 mFont2;
 	CBackGround* mpBackGround;
 
 	static CTexture mTexture;  //プレイヤーテクスチャ

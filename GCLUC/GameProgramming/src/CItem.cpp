@@ -22,7 +22,6 @@ void CItem::Collision()
 void CItem::Collision(CCharacter* m, CCharacter* o)
 {
 	////‚ß‚èž‚Ý’²®•Ï”‚ðéŒ¾‚·‚é
-	float x, y;
 	switch (o->Tag())
 	{
 	case ETag::EPLAYER:
