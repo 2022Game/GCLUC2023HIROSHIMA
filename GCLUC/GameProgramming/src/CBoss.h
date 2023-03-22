@@ -5,8 +5,8 @@
 #include "CBossAttackBox.h"
 #include "CBossAttackBox2.h"
 
-#define BOSSX 1.5f 
-#define BOSSY 1.5f
+#define BOSSX 2.0f 
+#define BOSSY 2.0f
 
 #define BOSSXXR 20.0f 
 #define BOSSXXL -20.0f 

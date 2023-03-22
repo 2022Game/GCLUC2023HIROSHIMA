@@ -104,7 +104,7 @@ void CBoss::Collision(CCharacter* m, CCharacter* o)
 					mBossInvincible = 60;
 					if (mState != EState::EDAMAGE)
 					{
-						mBossTime2 = 60;
+						mBossTime2 = 30;
 						if (mBVx < 0) { Texture(Texture(), MU); }
 						if (mBVx > 0) { Texture(Texture(), MU); }
 						sBEhp = sBEhp - 100;
@@ -121,6 +121,19 @@ void CBoss::Collision(CCharacter* m, CCharacter* o)
 				}
 			}
 			break;
+	case ETag::EENEMY:
+		if (CRectangle::Collision(o, &x, &y))
+		{
+			X(X() + x);
+			Y(Y() + y);
+		}
+		break;
+	case ETag::EBLOCK:
+		if (CRectangle::Collision(o, &x, &y))
+		{
+			X(X() + x);
+			Y(Y() + y);
+		}
 		}
 	}
 }
@@ -204,6 +217,7 @@ void CBoss::Update()
 		}
 		if (mBossTime3 == 0)
 		{
+			Y(Y() + 1000);
 			Texture(Texture(), 0, 0, 0, 0);//‰¼
 			sNum--;
 		}
@@ -229,13 +243,13 @@ void CBoss::Update()
 			if (mBVx < 0)
 			{
 				Texture(Texture(), BOSSAT2L);
-				mpBossAttackBox = new CBossAttackBox(X() - 300, Y(), 160.0f, 240.0f, CBoss::Texture8());
+				mpBossAttackBox = new CBossAttackBox(X() - 300, Y(), 200.0f, 240.0f, CBoss::Texture8());
 				mBossEattack = 30;
 			}
 			if (mBVx > 0)
 			{
 				Texture(Texture(), BOSSAT2R);
-				mpBossAttackBox = new CBossAttackBox(X() + 300, Y(), 160.0f, 240.0f, CBoss::Texture8());
+				mpBossAttackBox = new CBossAttackBox(X() + 300, Y(), 200.0f, 240.0f, CBoss::Texture8());
 				mBossEattack = 30;
 			}
 		}
@@ -371,7 +385,7 @@ void CBoss::Update()
 		{
 			mBossTime2--;
 		}*/
-		if (mBossTime2 == 59)
+		if (mBossTime2 == 29)
 		{
 			if (mBVx < 0) { Texture(Texture(), BOSSDAL); }
 			if (mBVx > 0) { Texture(Texture(), BOSSDAR); }
