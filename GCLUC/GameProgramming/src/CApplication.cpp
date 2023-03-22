@@ -272,3 +272,8 @@ int CApplication::Di()
 {
 	return mDi;
 }
+int CApplication::mBd = 0;
+int CApplication::Bd()
+{
+	return mBd;
+}

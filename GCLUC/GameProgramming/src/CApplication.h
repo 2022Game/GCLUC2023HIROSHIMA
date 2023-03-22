@@ -52,11 +52,12 @@ private:
 	int mEs;
 	int mNc;
 	int mIg;
-	int mBd;
+	//int mBd;
 	static int mMm;
 	static int mSi;
 	static int mMu;
 	static int mDi;
+	static int mBd;
 	static CTexture mTexture101; //スタミナ表示テクスチャ
 	static CTexture mTexture102; //スタミナゲージ表示テクスチャ
 
@@ -77,6 +78,7 @@ public:
 	static int Si();
 	static int Mu();
 	static int Di();
+	static int Bd();
 	CApplication();
 	//最初に一度だけ実行するプログラム
 	void Start();
