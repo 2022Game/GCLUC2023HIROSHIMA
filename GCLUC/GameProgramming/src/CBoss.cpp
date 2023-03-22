@@ -444,16 +444,19 @@ void CBoss::Update()
 		}
 		if (Z() != CPlayer::Instance()->Z())
 		{
-			Y(Y() + mBVy);
-			if (Z() < CPlayer::Instance()->Z())
+			if (CPlayer::Instance()->State() != EState::EJUMP)
 			{
-				if (mBVy < 0)
-					mBVy = -mBVy;
-			}
-			else
-			{
-				if (mBVy > 0)
-					mBVy = -mBVy;
+				Y(Y() + mBVy);
+				if (Z() < CPlayer::Instance()->Z())
+				{
+					if (mBVy < 0)
+						mBVy = -mBVy;
+				}
+				else
+				{
+					if (mBVy > 0)
+						mBVy = -mBVy;
+				}
 			}
 		}
 		const int PITCH = 64;//‰æ‘œ‚ðØ‚è‘Ö‚¦‚éŠÔŠu
