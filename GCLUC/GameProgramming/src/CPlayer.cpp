@@ -68,7 +68,7 @@ void CPlayer::Collision(CCharacter* m, CCharacter* o)
 			//ñ≥ìGèÛë‘à»äOÇÃéû
 			if (mState != EState::EJUMP && mState != EState::EDAMAGE)
 			{
-				sHp = sHp - 1;
+				sHp = sHp - 3;
 				mState = EState::EDAMAGE;
 			}
 		}
@@ -76,8 +76,16 @@ void CPlayer::Collision(CCharacter* m, CCharacter* o)
 	case ETag::EATTACK2:
 		if (CRectangle::Collision(o, &x, &y))
 		{
-			sHp = sHp - 2;
-			mState = EState::EDAMAGE;
+			if (mState != EState::EJUMP && mState != EState::EDAMAGE)
+			{
+				sHp = sHp - 2;
+				mState = EState::EDAMAGE;
+			}
+		}
+	case ETag::EBLOCK:
+		if (CRectangle::Collision(o, &x, &y))
+		{
+			Y(Y() + y);
 		}
 	case ETag::EENEMY:
 		break;
