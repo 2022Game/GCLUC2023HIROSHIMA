@@ -77,11 +77,11 @@ void CGame::Stage1()
 	mpPlayer = new CPlayer(400.0f, 250.0f, 110.0f, 110.0f, CApplication::Texture());
 	mpSlime = new CSlime(1000.0f, 300.0f, 80.0f, 60.0f, CSlime::Texture6());
 	mpSlime = new CSlime(1000.0f, 100.0f, 80.0f, 60.0f, CSlime::Texture6());
-	//mpSlime = new CSlime(800.0f, 300.0f, 80.0f, 60.0f, CSlime::Texture6());
-	//mpSlime = new CSlime(800.0f, 200.0f, 80.0f, 60.0f, CSlime::Texture6());
-	//mpSlime = new CSlime(800.0f, 100.0f, 80.0f, 60.0f, CSlime::Texture6());
-	//mpSlime = new CSlime(600.0f, 300.0f, 80.0f, 60.0f, CSlime::Texture6());
-	//mpSlime = new CSlime(600.0f, 100.0f, 80.0f, 60.0f, CSlime::Texture6());
+	mpSlime = new CSlime(800.0f, 300.0f, 80.0f, 60.0f, CSlime::Texture6());
+	mpSlime = new CSlime(800.0f, 200.0f, 80.0f, 60.0f, CSlime::Texture6());
+	mpSlime = new CSlime(800.0f, 100.0f, 80.0f, 60.0f, CSlime::Texture6());
+	mpSlime = new CSlime(600.0f, 300.0f, 80.0f, 60.0f, CSlime::Texture6());
+	mpSlime = new CSlime(600.0f, 100.0f, 80.0f, 60.0f, CSlime::Texture6());
 	mpBackGround = new CBackGround(640.0f, 400.0f, 640.0f, 400.0f, 0, 1279, 799, 0, CApplication::Texture6());
 	mpBackGround2 = new CBackGround2(640.0f, 400.0f, 640.0f, 400.0f, 0, 1279, 799, 0, CApplication::Texture7());
 	mpBackGround3 = new CBackGround3(640.0f, 400.0f, 640.0f, 400.0f, 0, 1279, 799, 0, CApplication::Texture8());
@@ -97,10 +97,10 @@ void CGame::Stage2()
 {
 	mpWolf = new CWolf(1000.0f, 100.0f, 80.0f, 60.0f, CWolf::Texture7());
 	mpWolf = new CWolf(1000.0f, 300.0f, 80.0f, 60.0f, CWolf::Texture7());
-	/*mpWolf = new CWolf(800.0f, 200.0f, 80.0f, 60.0f, CWolf::Texture7());
+	mpWolf = new CWolf(800.0f, 200.0f, 80.0f, 60.0f, CWolf::Texture7());
 	mpWolf = new CWolf(600.0f, 300.0f, 80.0f, 60.0f, CWolf::Texture7());
 	mpWolf = new CWolf(600.0f, 200.0f, 80.0f, 60.0f, CWolf::Texture7());
-	mpWolf = new CWolf(600.0f, 100.0f, 80.0f, 60.0f, CWolf::Texture7());*/
+	mpWolf = new CWolf(600.0f, 100.0f, 80.0f, 60.0f, CWolf::Texture7());
 }
 
 void CGame::Boss()
