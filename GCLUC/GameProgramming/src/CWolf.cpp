@@ -331,17 +331,20 @@ void CWolf::Update()
 		}
 		if (Z() != CPlayer::Instance()->Z())
 		{
-					Y(Y() + mWVy);
-					if (Z() < CPlayer::Instance()->Z())
-					{
-						if (mWVy < 0)
-							mWVy = -mWVy;
-					}
-					else
-					{
-						if (mWVy > 0)
-							mWVy = -mWVy;
-					}
+			if (CPlayer::Instance()->State() != EState::EJUMP)
+			{
+				Y(Y() + mWVy);
+				if (Z() < CPlayer::Instance()->Z())
+				{
+					if (mWVy < 0)
+						mWVy = -mWVy;
+				}
+				else
+				{
+					if (mWVy > 0)
+						mWVy = -mWVy;
+				}
+			}
 		}
 		const int PITCH = 64;//‰æ‘œ‚ğØ‚è‘Ö‚¦‚éŠÔŠu
 		if ((int)X() % PITCH < PITCH / 2)

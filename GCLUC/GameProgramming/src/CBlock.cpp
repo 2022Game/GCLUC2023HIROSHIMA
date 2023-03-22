@@ -1,13 +1,13 @@
 #include "CBlock.h"
 #include "CApplication.h"
 
-#define TEXCOORD /*22, 22, 22, 22*/0,0,0,0
+#define TEXCOORD 0,0,0,0//22, 22, 22, 22
 
 //コンストラクタ
 CBlock::CBlock(float x, float y, float w, float h, CTexture* pt)
 	:CCharacter((int)ETaskPriority::EBLOCK)
 {
-	Set(x, y, w, h);
+	Set(x, y, w, h* 5);
 	Texture(pt, TEXCOORD);
 	mTag = ETag::EBLOCK;
 }

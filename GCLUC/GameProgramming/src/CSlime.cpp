@@ -398,17 +398,20 @@ void CSlime::Update()
 			}
 			if (Z() < CPlayer::Instance()->Z())
 			{
+				if (CPlayer::Instance()->State() != EState::EJUMP)
+				{
 				if (mSVy < 0)
 				{
 					mSVy = -mSVy;
 				}
 			}
-			else
-			{
-				if (mSVy > 0)
+				else
 				{
-					mSVy = JUMPV0;
-					mSVy = -mSVy;
+					if (mSVy > 0)
+					{
+						mSVy = JUMPV0;
+						mSVy = -mSVy;
+					}
 				}
 			}
 			if (mState != EState::EMOVE2 && mSlimeTime2 < 30)
