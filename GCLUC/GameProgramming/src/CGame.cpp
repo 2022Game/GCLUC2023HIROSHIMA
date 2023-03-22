@@ -117,6 +117,10 @@ void CGame::Update()
 	CTaskManager::Instance()->Collision();
 	CTaskManager::Instance()->Render();
 	
+	if (CApplication::Di() == 1)
+	{
+		mNum = 0;
+	}
 	if (mId == 0)
 	{
 		if (CApplication::Si() == 1)

@@ -68,7 +68,7 @@ void CPlayer::Collision(CCharacter* m, CCharacter* o)
 			//–³“Gó‘ÔˆÈŠO‚ÌŽž
 			if (mState != EState::EJUMP && mState != EState::EDAMAGE)
 			{
-				sHp = sHp - 3;
+				sHp--;
 				mState = EState::EDAMAGE;
 			}
 		}
@@ -216,7 +216,7 @@ void CPlayer::Move()
 	if (mInput.Key('K'))
 	{
 		if (sStamina >= 20)
-		{
+		{l
 			mState = EState::EATTACK;
 			mAnimationCount = 0;
 		}
