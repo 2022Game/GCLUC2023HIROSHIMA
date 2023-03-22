@@ -1,7 +1,7 @@
 #include "CBlock.h"
 #include "CApplication.h"
 
-#define TEXCOORD 22, 22, 22, 22
+#define TEXCOORD /*22, 22, 22, 22*/0,0,0,0
 
 //コンストラクタ
 CBlock::CBlock(float x, float y, float w, float h, CTexture* pt)
