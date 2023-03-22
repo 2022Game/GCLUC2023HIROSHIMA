@@ -1,5 +1,6 @@
 #pragma once
 #include "CFont.h"
+#include "CFont2.h"
 #include "CHeart.h"
 #include "CStamina.h"
 #include "CGage.h"
@@ -23,6 +24,7 @@ private:
 	int mStaminagage; //プレイヤーのスタミナ
 	int mTime;	//経過時間
 	CFont mFont;
+	CFont2 mFont2;
 
 public:
 	CTexture mTexture100;

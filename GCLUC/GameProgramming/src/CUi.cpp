@@ -17,6 +17,7 @@ CUi::CUi()
 	, mBossHpGage(20,20,24,24,&mTexture104)
 {
 	mFont.Load("いろはマル.png", 1, 64);
+	mFont2.Load("FontWhite.png",1,64);
 	mTexture100.Load("プレイヤーHP.png");
 	mTexture101.Load("MPゲージ.png");
 	mTexture102.Load("プレイヤーMP.png");
@@ -87,6 +88,10 @@ void CUi::Render()
 	char str[32];
 	sprintf(str, "%03d", mTime);
 	mFont.Draw(1200, 770, 16, 28, str);
+	sprintf(str, "ATTACK:K KEY");
+	mFont2.Draw(600, 770, 16, 28, str);
+	sprintf(str, "JUMP:J KEY");
+	mFont2.Draw(600, 700, 16, 28, str);
 
 	if (mHp == 10)
 	{
