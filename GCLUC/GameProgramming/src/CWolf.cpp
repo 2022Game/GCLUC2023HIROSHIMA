@@ -1,5 +1,6 @@
 #include "CWolf.h"
 #include "CApplication.h"
+#include "CCharacter.h"
 
 //ñ≥
 #define MU 0,0,0,0
@@ -99,12 +100,12 @@ void CWolf::Collision(CCharacter* m, CCharacter* o)
 			{
 				if (mWolfInvincible <= 0)
 				{
-					mWolfInvincible = 60;
+					mWolfInvincible = 50;
 					if (mState != EState::EDAMAGE)
 					{
 						if (mWVx < 0) { Texture(Texture(), MU); }
 						if (mWVx > 0) { Texture(Texture(), MU); }
-						mWolfTime = 60;
+						mWolfTime = 40;
 						sWEhp = sWEhp - 100;
 						if (sWEhp <= 0)
 						{
@@ -119,6 +120,22 @@ void CWolf::Collision(CCharacter* m, CCharacter* o)
 				}
 			}
 			break;
+	case ETag::EENEMY:
+		if (mState != EState::EATTACK)
+		{
+			if (CRectangle::Collision(o, &x, &y))
+			{
+				X(X() + x);
+				Y(Y() + y);
+			}
+		}
+		break;
+	case ETag::EBLOCK:
+		if (CRectangle::Collision(o, &x, &y))
+		{
+			X(X() + x);
+			Y(Y() + y);
+		}
 			//case ETag::EDAGEKI: //âºÇÃë≈åÇ
 			// // if (mState != EState::EDEATH)
 			//{
@@ -209,6 +226,7 @@ void CWolf::Update()
 		}
 		if (mWolfTime3 == 0)
 		{
+			Y(Y() + 1000);
 			Texture(Texture(), 0, 0, 0, 0); //âº
 			sNum--;
 		}
@@ -255,7 +273,7 @@ void CWolf::Update()
 			mWolfTime3 = 20;
 			mState = EState::EDEATH;
 		}
-		if (mWolfTime == 59)
+		if (mWolfTime == 39)
 		{
 			if (mWVx < 0) { Texture(Texture(), WOLFDAL); }
 			if (mWVx > 0) { Texture(Texture(), WOLFDAR); }
@@ -313,17 +331,17 @@ void CWolf::Update()
 		}
 		if (Z() != CPlayer::Instance()->Z())
 		{
-			Y(Y() + mWVy);
-			if (Z() < CPlayer::Instance()->Z())
-			{
-				if (mWVy < 0)
-					mWVy = -mWVy;
-			}
-			else
-			{
-				if (mWVy > 0)
-					mWVy = -mWVy;
-			}
+					Y(Y() + mWVy);
+					if (Z() < CPlayer::Instance()->Z())
+					{
+						if (mWVy < 0)
+							mWVy = -mWVy;
+					}
+					else
+					{
+						if (mWVy > 0)
+							mWVy = -mWVy;
+					}
 		}
 		const int PITCH = 64;//âÊëúÇêÿÇËë÷Ç¶ÇÈä‘äu
 		if ((int)X() % PITCH < PITCH / 2)
