@@ -127,6 +127,22 @@ void CSlime::Collision(CCharacter* m, CCharacter* o)
 				}
 			}
 			break;
+	case ETag::EENEMY:
+		if (mState != EState::EATTACK)
+		{
+			if (CRectangle::Collision(o, &x, &y))
+			{
+				X(X() + x);
+				Y(Y() + y);
+			}
+		}
+		break;
+	case ETag::EBLOCK:
+		if (CRectangle::Collision(o, &x, &y))
+		{
+			X(X() + x);
+			Y(Y() + y);
+		}
 			//break;
 			//case ETag::EDAGEKI: //‰¼‚Ì‘ÅŒ‚
 			// /*if (mState != EState::EDEATH)
@@ -240,6 +256,7 @@ void CSlime::Update()
 		}
 		if (mSlimeTime4 == 0)
 		{
+			Y(Y() + 1000);
 			Texture(Texture(), 0, 0, 0, 0);//‰¼
 			sNum--;
 		}

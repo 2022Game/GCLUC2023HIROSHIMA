@@ -1,7 +1,7 @@
 #include "CWolfAttackBox.h"
 
 #define MU 0, 200, 0, 0　//仮
-#define WOLFNTL 1206,1796,433,133 //仮
+#define WOLFNTL 0,0,0,0 //仮
 
 //コンストラクタ
 CWolfAttackBox::CWolfAttackBox(float x, float y, float w, float h, CTexture* pt)
